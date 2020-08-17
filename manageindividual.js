@@ -1,4 +1,7 @@
 //The purpose of this file is to isolate the specific JS functions required to handle the individual pages and function in the Verint individual template.
+
+var individualTemplateIdentifier = 'individual_template_';
+
 function do_KDF_Ready_Individual(event, kdf){
 	
 if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
@@ -73,9 +76,10 @@ $('#dform_widget_button_but_continue_customer_address').click(function () {
 
 
 function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
-	if(typeof actionedby =='undefined'){actionedby='na';}
+	if(typeof actionedby =='undefined' || actionedby=='' ){actionedby='na';}
     var detectIndividualTemplateFunction = actionedby.indexOf(individualTemplateIdentifier);
-    var individualTemplateActionedBySource = '';
+	if(typeof detectIndividualTemplateFunction=='undefined'){detectIndividualTemplateFunction='na';}
+  //  var individualTemplateActionedBySource = '';
     //individual_template_KDF_Ready
 
     if (individualTemplateActionedBySource == 'KDF_Ready') {
