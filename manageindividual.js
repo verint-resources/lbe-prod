@@ -25,6 +25,50 @@ if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' &
     });	
 	
 	
+	// Button "Continue" on Customer Information page click event.
+$('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
+	console.log('KDF.getVal(txt_access)='+KDF.getVal('txt_access'));
+	console.log('custDetailsCheck= '+custDetailsCheck());
+    if (KDF.getVal('txt_access') === 'agent' && custDetailsCheck()) {
+        console.log('here');
+        KDF.customdata('update-individual-new', 'no-address-update', true, true, {
+            'customerID': KDF.getVal('txt_customer_id'),
+            'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
+            'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
+            'phone': KDF.getVal('tel_cust_info_phone'),
+            'email': KDF.getVal('eml_cust_info_email')
+        });
+    }
+    else {
+        KDF.gotoNextPage();
+    }
+});
+
+// Button "Continue" on Customer details - address page click event.
+$('#dform_widget_button_but_continue_customer_address').click(function () {
+    if (KDF.getVal('txt_access') === 'agent' && custAddresssCheck() || custDetailsCheck()) {
+        console.log('here address');
+        KDF.customdata('update-individual-new', 'create', true, true, {
+            'customerID': KDF.getVal('txt_customer_id'),
+            'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
+            'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
+            'phone': KDF.getVal('tel_cust_info_phone'),
+            'email': KDF.getVal('eml_cust_info_email'),
+            'num_p_streetnumber': KDF.getVal('num_p_streetnumber'),
+            'txt_p_streetname': KDF.getVal('txt_p_streetname'),
+            'txt_p_town': KDF.getVal('txt_p_town'),
+            'txt_p_postcode': KDF.getVal('txt_p_postcode'),
+            'txt_p_uprn': KDF.getVal('txt_p_uprn')
+        });
+    }
+    else {
+        KDF.gotoNextPage();
+    }
+});
+	
+	
+	
+	
 }//end do_KDF_Ready_Individual
 
 
@@ -103,46 +147,7 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
 }//end do_KDF_objectdataLoaded_Individual
 
 
-// Button "Continue" on Customer Information page click event.
-$('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
-	console.log('KDF.getVal(txt_access)='+KDF.getVal('txt_access'));
-	console.log('custDetailsCheck= '+custDetailsCheck());
-    if (KDF.getVal('txt_access') === 'agent' && custDetailsCheck()) {
-        console.log('here');
-        KDF.customdata('update-individual-new', 'no-address-update', true, true, {
-            'customerID': KDF.getVal('txt_customer_id'),
-            'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
-            'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
-            'phone': KDF.getVal('tel_cust_info_phone'),
-            'email': KDF.getVal('eml_cust_info_email')
-        });
-    }
-    else {
-        KDF.gotoNextPage();
-    }
-});
 
-// Button "Continue" on Customer details - address page click event.
-$('#dform_widget_button_but_continue_customer_address').click(function () {
-    if (KDF.getVal('txt_access') === 'agent' && custAddresssCheck() || custDetailsCheck()) {
-        console.log('here address');
-        KDF.customdata('update-individual-new', 'create', true, true, {
-            'customerID': KDF.getVal('txt_customer_id'),
-            'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
-            'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
-            'phone': KDF.getVal('tel_cust_info_phone'),
-            'email': KDF.getVal('eml_cust_info_email'),
-            'num_p_streetnumber': KDF.getVal('num_p_streetnumber'),
-            'txt_p_streetname': KDF.getVal('txt_p_streetname'),
-            'txt_p_town': KDF.getVal('txt_p_town'),
-            'txt_p_postcode': KDF.getVal('txt_p_postcode'),
-            'txt_p_uprn': KDF.getVal('txt_p_uprn')
-        });
-    }
-    else {
-        KDF.gotoNextPage();
-    }
-});
 
 // Check if the customer detail is change
 function custDetailsCheck() {
