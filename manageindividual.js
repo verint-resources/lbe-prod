@@ -3,7 +3,7 @@
 var individualTemplateIdentifier = 'individual_template_';
 
 function do_KDF_Ready_Individual(event, kdf){
-	
+	console.log('do_KDF_Ready_Individual');
 if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
 	    KDF.customdata('person-retrieve-new', 'individual_template_KDF_Ready', true, true, {'person_search_results': KDF.getVal('txt_customer_id')});
 	}
