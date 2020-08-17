@@ -1,5 +1,4 @@
-$(document).ready(function(){
- console.log('hi');
 
-
-});
+function sendAlert(){
+ alert('test js fired');
+}
