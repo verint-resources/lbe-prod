@@ -79,6 +79,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 	//if(typeof actionedby =='undefined' || actionedby=='' ){actionedby='na';}
 	console.log('actionedby= '+actionedby);
     var detectIndividualTemplateFunction = actionedby.indexOf(individualTemplateIdentifier);
+	console.log('detectIndividualTemplateFunction= '+detectIndividualTemplateFunction);
 	//if(typeof detectIndividualTemplateFunction=='undefined'){detectIndividualTemplateFunction='na';}
     var individualTemplateActionedBySource = '';
     //individual_template_KDF_Ready
@@ -92,28 +93,34 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
     console.log('detectIndividualTemplateFunction :', detectIndividualTemplateFunction);
 
     if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'KDF_Ready' && detectIndividualTemplateFunction) {
+	    console.log('custom action point 1');
         $('#dform_widget_txta_cust_info_address').prop('readonly', true);
 
 
     }
 
     if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'update-individual' && detectIndividualTemplateFunction) {
+	        console.log('custom action point 2');
         KDF.gotoNextPage();
 
     }
 
     if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'create-individual' && detectIndividualTemplateFunction) {
+	        console.log('custom action point 3');
         KDF.gotoNextPage();
 
     }
 
     if (action === 'update-individual-new' && detectIndividualTemplateFunction) {
+	        console.log('custom action point 4');
         KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'update-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
 
     }
 
     if (action == 'create-individual-new' && detectIndividualTemplateFunction) {
+	        console.log('custom action point 5');
         if (response.data.txt_customerID !== undefined) {
+		    console.log('custom action point 5a');
             KDF.setVal('txt_customer_id', response.data.txt_customerID);
             KDF.setCustomerID(response.data.txt_customerID, false, false); /*set Reporter*/
             KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'create-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
