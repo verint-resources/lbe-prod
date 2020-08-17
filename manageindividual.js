@@ -73,6 +73,7 @@ $('#dform_widget_button_but_continue_customer_address').click(function () {
 
 
 function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
+	if(typeof actionedby =='undefined'){actionedby='na';}
     var detectIndividualTemplateFunction = actionedby.indexOf(individualTemplateIdentifier);
     var individualTemplateActionedBySource = '';
     //individual_template_KDF_Ready
