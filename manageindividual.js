@@ -84,7 +84,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
     var individualTemplateActionedBySource = '';
     //individual_template_KDF_Ready
 
-    if (individualTemplateActionedBySource == 'KDF_Ready') {
+    if (individualTemplateActionedBySource == 'kdf_ready') {
         //Conduct 
 
     }
@@ -92,7 +92,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 
     console.log('detectIndividualTemplateFunction :', detectIndividualTemplateFunction);
 
-    if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'KDF_Ready' && detectIndividualTemplateFunction) {
+    if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'kdf_ready' && detectIndividualTemplateFunction) {
 	    console.log('custom action point 1');
         $('#dform_widget_txta_cust_info_address').prop('readonly', true);
 
