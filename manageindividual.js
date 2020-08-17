@@ -105,7 +105,7 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
 
 // Button "Continue" on Customer Information page click event.
 $('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
-	console.log("KDF.getVal(txt_access)="+KDF.getVal('txt_access'));
+	console.log('KDF.getVal(txt_access)='+KDF.getVal('txt_access'));
 	console.log('custDetailsCheck= '+custDetailsCheck());
     if (KDF.getVal('txt_access') === 'agent' && custDetailsCheck()) {
         console.log('here');
