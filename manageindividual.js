@@ -76,11 +76,11 @@ $('#dform_widget_button_but_continue_customer_address').click(function () {
 
 
 function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
-	//if(typeof actionedby =='undefined' || actionedby=='' ){actionedby='na';}
+	if(typeof actionedby =='undefined' || actionedby=='' ){actionedby='na';}
 	console.log('actionedby= '+actionedby);
     var detectIndividualTemplateFunction = actionedby.indexOf(individualTemplateIdentifier);
 	console.log('detectIndividualTemplateFunction= '+detectIndividualTemplateFunction);
-	//if(typeof detectIndividualTemplateFunction=='undefined'){detectIndividualTemplateFunction='na';}
+	if(typeof detectIndividualTemplateFunction=='undefined'){detectIndividualTemplateFunction='na';}
     var individualTemplateActionedBySource = '';
     //individual_template_KDF_Ready
 
