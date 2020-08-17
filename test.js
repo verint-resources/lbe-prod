@@ -1,2 +1,5 @@
 (document).ready(function(){
-    alert("hi");}
+ console.log('hi');
+
+
+});
