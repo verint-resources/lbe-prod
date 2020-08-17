@@ -3,6 +3,7 @@
         ACCORDION - START
 =====================================
 **/
+console.log('accordion has started');
 var elements = $('.accordion');
 for (var i = 0; i < elements.length; i++) {
     var element = elements[i];
