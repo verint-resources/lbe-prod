@@ -3,6 +3,7 @@
         ACCORDION - START
 =====================================
 **/
+function addAccordion(){
 console.log('accordion has started');
 var elements = $('.accordion');
 for (var i = 0; i < elements.length; i++) {
@@ -40,7 +41,7 @@ for (var i = 0; i < elements.length; i++) {
         }
     });
 }
-
+}//end addAccordion
 /**
 =====================================
         ACCORDION - END
