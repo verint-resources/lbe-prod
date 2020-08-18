@@ -69,7 +69,7 @@ $('#dform_widget_button_but_continue_customer_address').click(function () {
     }
 });
 	
-	
+	addAccordion();
 	
 	
 }//end do_KDF_Ready_Individual
