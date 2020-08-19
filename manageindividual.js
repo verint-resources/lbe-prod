@@ -3,7 +3,7 @@
 var individualTemplateIdentifier = 'individual_template_';
 
 function do_KDF_Ready_Individual(event, kdf) {
-    
+
 
     console.log('do_KDF_Ready_Individual');
     if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
@@ -70,16 +70,16 @@ function do_KDF_Ready_Individual(event, kdf) {
             KDF.gotoNextPage();
         }
     });
-	
 
-	
+
+
     addAccordion();
-	$('#dform_widget_cs_customer_search_resultholder').on('show', function () {
-	console.log('About to show but_individual_not_found widget on SHOW');
-	$('#dform_widget_txta_cust_info_address').prop('readonly', true);
+    $('#dform_widget_cs_customer_search_resultholder').on('show', function () {
+        console.log('About to show but_individual_not_found widget on SHOW');
+        $('#dform_widget_txta_cust_info_address').prop('readonly', true);
 
-	KDF.showWidget('but_individual_not_found');
-	});
+        KDF.showWidget('but_individual_not_found');
+    });
 
 
     $('#dform_widget_cs_customer_search_resultholder').on('hide', function () {
@@ -252,6 +252,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 
     if (action === 'update-individual-new' && detectIndividualTemplateFunction) {
         console.log('custom action point 4');
+        KDF.showSuccess('Individual Details Updated');
         KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'update-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
 
     }
@@ -260,6 +261,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
         console.log('custom action point 5');
         if (response.data.txt_customerID !== undefined) {
             console.log('custom action point 5a');
+            KDF.showSuccess('Individual Details Created');
             KDF.setVal('txt_customer_id', response.data.txt_customerID);
             KDF.setCustomerID(response.data.txt_customerID, false, false); /*set Reporter*/
             KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'create-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
