@@ -4,13 +4,7 @@ var individualTemplateIdentifier = 'individual_template_';
 
 function do_KDF_Ready_Individual(event, kdf) {
     
-    $('#dform_widget_cs_customer_search_resultholder').on('show', function () {
-        console.log('About to show but_individual_not_found widget on SHOW');
-        $('#dform_widget_txta_cust_info_address').prop('readonly', true);
 
-        KDF.showWidget('but_individual_not_found');
-    });
-	
     console.log('do_KDF_Ready_Individual');
     if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
         KDF.customdata('person-retrieve-new', 'individual_template_KDF_Ready', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
@@ -76,7 +70,14 @@ function do_KDF_Ready_Individual(event, kdf) {
             KDF.gotoNextPage();
         }
     });
+	
+    $('#dform_widget_cs_customer_search_resultholder').on('show', function () {
+        console.log('About to show but_individual_not_found widget on SHOW');
+        $('#dform_widget_txta_cust_info_address').prop('readonly', true);
 
+        KDF.showWidget('but_individual_not_found');
+    });
+	
     addAccordion();
 
 
