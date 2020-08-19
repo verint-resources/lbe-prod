@@ -89,7 +89,7 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.hideWidget('but_individual_not_found');
         KDF.hideWidget('but_cust_info_update_address');
     });
-
+ 
     $('#dform_widget_ps_create_individual_resultholder').on('show', function () {
         KDF.showWidget('but_property_not_found');
     });
