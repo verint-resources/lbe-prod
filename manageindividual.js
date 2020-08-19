@@ -71,14 +71,15 @@ function do_KDF_Ready_Individual(event, kdf) {
         }
     });
 	
-    $('#dform_widget_cs_customer_search_resultholder').on('show', function () {
-        console.log('About to show but_individual_not_found widget on SHOW');
-        $('#dform_widget_txta_cust_info_address').prop('readonly', true);
 
-        KDF.showWidget('but_individual_not_found');
-    });
 	
     addAccordion();
+	$('#dform_widget_cs_customer_search_resultholder').on('show', function () {
+	console.log('About to show but_individual_not_found widget on SHOW');
+	$('#dform_widget_txta_cust_info_address').prop('readonly', true);
+
+	KDF.showWidget('but_individual_not_found');
+	});
 
 
     $('#dform_widget_cs_customer_search_resultholder').on('hide', function () {
