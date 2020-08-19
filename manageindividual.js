@@ -194,11 +194,14 @@ function custAddresssCheck() {
 })(jQuery);
 
 $('#dform_widget_cs_customer_search_resultholder').on('show', function () {
+    console.log('About to show but_individual_not_found widget on SHOW');
     $('#dform_widget_txta_cust_info_address').prop('readonly', true);
+	
     KDF.showWidget('but_individual_not_found');
 });
 
 $('#dform_widget_cs_customer_search_resultholder').on('hide', function () {
+    console.log('About to hide but_individual_not_found widget on HIDE');
     $('#dform_widget_txta_cust_info_address').prop('readonly', false);
     clearCustomerInformation();
     KDF.hideWidget('but_individual_not_found');
