@@ -286,6 +286,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
         console.log('custom action point 4');
         KDF.showSuccess('Individual Details Updated');
         KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'update-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
+        KDF.showInfo('Individual Details Updated');
 
     }
 
