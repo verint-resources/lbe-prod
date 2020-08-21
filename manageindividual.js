@@ -29,11 +29,12 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.setVal('txt_p_postcode', KDF.getVal('txt_logic_postcode'));
     });
 
+    /*
     $('#dform_widget_ps_create_individual_searchbutton').off('click').on('click', function () {
         console.log('dform_widget_ps_create_individual_searchbutton is clicked');
     });//end dform_widget_ps_create_individual_searchbutton
 
-
+    
     $('#dform_widget_cs_customer_search_searchbutton').off('click').on('click', function () {
         console.log('dform_widget_cs_customer_search_searchbutton is clicked');
 
@@ -59,7 +60,7 @@ function do_KDF_Ready_Individual(event, kdf) {
     $('#dform_widget_ps_existing_customer_searchbutton').off('click').on('click', function () {
         console.log('dform_widget_ps_existing_customer_searchbutton is clicked');
     });//end dform_widget_ps_existing_customer_searchbutton
-    
+    */
 
     // Button "Continue" on Customer Information page click event.
     $('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
@@ -331,6 +332,17 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
     }
 }//end do_KDF_objectdataLoaded_Individual
 
+function do_KDF_fieldChange_Individual(event, kdf, field) {
+    console.log('field.name =', field.name); 
+    console.log('field.value =', field.value); 
+
+    //Check if either these fields have changed and the value is greater than  2
+    //Show the search button if greater than 2
+    //When we check the field value of one of them and the value length is 0, then check the other field length and if it is 0 as well then hide the Search button
+
+    ps_customerdetails_txt_streetname
+    ps_customerdetails_txt_postcode
+}//end do_KDF_fieldChange_Individual
 
 // Check if the customer detail is change
 function custDetailsCheck() {
