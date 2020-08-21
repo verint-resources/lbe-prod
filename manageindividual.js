@@ -340,8 +340,10 @@ function do_KDF_fieldChange_Individual(event, kdf, field) {
     //Show the search button if greater than 2
     //When we check the field value of one of them and the value length is 0, then check the other field length and if it is 0 as well then hide the Search button
 
-    ps_customerdetails_txt_streetname
-    ps_customerdetails_txt_postcode
+    //ps_customerdetails_txt_streetname
+   // ps_customerdetails_txt_postcode
+
+
 }//end do_KDF_fieldChange_Individual
 
 // Check if the customer detail is change
