@@ -38,13 +38,17 @@ function do_KDF_Ready_Individual(event, kdf) {
         console.log('dform_widget_cs_customer_search_searchbutton is clicked');
 
         var firstName = KDF.getVal('cs_txt_firstname').length;
+        console.log('firstName =', firstName); 
         var lastName = KDF.getVal('cs_txt_lastname').length;
         var postCode = KDF.getVal('cs_txt_postcode').length;
-        var totalLength = firstName + lastName + postCode; 
+        var totalLength = firstName + lastName + postCode;
+        console.log('totalLength = ', totalLength); 
 
         if (totalLength > 2) {
             console.log('allow to proceed'); 
-        } else {
+        }
+
+        if (totalLength < 3) {
             console.log('Not allowed to proceed'); 
             event.preventDefault();
             KDF.showInfo('Please complete the search fields before proceeding');
