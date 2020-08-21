@@ -295,10 +295,10 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
         if (response.data.txt_customerID !== undefined) {
             console.log('custom action point 5a');
             KDF.showSuccess('Individual Details Created');
+            KDF.showInfo('Individual Details Created');
             KDF.setVal('txt_customer_id', response.data.txt_customerID);
             KDF.setCustomerID(response.data.txt_customerID, false, false); /*set Reporter*/
             KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'create-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
-            KDF.showInfo('Individual Details Created');
             KDF.gotoNextPage();
         }
     }
