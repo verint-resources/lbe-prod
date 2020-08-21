@@ -388,3 +388,4 @@ function clearCustomerInformation() {
     KDF.setVal('txta_cust_info_address', '');
 }
 
+
