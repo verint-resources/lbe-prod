@@ -29,6 +29,11 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.setVal('txt_p_postcode', KDF.getVal('txt_logic_postcode'));
     });
 
+    $('#dform_widget_ps_create_individual_searchbutton').off('click').on('click', function () {
+        console.log('dform_widget_ps_create_individual_searchbutton is clicked');
+    });//end 
+
+    
 
     // Button "Continue" on Customer Information page click event.
     $('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
@@ -89,7 +94,7 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.hideWidget('but_individual_not_found');
         KDF.hideWidget('but_cust_info_update_address');
     });
- 
+
     $('#dform_widget_ps_create_individual_resultholder').on('show', function () {
         KDF.showWidget('but_property_not_found');
     });
@@ -339,5 +344,4 @@ function clearCustomerInformation() {
     KDF.setVal('tel_cust_info_phone', '');
     KDF.setVal('txta_cust_info_address', '');
 }
-
 
