@@ -298,6 +298,8 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
             KDF.setVal('txt_customer_id', response.data.txt_customerID);
             KDF.setCustomerID(response.data.txt_customerID, false, false); /*set Reporter*/
             KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'create-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
+            KDF.showInfo('Individual Details Created');
+            KDF.gotoNextPage();
         }
     }
 
