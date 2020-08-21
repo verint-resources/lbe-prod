@@ -31,8 +31,28 @@ function do_KDF_Ready_Individual(event, kdf) {
 
     $('#dform_widget_ps_create_individual_searchbutton').off('click').on('click', function () {
         console.log('dform_widget_ps_create_individual_searchbutton is clicked');
-    });//end 
+    });//end dform_widget_ps_create_individual_searchbutton
 
+
+    $('#dform_widget_cs_customer_search_searchbutton').off('click').on('click', function () {
+        console.log('dform_widget_cs_customer_search_searchbutton is clicked');
+
+        var firstName = KDF.getVal('cs_txt_firstname').length;
+        var lastName = KDF.getVal('cs_txt_lastname').length;
+        var postCode = KDF.getVal('cs_txt_postcode').length;
+        var totalLength = firstName + lastName + postCode; 
+
+        if (totalLength > 2) {
+            console.log('allow to proceed'); 
+        } else {
+            console.log('Not allowed to proceed'); 
+        }
+
+    });//end dform_widget_cs_customer_search_searchbutton
+
+    $('#dform_widget_ps_existing_customer_searchbutton').off('click').on('click', function () {
+        console.log('dform_widget_ps_existing_customer_searchbutton is clicked');
+    });//end dform_widget_ps_existing_customer_searchbutton
     
 
     // Button "Continue" on Customer Information page click event.
