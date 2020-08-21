@@ -47,6 +47,7 @@ function do_KDF_Ready_Individual(event, kdf) {
         } else {
             console.log('Not allowed to proceed'); 
             event.preventDefault();
+            KDF.showInfo('Please complete the search fields before proceeding');
         }
 
     });//end dform_widget_cs_customer_search_searchbutton
