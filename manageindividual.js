@@ -350,12 +350,57 @@ function do_KDF_fieldChange_Individual(event, kdf, field) {
     console.log('field.name =', field.name);
     console.log('field.value =', field.value);
 
-    //Check if either these fields have changed and the value is greater than  2
-    //Show the search button if greater than 2
-    //When we check the field value of one of them and the value length is 0, then check the other field length and if it is 0 as well then hide the Search button
+    if (field.name == 'ps_createindividual_txt_streetname' || field.name == 'ps_createindividual_txt_postcode') {
 
-    //ps_customerdetails_txt_streetname
-    // ps_customerdetails_txt_postcode
+        var streetName = KDF.getVal('ps_createindividual_txt_streetname').length;
+        console.log('streetName =', streetName);
+        var postCode = KDF.getVal('ps_createindividual_txt_postcode').length;
+        console.log('postCode =', postCode);
+
+        var totalLength = streetName + postCode;
+        console.log('totalLength = ', totalLength);
+
+        if (totalLength > 1) {
+            console.log('allow to proceed');
+            $('#dform_widget_ps_create_individual_searchbutton').prop('disabled', false);
+        }
+
+        if (totalLength < 2) {
+            console.log('Not allowed to proceed');
+            $('#dform_widget_ps_create_individual_searchbutton').prop('disabled', true);
+            event.preventDefault();
+            KDF.showInfo('Please complete the search fields before proceeding');
+        }
+
+    }//end (field.name == 'ps_createindividual_txt_streetname' ||  field.name == 'ps_createindividual_txt_postcode')
+
+    //Deals with the Customer details - address (Property Search Widget)
+    if (field.name == 'ps_customerdetails_txt_streetname' || field.name == 'ps_customerdetails_txt_postcode') {
+
+        var streetName = KDF.getVal('ps_customerdetails_txt_streetname').length;
+        console.log('streetName =', streetName);
+        var postCode = KDF.getVal('ps_customerdetails_txt_postcode').length;
+        console.log('postCode =', postCode);
+
+        var totalLength = streetName + postCode;
+        console.log('totalLength = ', totalLength);
+
+        if (totalLength > 1) {
+            console.log('allow to proceed');
+            $('#dform_widget_ps_existing_customer_searchbutton').prop('disabled', false);
+        }
+
+        if (totalLength < 2) {
+            console.log('Not allowed to proceed');
+            $('#dform_widget_ps_existing_customer_searchbutton').prop('disabled', true);
+            event.preventDefault();
+            KDF.showInfo('Please complete the search fields before proceeding');
+        }
+
+    }//end (field.name == 'ps_createindividual_txt_streetname' ||  field.name == 'ps_createindividual_txt_postcode')
+
+
+
 
 
 }//end do_KDF_fieldChange_Individual
