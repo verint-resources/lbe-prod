@@ -332,6 +332,8 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 
 
 function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
+    console.log('do_KDF_objectdataLoaded_Individual type: ' + type); 
+    console.log('do_KDF_objectdataLoaded_Individual id: ' + id); 
     if (type === 'customer') {
         console.log('I am a customer '); 
         KDF.setVal('txt_customer_id', id);
