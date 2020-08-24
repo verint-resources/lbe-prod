@@ -265,6 +265,9 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 
 
     console.log('detectIndividualTemplateFunction :', detectIndividualTemplateFunction);
+    If(action === 'person-retrieve-new'){
+        KDF.showWidget('but_cust_info_update_address'); 
+    }
 
     if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'kdf_ready' && detectIndividualTemplateFunction) {
         console.log('custom action point 1');
