@@ -123,10 +123,12 @@ function do_KDF_Ready_Individual(event, kdf) {
     });
 
     $('#dform_widget_ps_create_individual_resultholder').on('show', function () {
+        console.log('ps_create_individual_resultholder on show event'); 
         KDF.showWidget('but_property_not_found');
     });
 
     $('#dform_widget_ps_create_individual_resultholder').on('hide', function () {
+        console.log('ps_create_individual_resultholder on hide event'); 
         KDF.hideWidget('txt_c_addressnumber');
         KDF.hideWidget('txt_c_addressline1');
         KDF.hideWidget('txt_c_town');
@@ -336,15 +338,15 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
 }//end do_KDF_objectdataLoaded_Individual
 
 function do_KDF_fieldChange_Individual(event, kdf, field) {
-    console.log('field.name =', field.name); 
-    console.log('field.value =', field.value); 
+    console.log('field.name =', field.name);
+    console.log('field.value =', field.value);
 
     //Check if either these fields have changed and the value is greater than  2
     //Show the search button if greater than 2
     //When we check the field value of one of them and the value length is 0, then check the other field length and if it is 0 as well then hide the Search button
 
     //ps_customerdetails_txt_streetname
-   // ps_customerdetails_txt_postcode
+    // ps_customerdetails_txt_postcode
 
 
 }//end do_KDF_fieldChange_Individual
