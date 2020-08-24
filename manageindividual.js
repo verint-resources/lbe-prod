@@ -333,6 +333,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 
 function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
     if (type === 'customer') {
+        console.log('I am a customer '); 
         KDF.setVal('txt_customer_id', id);
         KDF.showWidget('but_cust_info_update_address');
     }
