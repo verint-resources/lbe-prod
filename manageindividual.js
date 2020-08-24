@@ -124,6 +124,7 @@ function do_KDF_Ready_Individual(event, kdf) {
 
     $('#dform_widget_ps_create_individual_resultholder').on('show', function () {
         console.log('ps_create_individual_resultholder on show event'); 
+        KDF.hideWidget('but_continue_individual_address'); 
         KDF.showWidget('but_property_not_found');
     });
 
@@ -133,7 +134,7 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.hideWidget('txt_c_addressline1');
         KDF.hideWidget('txt_c_town');
         KDF.hideWidget('txt_c_postcode');
-        KDF.hideWidget('but_continue_individual_address');
+        //KDF.hideWidget('but_continue_individual_address');
         KDF.hideWidget('ahtm_edit_manual_createindividual');
         KDF.hideWidget('but_property_not_found');
         KDF.hideWidget('ahtm_cancel_edit_manual_createindividual');
