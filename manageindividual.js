@@ -1,6 +1,7 @@
 //The purpose of this file is to isolate the specific JS functions required to handle the individual pages and function in the Verint individual template.
 
 var individualTemplateIdentifier = 'individual_template_';
+var current_property_widget;
 
 function do_KDF_Ready_Individual(event, kdf) {
 
