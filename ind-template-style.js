@@ -1,3 +1,59 @@
+function checkCustom(selector, required) {
+	hideMessages();
+	calculateActiveFields();
+
+	var errors=0;
+	var showMessage = false;
+	var firstErrorField;
+
+	$('.dform_pageInvalidCustom').removeClass('dform_pageInvalidCustom');
+	$('.dform_fielderrorCustom').removeClass('dform_fielderrorCustom');
+	$('.dform_maperrorCustom').removeClass('dform_maperrorCustom');
+
+	// Check Custom Required Fields
+	$(required).find('.dform_field_active').each(function() {
+		if (validateInputRequiredCustomAction(this) != 0) {
+			var pagepos = $(this).closest("[data-type='page']").data('pos');
+			if(pagepos != kdf.form.currentpage)
+				showMessage = true;
+			$('#dform_navigation li[data-pos="'+pagepos+'"]').addClass('dform_pageInvalidCustom');
+			errors++;
+			if (errors == 1) {firstErrorField = $(this).attr('id');}
+		}
+	});
+
+	//Check Custom Required GIS's
+	$(required).find('div[data-type="gis"]').each(function() {
+		if (!checkGIS(this, true)) {
+			var pagepos = $(this).closest("[data-type='page']").data('pos');
+			if(pagepos != kdf.form.currentpage)
+				showMessage = true;
+			$('#dform_navigation li[data-pos="'+pagepos+'"]').addClass('dform_pageInvalidCustom');
+			errors++;
+		}
+	});
+
+	// Check All Fields For Valid Data (Postcode, Email etc)
+	$(selector).find('.dform_field_active').each(function() {
+		if (validateInputData(this, true) != 0) {
+			var pagepos = $(this).closest("[data-type='page']").data('pos');
+			if(pagepos != kdf.form.currentpage)
+				showMessage = true;
+			$('#dform_navigation li[data-pos="'+pagepos+'"]').addClass('dform_pageInvalidCustom');
+			errors++;
+			if (errors == 1) {firstErrorField = $(this).attr('id');}
+		}
+	});
+
+	if (errors > 0) {
+		$('#'+firstErrorField).focus();
+		if(showMessage)
+			showWarning(kdf.messages.checkFormMsg);
+	}
+
+	return errors;
+}
+
 function searchwidget1(action, name) {
     console.log("searchwidget1 Function called.");
 	if (checkCustom('#dform_widget_'+name+'_searchholder .dform_widget_searchfield', '#dform_widget_'+name+'_searchholder div[data-required="true"]') != 0) {
