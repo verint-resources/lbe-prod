@@ -128,7 +128,7 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.showWidget('txt_c_addressline1');
         KDF.showWidget('txt_c_town');
         KDF.showWidget('txt_c_postcode');
-	//KDF.showWidget('but_continue_individual_address');
+        //KDF.showWidget('but_continue_individual_address');
         KDF.showWidget('but_property_not_found');
     });
 
@@ -273,6 +273,15 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
     if (action === 'person-retrieve-new') {
         console.log('person-retrieve-new show update address button');
         KDF.showWidget('but_cust_info_update_address');
+        //Ensure the First Name and Last Name are read-only, aunthenticated citizen
+        if (KDF.kdf().access === 'citizen') {
+            $("#dform_widget_txt_cust_info_first_name").attr("readonly", true);
+            $("#dform_widget_txt_cust_info_last_name").attr("readonly", true);
+            $("#dform_widget_eml_cust_info_email").attr("readonly", true);
+            $("#dform_widget_tel_cust_info_phone").attr("readonly", true);
+            $("#dform_widget_txta_cust_info_address").attr("readonly", true);
+
+        }
     }
 
     if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'kdf_ready' && detectIndividualTemplateFunction) {
