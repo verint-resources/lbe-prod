@@ -149,7 +149,7 @@ function defineDefaultStyle(){
     //KS: adds the recommended default styling - and acts a single location to change them
 	//KS: for the love of StackExchange don't put 'all' or 'recommended' in here
     var recommended = [
-        'mchk','chk','rad','txt','dt','eml','num','pas','tel','time','txta','sel','file','btn','search','highlightRequired','search-no-results','field-label-right-align','txta-length','txta-length-listener','detailToggle','noResultsFound','selectResult','txt-enter-trigger-btn','search-empty-search'
+        'mchk','chk','rad','txt','dt','eml','num','pas','tel','time','txta','sel','file','btn','search','highlightRequired','search-no-results','field-label-right-align','txta-length','txta-length-listener','detailToggle','noResultsFound','selectResult','txt-enter-trigger-btn'
     ];
     if (debugStyle) console.debug('@defineDefaultStyle() the defined recommended styles that will be used ['+recommended.toString()+']')
     defaultNewStyle(recommended);
