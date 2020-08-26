@@ -1,3 +1,65 @@
+function searchwidget1(action, name) {
+    console.log("searchwidget1 Function called.");
+	if (checkCustom('#dform_widget_'+name+'_searchholder .dform_widget_searchfield', '#dform_widget_'+name+'_searchholder div[data-required="true"]') != 0) {
+		return;
+	}
+
+	var data = $('#dform_widget_'+name+'_searchholder input').serializeJSON({useAlias: true, useIntKeysAsArrayIndex: true});
+
+	kdf.widgetaction=action;
+
+	kdf.customrequest={
+		"name": kdf.form.name,
+		"data": data,
+		"email": kdf.form.email,
+		"caseid": kdf.form.caseid,
+		"xref": kdf.form.xref,
+		"xref1": kdf.form.xref1,
+		"xref2": kdf.form.xref2
+	}
+
+	lock();
+
+	return $.ajax({
+		url: kdf.rest.widget+'?action='+action+'&actionedby='+name+'&loadform=true&access='+kdf.access+'&locale='+kdf.locale,
+		data: JSON.stringify(kdf.customrequest),
+		type: 'POST', dataType: 'json',	contentType: 'application/json', mimeType: 'application/json',
+		beforeSend: ajaxSend
+	}).done(function(response, status, xhr) {
+		kdf.auth=xhr.getResponseHeader('Authorization');
+		kdf.widgetresponse=response;
+
+		if (response.data.length > 0) {
+			loadWidget(name+'_resultholder',response.data,'','','');
+		}
+		$('#dform_widget_'+name+'_resultholder').show();
+		$('#dform_widget_'+name+'_searchholder').hide();
+
+		unlock();
+
+		$('#dform_widget_'+name+'_id').unbind('change').change(function() {
+			$('#dform_widget_'+name+'_desc').val($('#'+$(this).attr('id')+ ' option:selected').text());
+
+			$('#dform_widget_'+name+'_searchcontainer').removeClass('dform_widgeterror');
+			$('#dform_widget_'+name+'_searchcontainer').siblings('.dform_validationMessage').hide();
+
+			if ($(this).data('setid')) {
+				setObjectID($(this).data('type'),$(this).val(),$(this).data('loaddata'),$(this).data('loadpage'));
+			} else if ($(this).data('loaddata')) {
+				getObjectData($(this).data('type'),$(this).val(),$(this).data('loadpage'));
+			}
+		});
+
+		$('#dform_widget_'+name+'_resultholder .dform_widget_search_closeresults').unbind('click').click(function(){
+			$('#dform_widget_'+name+'_searchholder').show();
+			$('#dform_widget_'+name+'_resultholder').hide();
+			$('#dform_widget_'+name+'_id').empty();
+			$('#dform_widget_'+name+'_desc').val('');
+		});
+		$( '#dform_'+kdf.name ).trigger('_KDF_search', [ kdf, response, action, name ] );
+	}).fail(ajaxError);
+}
+
 /**
 =====================================
         ACCORDION - START
