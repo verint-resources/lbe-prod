@@ -237,6 +237,9 @@ function defaultNewStyle(elements){
 		    case'txt-enter-trigger-btn':
 			listenerFunctions['txt-enter-trigger-btn']();
 			break;
+		    case'search-empty-search':
+			listenerFunctions['search-empty-search']()
+			break;
 		    default:
 			validStyle = false;
 		}
@@ -548,7 +551,31 @@ var listenerFunctions = {
 		//KS: trigger: '_style_listenerAdded, [listenerName]'
 		$(formName()).trigger('_style_listenerAdded',['txt-enter-trigger-btn']);	
 	},
-
+	'search-empty-search':function(){
+		//KS: prevent search error when all feilds are empty and none are required. Inital code by Daire - made to work by KS
+		var message = "Please complete some search fields before attempting search";
+		$(formName()).find('button[data-type="searchwidget"]').off("click").on("click", function(e) {
+			KDF.hideMessages();
+			var valid = 0;
+			$(this).closest('.searchwidget').find(".dform_widget_searchfield:visible :input").each(function() {
+			  if ($(this).val() !== ""){
+				valid += 1;
+			  }
+			});
+			if (valid > 0) {
+			  $(this).parents('.searchwidget').removeClass('dform_widgeterror');
+			  $(this).parents('.searchwidget').find('.dform_validationMessage').first().empty();
+			  $(this).parents('.searchwidget').find('.dform_validationMessage').first().hide();
+			  KDF.searchwidget($(this).data("action"), $(this).data("widgetname"));
+			} else {
+			  e.preventDefault();
+			  $(this).parents('.searchwidget').addClass('dform_widgeterror');
+			  $(this).parents('.searchwidget').find('> .dform_validationMessage').text(message);
+			  $(this).parents('.searchwidget').find('> .dform_validationMessage').show();
+			  $(this).parents('.searchwidget').find(".dform_widget_searchfield:visible :input").first().focus();
+			}
+		});
+	}
 	
 }
 
