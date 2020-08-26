@@ -124,7 +124,11 @@ function do_KDF_Ready_Individual(event, kdf) {
 
     $('#dform_widget_ps_create_individual_resultholder').on('show', function () {
         console.log('ps_create_individual_resultholder on show event');
-        KDF.hideWidget('but_continue_individual_address');
+        KDF.showWidget('txt_c_addressnumber');
+        KDF.showWidget('txt_c_addressline1');
+        KDF.showWidget('txt_c_town');
+        KDF.showWidget('txt_c_postcode');
+	//KDF.showWidget('but_continue_individual_address');
         KDF.showWidget('but_property_not_found');
     });
 
