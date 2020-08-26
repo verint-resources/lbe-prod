@@ -567,7 +567,7 @@ var listenerFunctions = {
 			  $(this).parents('.searchwidget').find('.dform_validationMessage').first().empty();
 			  $(this).parents('.searchwidget').find('.dform_validationMessage').first().hide();
 			  //KDF.searchwidget($(this).data("action"), $(this).data("widgetname"));
-			  searchwidget($(this).data("action"), $(this).data("widgetname"));
+			  searchwidget1($(this).data("action"), $(this).data("widgetname"));
 			} else {
 			  e.preventDefault();
 			  $(this).parents('.searchwidget').addClass('dform_widgeterror');
