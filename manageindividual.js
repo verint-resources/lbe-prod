@@ -346,10 +346,12 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
     }
 }//end do_KDF_objectdataLoaded_Individual
 
+
 function do_KDF_fieldChange_Individual(event, kdf, field) {
     console.log('field.name =', field.name);
     console.log('field.value =', field.value);
 
+    /*
     if (field.name == 'ps_createindividual_txt_streetname' || field.name == 'ps_createindividual_txt_postcode') {
 
         var streetName = KDF.getVal('ps_createindividual_txt_streetname').length;
@@ -371,9 +373,13 @@ function do_KDF_fieldChange_Individual(event, kdf, field) {
             event.preventDefault();
             KDF.showInfo('Please complete the search fields before proceeding');
         }
+     
 
     }//end (field.name == 'ps_createindividual_txt_streetname' ||  field.name == 'ps_createindividual_txt_postcode')
+     */
 
+
+    /*
     //Deals with the Customer details - address (Property Search Widget)
     if (field.name == 'ps_customerdetails_txt_streetname' || field.name == 'ps_customerdetails_txt_postcode') {
 
@@ -399,7 +405,7 @@ function do_KDF_fieldChange_Individual(event, kdf, field) {
 
     }//end (field.name == 'ps_createindividual_txt_streetname' ||  field.name == 'ps_createindividual_txt_postcode')
 
-
+   */
 
 
 
