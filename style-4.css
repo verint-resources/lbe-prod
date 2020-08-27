@@ -1,6 +1,11 @@
+#itemName, #itemPrice {
+   font-weight: bold;
+   font-size: 15px;
+}
 
-
-
+#dform_successMessage {
+    display: none !important;
+}
 
 /*KS
 Colours being used:
@@ -11,7 +16,7 @@ Colours being used:
     Error red lighter
         #d45252
     Main color (box blue)
-        #03498e
+        #00529b
     Highlight yellow
         #FFBF47, #ffbf47
     Softer white:
@@ -19,9 +24,9 @@ Colours being used:
     Soft grey (read-only)
         #DDD
     Info notice background:
-        #f0eaef
+        #bde5f8
     Darker blue (Info notice border and icon):
-        #5c2c55, #5c2c55
+        #00529b, #00529b
     Box green, green button:
         #00823b
     Darker green for highlights:
@@ -46,10 +51,11 @@ KS: searches - Start
 */
 .cs-gov, .ss-gov, .ps-gov, .os-gov, .search-gov{
     padding: 0px 0px 0px 5px !important;
+	font-size:1rem;
 }
 .cs-gov fieldset, .ss-gov fieldset, .ps-gov fieldset, .os-gov fieldset, .search-gov fieldset {
     border: none !important;
-    border-left: 5px solid #03498e !important;
+    border-left: 5px solid #00529b !important;
     border-radius: 0 !important;
     
 }
@@ -58,13 +64,14 @@ KS: searches - Start
     left: -15px !important;
     padding-left: 20px !important;
     font-weight: bold !important;
-    background: #03498e !important;
+    background: #00529b !important;
     color: white !important;
+	font-size: 1.25rem !important;
     
 }
-.cs-gov button, .ss-gov button, .ps-gov button, .os-gov button, .search-gov button {
+/*.cs-gov button, .ss-gov button, .ps-gov button, .os-gov button, .search-gov button {
     border: none !important;
-}
+}*/
 .search-gov .dform_widgeterror{
     box-shadow: none !important;
     border-color: #b03535 !important;
@@ -73,7 +80,7 @@ KS: searches - Start
     background: #b03535 !important;
 }
 .search-gov .dform_validationMessage{
-    font-size: 16px !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
 }
 
@@ -89,14 +96,14 @@ KS: area Start
 .area-gov > fieldset{
     border: none !important;
     border-radius: 0 !important;
-    border-left: 5px solid #03498e !important;
+    border-left: 5px solid #00529b !important;
 }
 .area-gov > fieldset > legend{
     position: relative !important;
     left: -15px !important;
     padding-left: 20px !important;
     font-weight: bold !important;
-    background: #03498e !important;
+    background: #00529b !important;
     color: white !important;
 }
 
@@ -110,7 +117,7 @@ KS: area Start
 .area-no-group > fieldset > legend, .cs-no-group legend, .ss-no-group legend, .ps-no-group legend, .os-no-group legend, .search-no-group legend{
     left: 0 !important;
     padding-left: 0 !important;
-    color: #03498e !important;
+    color: #00529b !important;
     background: none !important;
 }
 
@@ -147,23 +154,23 @@ Need to deside on new generic button - the continue should be promanant - maybe 
     width: auto !important;
     white-space: nowrap;
     padding: 0.3em 0.6em !important;
-    font-size: 18.7px !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
     margin-right: 3px !important;
 }
 
 /*btn-gov------------------------------------*/
 .btn-gov{
-    box-shadow: inset 0 -2px 0 /*#003618*/ #5c2c55 !important;
-    background: /*#00823b*/ #03498e!important;
+    box-shadow: inset 0 -2px 0 /*#003618*/ #00529b !important;
+    background: /*#00823b*/ #00529b!important;
 }
 .btn-gov:hover{
-    box-shadow: inset 0 -2px 0 /*#003618*/ #5c2c55 !important;
-    background: /*#00682e*/ #5c2c55!important;
+    box-shadow: inset 0 -2px 0 /*#003618*/ #00529b !important;
+    background: /*#00682e*/ #00529b!important;
     
 }
 .btn-gov:focus{
-    box-shadow: inset 0 -2px 0 /*#003618*/ #5c2c55, 0 0 0 3px #FFBF47 !important;
+    box-shadow: inset 0 -2px 0 /*#003618*/ #00529b, 0 0 0 3px #FFBF47 !important;
 }
 
   
@@ -247,7 +254,7 @@ Need to deside on new generic button - the continue should be promanant - maybe 
 
 /*btn-link------------------------------------*/
 .btn-link{
-    color:#03498e!important;
+    color:#00529b!important;
     background: none !important;
     border: none !important;
     cursor: pointer !important;
@@ -256,7 +263,7 @@ Need to deside on new generic button - the continue should be promanant - maybe 
     border-color: rgba(0,0,0,0) !important;
     outline: none !important;
     padding: 2.5px 5px 2px 5px!important;
-    font-size: 18.7px !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
 }
 .btn-link:focus{
@@ -276,13 +283,13 @@ KS: sel Start
 
 /*KS: Title*/
 .sel-gov > div > label  {
-  font-size: 22px;
+  font-size: 1rem;
   line-height: 1.2 !important;
   font-weight:bold!important;
 }
 /*KS: Customizes the help text */
 .sel-gov > div .helptext {
-    font-size: 16px;
+    font-size: 1rem;
     margin-bottom: 18px;
     margin-top: 5px;
 }
@@ -310,7 +317,7 @@ KS: sel Start
 /*KS: The error text when field is invalid*/
 .sel-gov  .dform_validationMessage{
     padding-bottom: 24px !important;
-    font-size: 16px !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
 }
 
@@ -331,14 +338,14 @@ KS: file-gov Start
 -----------------------------------------------
 */
 .file-gov > div > label {
-    font-size: 22px;
+    font-size: 1rem;
     margin-bottom: 24px !important;
 }
 .file-gov > div .helptext{
-  font-size: 16px;
+  font-size: 1rem;
 }
 .file-gov{
-    font-size: 16px;
+    font-size: 1rem;
     
 }
 .file-gov .dform_validationMessage{
@@ -354,42 +361,43 @@ KS: file-gov Start
     z-index: 2;
     cursor: pointer;
     opacity: 0;
-    width: 100% !important;/*??*/
+    width: 100% !important;/*📱*/
     margin-bottom: 2px !important;
 }
 
 .file-gov .dform_filenames span{
     display: inline-block;
     /*KS: removed to be up to WCAG2AAA
-    color: #03498e !important;
+    color: #00529b !important;
     padding: 2px;
     margin: 2px;
     border-radius: 5px;
     margin-right: 2px !important;
-    border: 2px solid #03498e;*/
+    border: 2px solid #00529b;*/
 }
 /*KS: removes the >> before file names*/
-.file-gov .dform_filenames span:before{
+/*.file-gov .dform_filenames span:before{
     content: "" !important;
 }
+*/
 
 /*KS: darken when hover-able */
 .file-gov  input:hover ~ .file-gov-icon{
-    background: #5c2c55 !important; /*Darkened Varint blue*/
+    background: #00529b !important; /*Darkened Varint blue*/
 }
 /*KS: darken when hover-able */
 .file-gov  input:focus ~ .file-gov-icon{
-    background: #5c2c55 !important; /*Darkened Varint blue*/
-    box-shadow: inset 0 -2px 0 #5c2c55, 0 0 0 3px #FFBF47 !important;
+    background: #00529b !important; /*Darkened Varint blue*/
+    box-shadow: inset 0 -2px 0 #00529b, 0 0 0 3px #FFBF47 !important;
 }
 /*KS depreciated: style when field with error is focused*/
 .file-gov  input.dform_fielderror:focus ~ .file-gov-icon{
-    box-shadow: inset 0 -2px 0 #5c2c55, 0px 0.2px 0px 2px #d45252, 0px 0.2px 0px 5px #FFBF47 !important;
+    box-shadow: inset 0 -2px 0 #00529b, 0px 0.2px 0px 2px #d45252, 0px 0.2px 0px 5px #FFBF47 !important;
     border-color: #d45252 !important;
 }
 /*KS depreciated: change border to red when it has an error*/
 .file-gov  .dform_fielderror ~ .file-gov-icon{
-    box-shadow: inset 0 -2px 0 #5c2c55, 0px 0.2px 0px 2px #d45252;
+    box-shadow: inset 0 -2px 0 #00529b, 0px 0.2px 0px 2px #d45252;
     outline: none;
 }
 .file-gov-icon {
@@ -397,17 +405,17 @@ KS: file-gov Start
   position: absolute;
   z-index: 0;
   height: 42px;
-  width: 100%; /*??*/
+  width: 100%; /*📱*/
   top: 0.6px;
   cursor: pointer;
   
   /*KS: GOV button*/
   color: #fff;
-  box-shadow: inset 0 -2px 0 #5c2c55; /*Dark blue*/
+  box-shadow: inset 0 -2px 0 #00529b; /*Dark blue*/
   border: none;
   border-radius: 0px;
   outline-offset: -1px;
-  background: #03498e; /*Verint blue*/
+  background: #00529b; /*Verint blue*/
   
   
   /*KS: too subtle to notice change: -webkit-transition: background 0.5s ease-out; -moz-transition: background 0.5s ease-out;   -o-transition: background 0.5s ease-out;    transition: background 0.5s ease-out;*/
@@ -439,7 +447,7 @@ KS: file-gov Start
   margin-top: 7px;
   margin-left: 32px;
   color: white !important;
-  font-size: 16px;
+  font-size: rem;
   font-weight: bold;
 }
 .file-gov .dform_fileupload_progressbar{
@@ -465,12 +473,13 @@ KS: file-gov Start
 /*KS: made progress bar opt-in since it's rarely needed*/
 .file-progress .dform_fileupload_progressbar{
     visibility: visible;
-    height: 30px !important;
+    height: 22px !important;
     margin: 5px !important;
-    border: 2px solid #03498e !important;/*Verint blue*/ 
+    width: 300px !important;
+    border: 2px solid #00529b !important;/*Verint blue*/ 
 }
 .file-progress .dform_fileupload_progressbar > div{
-    background: #03498e !important; /*Verint blue*/
+    background: #00529b !important; /*Verint blue*/
 }
 
 /*File-no-legend-------------------------------*/
@@ -519,13 +528,13 @@ KS: txt (and text like fields) Start
 
 /*KS: Title*/
 .txt-gov > div > label,.dt-gov > div > label,.eml-gov > div > label,.num-gov > div > label,.pas-gov > div > label,.tel-gov > div > label,.time-gov > div > label,.field-gov > div > label{
-  font-size: 24px;
+  font-size: 1rem;
   line-height: 1.2 !important;
   font-weight:bold!important;
 }
 /*KS: Customizes the help text */
 .txt-gov > div .helptext,.dt-gov > div .helptext,.eml-gov > div .helptext,.num-gov > div .helptext,.pas-gov > div .helptext,.tel-gov > div .helptext,.time-gov > div .helptext,.field-gov > div .helptext{
-    font-size: 16px;
+    font-size: 1rem;
     /*margin-bottom: 18px;
     margin-top: 5px;*/
 }
@@ -555,7 +564,7 @@ KS: txt (and text like fields) Start
 /*KS: The error text when field is invalid*/
 .txt-gov  .dform_validationMessage,.dt-gov  .dform_validationMessage,.eml-gov  .dform_validationMessage,.num-gov  .dform_validationMessage,.pas-gov  .dform_validationMessage,.tel-gov  .dform_validationMessage,.time-gov  .dform_validationMessage,.field-gov  .dform_validationMessage{
     padding-bottom: 6px !important;
-    font-size: 16px !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
 }
 .txt-no-min-height div:first-child,.dt-no-min-height div:first-child,.eml-no-min-height div:first-child,.num-no-min-height div:first-child,.pas-no-min-height div:first-child,.tel-no-min-height div:first-child,.time-no-min-height div:first-child,.field-no-min-height div:first-child{
@@ -566,7 +575,7 @@ KS: txt (and text like fields) Start
     /*KS: but I added this just incase you want that functionality again*/
     min-height: 1px !important;
 }
-.txt-gov input[readonly],.dt-gov input[readonly],.eml-gov input[readonly],.num-gov input[readonly],.pas-gov input[readonly],.tel-gov input[readonly],.time-gov input[readonly],.field-gov input[readonly] {
+.txt-gov input[readonly],.dt-gov input[readonly],.eml-gov input[readonly],.num-gov input[readonly],.pas-gov input[readonly],.tel-gov input[readonly],.time-gov input[readonly],.field-gov input[readonly],.sel-gov select[disabled] {
     border-color: #DDD !important;
     background: #DDD;
 }
@@ -581,13 +590,13 @@ KS: txta Start
 
 /*KS: Title*/
 .txta-gov > div > label {
-  font-size: 24px;
+  font-size: 1rem;
   line-height: 1.2 !important;
   font-weight:bold!important;
 }
 /*KS: Customizes the help text */
 .txta-gov > div .helptext {
-    font-size: 16px;
+    font-size: 1rem;
     /*margin-bottom: 18px;
     margin-top: 5px;*/
 }
@@ -618,7 +627,7 @@ KS: txta Start
 /*KS: The error text when field is invalid*/
 .txta-gov .dform_validationMessage{
     padding-bottom: 6px !important;
-    font-size: 16px !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
 }
 .txta-gov textarea[readonly] {
@@ -658,8 +667,8 @@ KS: warning notice - Start
   position: absolute;
   top: 50%;
   left: 0;
-  height: 41px;
-  width: 41px;
+  height: 38px;
+  width: 38px;
   background-color: #b10e1e;
   border-radius: 50%;
   margin-left: 5px;
@@ -671,17 +680,17 @@ KS: warning notice - Start
 }
 .warning-notice-icon-a {
   position: absolute;
-  left: 18px;
+  left: 17px;
   top: 6px;
   width: 0px;
-  height: 20px;
+  height: 19px;
   border: solid white;
   border-width: 0 5px 0 0;
 }
 .warning-notice-icon-b {
   position: absolute;
-  left: 18px;
-  top: 30px;
+  left: 17px;
+  top: 28px;
   width: 0px;
   height: 5px;
   border: solid white;
@@ -698,15 +707,16 @@ KS: Info notice - Start
 */
 .info-notice {
     position: relative;
-    background-color: #f0eaef;
-    padding: 10px 10px 10px 55px;
+    background-color: #bde5f8;
+    padding: 0px 10px 0px 55px;
     /*padding-left: 55px;
     padding-top:10px;
     padding-bottom:10px;*/
-    border: solid #5c2c55;
-    border-width: 5px ;
+    border: solid #00529b;
+    border-width: 5px;
     margin-bottom: 15px;
 }
+
 .dform_widget_type_html .info-notice{
     padding: 0px 0px 0px 55px;
 }
@@ -714,9 +724,9 @@ KS: Info notice - Start
   position: absolute;
   top: 50%;
   left: 0;
-  height: 41px;
-  width: 41px;
-  background-color: #5c2c55;/*uncheck background*/
+  height: 38px;
+  width: 38px;
+  background-color: #00529b;/*uncheck background*/
   border-radius: 50%;
   margin-left: 5px;
   -ms-transform: translateY(-50%);
@@ -727,17 +737,17 @@ KS: Info notice - Start
 }
 .info-notice-icon-a {
   position: absolute;
-  left: 18px;
-  top: 15px;
+  left: 17px;
+  top: 13px;
   width: 0px;
-  height: 20px;
+  height: 18px;
   border: solid white;
   border-width: 0 5px 0 0;
 }
 .info-notice-icon-b {
   position: absolute;
-  left: 18px;
-  top: 6px;
+  left: 17px;
+  top: 5px;
   width: 0px;
   height: 5px;
   border: solid white;
@@ -761,7 +771,7 @@ KS: Custom gov radio buttons - Start
   padding-left: 35px;
   margin-bottom: 12px;
   /*cursor: pointer;*/
-  font-size: 22px;
+  font-size: 1rem;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -787,12 +797,12 @@ KS: Custom gov radio buttons - Start
   position: absolute;
   top: 0;
   left: 0;
-  height: 35px;
-  width: 35px;
+  height: 28px;
+  width: 28px;
   background-color: white;/*uncheck background*/
   border-radius: 75%;
-  /*border: 3px solid #03498e;Inconsistint sizing between host and VOF*/
-  box-shadow: inset 0 0 0 3px #03498e;
+  /*border: 3px solid #00529b;Inconsistint sizing between host and VOF*/
+  box-shadow: inset 0 0 0 3px #00529b;
 }
 /*KS: Create the indicator (the dot/circle - hidden when not checked) */
 .rad-check:after {
@@ -806,21 +816,21 @@ KS: Custom gov radio buttons - Start
 }
 /*KS: Style the indicator (dot/circle) */
 .rad-gov > div > fieldset > span  .rad-check:after {
-  top: 7px;
-  left: 7px;
-  width: 21px;
-  height: 21px;
+  top: 6px;
+  left: 6px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: #03498e;
+  background: #00529b;
 }
 /*KS: Customizes the help text */
 .rad-gov > div > fieldset .helptext {
-    font-size: 16px;
+    font-size: 1rem;
     margin-bottom: 16px;
 }
 /*KS: Customizes the title/legend */
 .rad-gov legend {
-    font-size: 24px;
+    font-size: 1rem;
     line-height: 1.2 !important;
     margin-bottom: 0px !important;
 }
@@ -835,12 +845,12 @@ KS: Custom gov radio buttons - Start
 /*KS: The error text when field is invalid*/
 .rad-gov  .dform_validationMessage{
     padding-bottom: 24px !important;
-    font-size: 16px !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
 }
 .rad-gov > div > fieldset > span  input:focus ~ .rad-check{
     /*border: 3px solid red !important;*/
-    box-shadow: 0 0 0 3px #FFBF47, inset 0 0 0 3px #03498e;
+    box-shadow: 0 0 0 3px #FFBF47, inset 0 0 0 3px #00529b;
 }
 .rad-gov > div > fieldset{
     margin: 0 !important;
@@ -848,6 +858,18 @@ KS: Custom gov radio buttons - Start
 }
 /*KS quick fix to avoid changing all radio items*/
 .rad-gov label{
+    text-transform: lowercase;
+}
+.rad-gov.rad-uppercase label{
+    text-transform: uppercase;
+}
+.rad-gov.rad-capitalize label{
+    text-transform: capitalize;
+}
+.rad-gov.rad-none label{
+    text-transform: none;
+}
+.rad-gov.rad-lowercase label{
     text-transform: lowercase;
 }
 
@@ -867,7 +889,7 @@ KS: gov checkbox Start
   position: relative;
   padding-left: 35px;
   margin-bottom: 12px;
-  font-size: 22px;
+  font-size: 1rem;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -888,14 +910,14 @@ KS: gov checkbox Start
   position: absolute;
   top: 0;
   left: 0;
-  height: 29px;
-  width: 29px;
-  border: 3px solid #03498e;
+  height: 20px;
+  width: 20px;
+  border: 3px solid #00529b;
   border-radius: 15%;
 }
 /*KS: When the checkbox is checked, add a blue background */
 .chk-gov > div  input:checked ~ .chk-check {
-  background-color: #03498e;
+  background-color: #00529b;
 }
 /*KS: Create the indicator (the dot/circle - hidden when not checked) */
 .chk-check:after {
@@ -909,10 +931,10 @@ KS: gov checkbox Start
 }
 /*KS: Style the indicator (dot/circle) */
 .chk-gov > div  .chk-check:after {
-  left: 7px;
-  top: -2px;
-  width: 10px;
-  height: 20px;
+  left: 6.5px;
+  top: 1px;
+  width: 3px;
+  height: 10px;
   border: solid white;
   border-width: 0 5px 5px 0;
   -webkit-transform: rotate(45deg);
@@ -921,7 +943,7 @@ KS: gov checkbox Start
 }
 /*KS: Customizes the helptext */
 .chk-gov > div .helptext {
-    font-size: 14px;
+    font-size: 1rem;
     position: absolute;
     top: 32px;
     left:0px;
@@ -935,7 +957,7 @@ KS: gov checkbox Start
     position: absolute;
     top: -22px;
     left: 0px;
-    font-size: 16px !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
     /*padding-bottom: 24px !important;*/
 }
@@ -965,7 +987,7 @@ KS: Custom gov multi-checkbox - Start
   padding-left: 35px;
   margin-bottom: 12px;
   /*cursor: pointer;*/
-  font-size: 22px;
+  font-size: 1rem;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -995,11 +1017,11 @@ KS: Custom gov multi-checkbox - Start
   width: 29px;
   background-color: white;/*uncheck background*/
   border-radius: 15%;
-  border: 3px solid #03498e;
+  border: 3px solid #00529b;
 }
 /*KS: When checked, it fills background*/
 .mchk-gov > div > fieldset > span  input:checked ~ .mchk-check {
-    background-color: #03498e;
+    background-color: #00529b;
 }
 /*KS: Create the indicator (the dot/circle - hidden when not checked) */
 .mchk-check:after {
@@ -1025,12 +1047,12 @@ KS: Custom gov multi-checkbox - Start
 }
 /*KS: Customizes the help text */
 .mchk-gov > div > fieldset .helptext {
-    font-size: 16px;
+    font-size: 1rem;
     margin-bottom: 16px;
 }
 /*KS: Customizes the title/legend */
 .mchk-gov legend {
-    font-size: 24px;
+    font-size: 1rem;
     line-height: 1.2 !important;
     margin-bottom: 0 !important;
 }
@@ -1046,7 +1068,7 @@ KS: Custom gov multi-checkbox - Start
 /*KS: The error text when field is invalid*/
 .mchk-gov .dform_validationMessage{
     padding-bottom: 24px !important;
-    font-size: 16px !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
 }
 .mchk-gov > div > fieldset > span  input:focus ~ .mchk-check{
@@ -1072,7 +1094,8 @@ KS: Custom gov multi-checkbox - Start
 .width-fit-content{
     width: fit-content !important;
     width: intrinsic !important;
-    width: -moz-max-content !important; 
+    width: -moz-max-content !important;
+    display: inline-block;
 }
 .text-align-right > .one,.text-align-right > .two,.text-align-right > .three,.text-align-right > .four,.text-align-right > .five,.text-align-right > .six,.text-align-right > .seven,.text-align-right > .eight,.text-align-right > .nine,.text-align-right > .ten,.text-align-right > .eleven,.text-align-right > legend{
     text-align: right !important;
@@ -1115,25 +1138,24 @@ KS: Custom gov multi-checkbox - Start
 .box-h1 p{
     color: white !important;
     font-weight: 700 !important;
-    font-size: 35px;
+    font-size: 2rem;
     margin-top: 0px;
     margin-bottom: 0px;
     text-align: center;
 }
 .box-h2 p{
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold !important;
     color: white !important;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin: 3px;
     text-align: center;
 }
 .box-green{
-    background: #03498e;
+    background: #00823b;
     margin-bottom: 6px;
 }
 .box-blue{
-    background: #03498e;
+    background: #00529b;
     margin-bottom: 6px;
 }
 .box-orange{
@@ -1146,7 +1168,7 @@ KS: Custom gov multi-checkbox - Start
 .box-green legend,.box-blue legend,.box-orange legend{
     color: white !important;
     font-weight: 700 !important;
-    font-size: 35px !important;
+    font-size: 1.5rem !important;
     text-align: center;
 }
 
@@ -1190,7 +1212,7 @@ KS: Custom gov multi-checkbox - Start
     height: 0px;
 }
 .detail-block{
-    border-left: 5px solid #03498e;
+    border-left: 5px solid #00529b;
     padding-left: 10px;
     position: relative;
     top: -7px;
@@ -1276,18 +1298,15 @@ KS: Custom gov multi-checkbox - Start
     display:none !important;   
 }
 .paragraph-normal, .p-n{
-    margin:3px !important;
-    font-size:1rem !important;
+    font-size: 1rem !important;
     line-height: 1.17 !important;
 }
 .paragraph-medium, .p-m{
-    margin:3px !important;
-    font-size:1.5rem !important;
+    font-size: 1.5rem !important;
     line-height: 1.17 !important;
 }
 .paragraph-large, .p-l{
-    margin:3px !important;
-    font-size:2rem !important;
+    font-size: 2rem !important;
     line-height: 1.17 !important;
 }
 /*KS for search button on same line as search text - i.e. text and button on same line*/
@@ -1411,15 +1430,15 @@ abbr{
 }
 
 #dform_container input, #dform_container select, #dform_container textarea {
-    font-size: 1.4em;
+    font-size: 1rem;
     padding: 8px;
 }
 
 .btn-gov, .btn-back, .btn-gov:hover, .btn-gov:focus, .btn-back:hover, .btn-back:focus, .btn-orange, .btn-orange:focus, .btn-orange:hover{
     background-color: #fff !important;
-    border: 2px solid #03498e !important;
+    border: 2px solid #00823b !important;
     border-radius: 4.5rem !important;
-    color: #03498e !important;
+    color: #00823b !important;
     cursor: pointer !important;
     font-family: "Roboto",sans-serif !important;
     margin: 0 0 .75rem !important;
@@ -1432,13 +1451,13 @@ abbr{
     transition: background-color .1s ease-out,border-color .1s ease-out,color .1s ease-out !important;
     vertical-align: middle !important;
     box-shadow: none !important;
-    font-size:16px!important;
+    font-size: 0.8rem !important;
 }
 .btn-continue, .btn-continue:hover, .btn-continue:focus{
     background-color: #fff !important;
-    border: 2px solid #03498e !important;
+    border: 2px solid #00823b!important;
     border-radius: 4.5rem !important;
-    color: #03498e !important;
+    color: #00529b !important;
     cursor: pointer !important;
     font-family: "Roboto",sans-serif !important;
     margin: 0 0 .75rem !important;
@@ -1451,10 +1470,10 @@ abbr{
     transition: background-color .1s ease-out,border-color .1s ease-out,color .1s ease-out !important;
     vertical-align: middle !important;
     box-shadow: none !important;
-    font-size:16px!important;
+    font-size: 0.8rem !important;
     
-    background-color: #03498e !important;
-    border-color: #03498e !important;
+    background-color: #00823b !important;
+    border-color: #00823b !important;
     color: #fff !important;
 }
 
@@ -1541,6 +1560,11 @@ abbr{
     text-transform: initial;
     line-height: initial;
 }
+
+#dform_container .header1 {
+  font-size:2rem
+}
+
 #dform_container .label, #dform_container label {
       width: inherit;
 }
@@ -1553,5 +1577,36 @@ abbr{
 .actionList{
     display: none;
 }
+
+#dform_container .sizer.content{
+	margin-left: 10px;
+	margin-right: -10px;
+	left: -10px;
+}
 /*CPE overrite - END*/
 /*Edinburgh portal adaption END*/
+/*To fix font issue on IE based on this answer https://stackoverflow.com/a/14506177 and https://stackoverflow.com/q/14207425*/
+@font-face {
+    font-family: 'SpartaIcons';
+    font-style: normal;
+    font-weight: all;
+    src: url('/dformresources/themes/fonts/SpartaIcons/spartaicons-webfont.eot');/*IE only accepts one src - the ? makes ie think the rest of the fontface is a query*/
+    src: url('/dformresources/themes/fonts/SpartaIcons/spartaicons-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/dformresources/themes/fonts/SpartaIcons/spartaicons-webfont.woff') format("woff");
+}
+
+var {
+  font-style: normal !important;
+}
+
+#dform_container .helptext {
+  font-style: normal !important
+}
+
+.accordion_label::before {
+  content: "\25b6";
+}
+
+.accordion_label.open::before {
+  content: "\25bc";
+}
