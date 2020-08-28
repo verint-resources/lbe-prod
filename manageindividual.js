@@ -356,6 +356,7 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
         console.log('I am a customer ');
         KDF.setVal('txt_customer_id', id);
         KDF.showWidget('but_cust_info_update_address');
+        KDF.showSection('area_customer_information'); 
     }
 }//end do_KDF_objectdataLoaded_Individual
 
