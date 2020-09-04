@@ -7,7 +7,7 @@ function do_KDF_Ready_Individual(event, kdf) {
 
     console.log('do_KDF_Ready_Individual');
     if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
-        KDF.customdata('person-retrieve-new', 'individual_template_KDF_Ready', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
+        KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'KDF_Ready', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
     }
 
     var form_name = kdf.name;
@@ -29,46 +29,13 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.setVal('txt_p_postcode', KDF.getVal('txt_logic_postcode'));
     });
 
-    /*
-    $('#dform_widget_ps_create_individual_searchbutton').off('click').on('click', function () {
-        console.log('dform_widget_ps_create_individual_searchbutton is clicked');
-    });//end dform_widget_ps_create_individual_searchbutton
-
-    
-    $('#dform_widget_cs_customer_search_searchbutton').off('click').on('click', function () {
-        console.log('dform_widget_cs_customer_search_searchbutton is clicked');
-
-        var firstName = KDF.getVal('cs_txt_firstname').length;
-        console.log('firstName =', firstName); 
-        var lastName = KDF.getVal('cs_txt_lastname').length;
-        var postCode = KDF.getVal('cs_txt_postcode').length;
-        var totalLength = firstName + lastName + postCode;
-        console.log('totalLength = ', totalLength); 
-
-        if (totalLength > 2) {
-            console.log('allow to proceed'); 
-        }
-
-        if (totalLength < 3) {
-            console.log('Not allowed to proceed'); 
-            event.preventDefault();
-            KDF.showInfo('Please complete the search fields before proceeding');
-        }
-
-    });//end dform_widget_cs_customer_search_searchbutton
-
-    $('#dform_widget_ps_existing_customer_searchbutton').off('click').on('click', function () {
-        console.log('dform_widget_ps_existing_customer_searchbutton is clicked');
-    });//end dform_widget_ps_existing_customer_searchbutton
-    */
-
     // Button "Continue" on Customer Information page click event.
     $('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
         console.log('KDF.getVal(txt_access)=' + KDF.getVal('txt_access'));
         console.log('custDetailsCheck= ' + custDetailsCheck());
+		
         if (KDF.getVal('txt_access') === 'agent' && custDetailsCheck()) {
-            console.log('here');
-            KDF.customdata('update-individual-new', 'no-address-update', true, true, {
+            KDF.customdata('update-individual-new', individualTemplateIdentifier + 'no-address-update', true, true, {
                 'customerID': KDF.getVal('txt_customer_id'),
                 'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
                 'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
@@ -84,8 +51,7 @@ function do_KDF_Ready_Individual(event, kdf) {
     // Button "Continue" on Customer details - address page click event.
     $('#dform_widget_button_but_continue_customer_address').click(function () {
         if (KDF.getVal('txt_access') === 'agent' && custAddresssCheck() || custDetailsCheck()) {
-            console.log('here address');
-            KDF.customdata('update-individual-new', 'create', true, true, {
+            KDF.customdata('update-individual-new', individualTemplateIdentifier + 'create', true, true, {
                 'customerID': KDF.getVal('txt_customer_id'),
                 'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
                 'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
@@ -150,7 +116,7 @@ function do_KDF_Ready_Individual(event, kdf) {
     $('#dform_widget_button_but_continue_individual_address').click(function () {
         console.log('dform_widget_button_but_continue_individual_address clicked');
 
-        KDF.customdata('create-individual-new', 'create', true, true, {
+        KDF.customdata('create-individual-new', individualTemplateIdentifier + 'create', true, true, {
             'txt_c_forename': KDF.getVal('txt_c_forename'),
             'txt_c_surname': KDF.getVal('txt_c_surname'),
             'tel_c_telephone': KDF.getVal('tel_c_telephone'),
@@ -254,76 +220,64 @@ function do_KDF_Ready_Individual(event, kdf) {
 
 
 function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
-    if (typeof actionedby == 'undefined' || actionedby == '') { actionedby = 'na'; }
-    console.log('actionedby= ' + actionedby);
-    var detectIndividualTemplateFunction = actionedby.indexOf(individualTemplateIdentifier);
-    console.log('detectIndividualTemplateFunction= ' + detectIndividualTemplateFunction);
-    if (typeof detectIndividualTemplateFunction == 'undefined') { detectIndividualTemplateFunction = 'na'; }
-    var individualTemplateActionedBySource = '';
-    //individual_template_KDF_Ready
+    //if (typeof response.actionedby == 'undefined' || response.actionedby == '') { response.actionedby = 'na'; }
+    //console.log('actionedby= ' + response.actionedby);
+	
+	var isIndividualTemplate = false;
+	
+	if (response.actionedby.indexOf(individualTemplateIdentifier) === 0) {isIndividualTemplate = true;}
+	console.log('is Individual template ? ', isIndividualTemplate);
+	
+	if (isIndividualTemplate) {		
+		var actionedBySource = response.actionedby.replace(individualTemplateIdentifier, '');
+		console.log('Actioned by source :', actionedBySource);
+		
+		if (action === 'person-retrieve-new' && actionedBySource === 'KDF_Ready') {
+			console.log('person-retrieve-new show update address button');
+			KDF.showWidget('but_cust_info_update_address');
+			//Ensure the First Name and Last Name are read-only, aunthenticated citizen
+			if (KDF.kdf().access === 'citizen') {
+				$("#dform_widget_txt_cust_info_first_name").attr("readonly", true);
+				$("#dform_widget_txt_cust_info_last_name").attr("readonly", true);
+				$("#dform_widget_eml_cust_info_email").attr("readonly", true);
+				$("#dform_widget_tel_cust_info_phone").attr("readonly", true);
+				$("#dform_widget_txta_cust_info_address").attr("readonly", true);
 
-    if (individualTemplateActionedBySource == 'kdf_ready') {
-        //Conduct 
+			}
+			
+			KDF.showWidget('but_cust_info_update_address');
+			KDF.showSection('area_customer_information');
+			$('#dform_widget_txta_cust_info_address').prop('readonly', true);
+		}
+		else if (action === 'person-retrieve-new' && actionedBySource == 'update-individual') {
+			console.log('custom action point 2');
+			KDF.gotoNextPage();
 
-    }
+		}
+		else if (action === 'person-retrieve-new' && actionedBySource == 'create-individual') {
+			console.log('custom action point 3');
+			KDF.gotoNextPage();
 
+		}
+		else if (action === 'update-individual-new') {
+			console.log('custom action point 4');
+			KDF.showSuccess('Individual Details Updated');
+			KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'update-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
+			KDF.showInfo('Individual Details Updated');
 
-    console.log('detectIndividualTemplateFunction :', detectIndividualTemplateFunction);
-
-    if (action === 'person-retrieve-new') {
-        console.log('person-retrieve-new show update address button');
-        KDF.showWidget('but_cust_info_update_address');
-        //Ensure the First Name and Last Name are read-only, aunthenticated citizen
-        if (KDF.kdf().access === 'citizen') {
-            $("#dform_widget_txt_cust_info_first_name").attr("readonly", true);
-            $("#dform_widget_txt_cust_info_last_name").attr("readonly", true);
-            $("#dform_widget_eml_cust_info_email").attr("readonly", true);
-            $("#dform_widget_tel_cust_info_phone").attr("readonly", true);
-            $("#dform_widget_txta_cust_info_address").attr("readonly", true);
-
-        }
-    }
-
-    if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'kdf_ready' && detectIndividualTemplateFunction) {
-        console.log('custom action point 1');
-        $('#dform_widget_txta_cust_info_address').prop('readonly', true);
-
-
-    }
-
-    if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'update-individual' && detectIndividualTemplateFunction) {
-        console.log('custom action point 2');
-        KDF.gotoNextPage();
-
-    }
-
-    if (action === 'person-retrieve-new' && individualTemplateActionedBySource == 'create-individual' && detectIndividualTemplateFunction) {
-        console.log('custom action point 3');
-        KDF.gotoNextPage();
-
-    }
-
-    if (action === 'update-individual-new' && detectIndividualTemplateFunction) {
-        console.log('custom action point 4');
-        KDF.showSuccess('Individual Details Updated');
-        KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'update-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
-        KDF.showInfo('Individual Details Updated');
-
-    }
-
-    if (action == 'create-individual-new' && detectIndividualTemplateFunction) {
-        console.log('custom action point 5');
-        if (response.data.txt_customerID !== undefined) {
-            console.log('custom action point 5a');
-            KDF.showSuccess('Individual Details Created');
-            KDF.showInfo('Individual Details Created');
-            KDF.setVal('txt_customer_id', response.data.txt_customerID);
-            KDF.setCustomerID(response.data.txt_customerID, false, false); /*set Reporter*/
-            KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'create-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
-            KDF.gotoNextPage();
-        }
-    }
-
+		}
+		else if (action == 'create-individual-new') {
+			console.log('custom action point 5');
+			if (response.data.txt_customerID !== undefined) {
+				console.log('custom action point 5a');
+				KDF.showSuccess('Individual Details Created');
+				KDF.showInfo('Individual Details Created');
+				KDF.setVal('txt_customer_id', response.data.txt_customerID);
+				KDF.setCustomerID(response.data.txt_customerID, false, false); /*set Reporter*/
+				KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'create-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
+			}
+		}
+	}
 
 	/* ORIGINAL
 	if (action === 'person-retrieve-new') {
@@ -356,14 +310,12 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
         console.log('I am a customer ');
         KDF.setVal('txt_customer_id', id);
         KDF.showWidget('but_cust_info_update_address');
-        KDF.showSection('area_customer_information'); 
+        KDF.showSection('area_customer_information');
     }
 }//end do_KDF_objectdataLoaded_Individual
 
 
 function do_KDF_fieldChange_Individual(event, kdf, field) {
-    console.log('field.name =', field.name);
-    console.log('field.value =', field.value);
 
     /*
     if (field.name == 'ps_createindividual_txt_streetname' || field.name == 'ps_createindividual_txt_postcode') {
