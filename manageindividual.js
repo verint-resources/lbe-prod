@@ -256,6 +256,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 		}
 		else if (action === 'person-retrieve-new' && actionedBySource == 'create-individual') {
 			console.log('custom action point 3');
+			KDF.setCustomerID(KDF.getVal('txt_customer_id'), true, false); /*set Reporter*/
 			KDF.gotoNextPage();
 
 		}
@@ -273,7 +274,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 				KDF.showSuccess('Individual Details Created');
 				KDF.showInfo('Individual Details Created');
 				KDF.setVal('txt_customer_id', response.data.txt_customerID);
-				KDF.setCustomerID(response.data.txt_customerID, true, true); /*set Reporter*/
+				//KDF.setCustomerID(response.data.txt_customerID, true, false); /*set Reporter*/
 				KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'create-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
 			}
 		}
