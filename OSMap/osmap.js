@@ -102,7 +102,7 @@ function do_KDF_Ready_OSMap(event, kdf) {
 
 		console.log('Map extend:', xmin, xmax, ymin, ymax);
 		if (map.getZoom() >= 14) {
-			KDF.customdata('get_open_case_marker', osmapTemplateIdentifier + 'kdf_ready', true, true, {
+			KDF.customdata('get_open_case_marker', osmapTemplateIdentifier + 'kdf_ready', true, false, {
 				'le_eventcode': '4100009',
 				'xmin': xmin.toString(),
 				'xmax': xmax.toString(),
