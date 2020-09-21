@@ -8,7 +8,7 @@ function do_KDF_Ready_Individual(event, kdf) {
     if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
         KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'KDF_Ready', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
     }
-    else if (KDF.kdf().access === 'citizen' || (KDF.getVal('rad_viewmode') === 'R' && KDF.getVal('rad_viewmode') === 'U'))) {
+    else if (KDF.kdf().access === 'citizen' || (KDF.getVal('rad_viewmode') === 'R' && KDF.getVal('rad_viewmode') === 'U')) {
 	 KDF.showSection('area_customer_information');
     }
 
