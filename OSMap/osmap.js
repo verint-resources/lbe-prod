@@ -139,7 +139,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action, actionedby) {
 			KDF.setVal('le_gis_lat', lat);
 			KDF.setVal('le_associated_obj_id', response.data.object_id);
 			KDF.setVal('txt_map_uprn', response.data.UPRN);
-			KDF.setVal('txt_map_full_address', response.data.formatted_address);
+			KDF.setVal('txt_map_full_address', response.data.description);
 
 			if (pinMarker !== undefined) {
 				map.removeLayer(pinMarker);
@@ -150,14 +150,15 @@ function do_KDF_Custom_OSMap(event, kdf, response, action, actionedby) {
 					interactive: true
 				});
 
-			var popup = L.popup().setContent(response.data.formatted_address);
+			var popup = L.popup().setContent(response.data.description);
 			pinMarker.addTo(map).bindPopup(popup).openPopup();
 		} else if (action === 'reverse_geocode') {
-			KDF.setVal('le_associated_obj_id', response.data.object_id);
-			KDF.setVal('txt_map_uprn', response.data.UPRN);
-			KDF.setVal('txt_map_full_address', response.data.formatted_address);
-
-			var popup = L.popup().setContent(response.data.formatted_address);
+			if (response.data.outcome === 'success') {
+				KDF.setVal('le_associated_obj_id', response.data.object_id);
+				KDF.setVal('txt_map_uprn', response.data.UPRN);
+				KDF.setVal('txt_map_full_address', response.data.description);
+			}
+			var popup = L.popup().setContent(response.data.description);
 			pinMarker.addTo(map).bindPopup(popup).openPopup();
 		} else if (action === 'get_open_case_marker') {
 			var markers = [];
