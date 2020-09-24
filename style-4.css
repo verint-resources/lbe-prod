@@ -1604,9 +1604,10 @@ var {
 }
 
 .accordion_label::before {
+  content: "\25bc";
+}
+
+.accordion_label.closed::before {
   content: "\25b6";
 }
 
-.accordion_label.open::before {
-  content: "\25bc";
-}
