@@ -28,20 +28,20 @@ function addAccordion(){
 
 	    $('.accordion_container[data-for="' + search_widget_name + '"]').prepend('<label class="accordion_label" data-for="' + search_widget_name + '">Search for ' + label + '</label>');
 
-	    $(element).find('fieldset[data-type="search"').wrap('<div class="accordion_content" data-for="' + search_widget_name + '" style="display:none;"></div>');
+	    $(element).find('fieldset[data-type="search"').wrap('<div class="accordion_content" data-for="' + search_widget_name + '" style></div>');
 
 	    $('.accordion_label[data-for="' + search_widget_name + '"]').click(function () {
-		$(this).toggleClass("open");
+		$(this).toggleClass("closed");
 		var data = $(this).data('for');
-		var isOpen = $(this).hasClass('open');
-		if (isOpen) {
-		    $('.accordion_content[data-for="' + data + '"]').show();
-		} else {
+		var isClosed = $(this).hasClass('closed');
+		if (isClosed) {
 		    $('.accordion_content[data-for="' + data + '"]').hide();
+		} else {
+		    $('.accordion_content[data-for="' + data + '"]').show();
 		}
 	    });
 	}
-	if (KDF.getVal('txt_customer_id') === '') {
+	if (KDF.getVal('txt_customer_id') !== '') {
             $('.accordion_label[data-for="'+search_widget_name+'"]').click();
         }
 }//end addAccordion
