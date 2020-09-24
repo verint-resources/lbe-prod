@@ -31,11 +31,12 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.setVal('txt_p_postcode', KDF.getVal('txt_logic_postcode'));
     });
 
-    // Button "Continue" on Customer Information page click event.
+    // Button "Continue" on Your Details page click event.
     $('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
         console.log('KDF.getVal(txt_access)=' + KDF.getVal('txt_access'));
         console.log('custDetailsCheck= ' + custDetailsCheck());
-		
+	KDF.setVal('eml_subscriber', KDF.getVal('eml_cust_info_email'));
+	    
         if (KDF.getVal('txt_access') === 'agent' && custDetailsCheck()) {
             KDF.customdata('update-individual-new', individualTemplateIdentifier + 'no-address-update', true, true, {
                 'customerID': KDF.getVal('txt_customer_id'),
