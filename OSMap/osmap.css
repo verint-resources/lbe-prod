@@ -15,8 +15,8 @@
     background: white;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
-    font-weight: bold !important;
-    display: block !importan; /* Make sure the Legend is displayed on Portal*/
+    font-weight: bold; !important;
+    display: block; !important; /* Make sure the Legend is displayed on Portal*/
 }
 
 .info.legend img {
