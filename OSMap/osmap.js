@@ -18,6 +18,28 @@ function do_KDF_Ready_OSMap(event, kdf) {
 		minZoom: 7
 	}).addTo(map);
 	map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.
+	
+	// Add legend to the map - Start
+	var legend_icons = [
+		{label:"Current Location", url:"https://unpkg.com/leaflet@1.0.0/dist/images/marker-icon.png"},
+		{label:"Open Issue", url:"/dformresources/content/map-blue.png"}
+	];
+	if (legend_icons.length > 0) {
+		var legend = L.control({position: 'topright'});
+		legend.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info legend');
+
+			// loop through list of icons
+			for (var i = 0; i < legend_icons.length; i++) {
+				div.innerHTML +=
+					("<img src="+ legend_icons[i].url +" alt='"+legend_icons[i].label+"' style='width:30px;height:30px;vertical-align:middle;'>") + legend_icons[i].label + '<br>';
+			}
+
+			return div;
+		};
+		legend.addTo(map);
+	}
+	// Add legend to the map - End
 
 	//Add the Boundary KML file as a layer
 	var boundaryLayer = new L.KML("https://ver-dev-workings.github.io/files/OSMap/KML/EnfieldBoroughBoundary.kml", {
