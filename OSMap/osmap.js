@@ -10,7 +10,7 @@ proj4.defs([
 		]
 	]);
 
-function do_KDF_fieldChange_OSMap(event,kdf,currentpageid,targetpageid) {
+function do_KDF_pageChange_OSMap(event,kdf,currentpageid,targetpageid) {
 	$('.dform_page[data-pos="'+targetpageid+'"] div[id="map"]').each(function() {
 		initialiseOSMap(this);
 	});
