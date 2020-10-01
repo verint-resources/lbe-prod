@@ -1,4 +1,4 @@
-//The purpose of this file is to isolate the specific JS functions required to handle the individual pages and function in the Verint individual template.
+//The purpose of this file is to isolate the specific JS functions required to handle the organization pages and function in the Verint organization template.
 
 var organizationTemplateIdentifier = 'organization_template_';
 
@@ -223,12 +223,12 @@ function do_KDF_Custom_Organization(event, kdf, response, action, actionedby) {
     //if (typeof response.actionedby == 'undefined' || response.actionedby == '') { response.actionedby = 'na'; }
     //console.log('actionedby= ' + response.actionedby);
 	
-	var isIndividualTemplate = false;
+	var isOrganizationTemplate = false;
 	
-	if (response.actionedby.indexOf(organizationTemplateIdentifier) === 0) {isIndividualTemplate = true;}
-	console.log('is Individual template ? ', isIndividualTemplate);
+	if (response.actionedby.indexOf(organizationTemplateIdentifier) === 0) {isOrganizationTemplate = true;}
+	console.log('is Organization template ? ', isOrganizationTemplate);
 	
-	if (isIndividualTemplate) {		
+	if (isOrganizationTemplate) {		
 		var actionedBySource = response.actionedby.replace(organizationTemplateIdentifier, '');
 		console.log('Actioned by source :', actionedBySource);
 		
@@ -280,9 +280,9 @@ function do_KDF_Custom_Organization(event, kdf, response, action, actionedby) {
 
 
 function do_KDF_objectdataLoaded_Organization(event, kdf, response, type, id) {
-    console.log('do_KDF_objectdataLoaded_Individual type: ' + type);
-    console.log('do_KDF_objectdataLoaded_Individual id: ' + id);
-    console.log('do_KDF_objectdataLoaded_Individual response: ', response);
+    console.log('do_KDF_objectdataLoaded_Organization type: ' + type);
+    console.log('do_KDF_objectdataLoaded_Organization id: ' + id);
+    console.log('do_KDF_objectdataLoaded_Organization response: ', response);
     
     if (type === 'organisation') {
         console.log('I am a organisation ');
@@ -290,7 +290,7 @@ function do_KDF_objectdataLoaded_Organization(event, kdf, response, type, id) {
         KDF.showWidget('but_org_info_update_address');
         KDF.showSection('area_organization_information');
     }
-}//end do_KDF_objectdataLoaded_Individual
+}//end do_KDF_objectdataLoaded_Organization
 
 // Check if the organization detail is change
 function orgDetailsCheck() {
