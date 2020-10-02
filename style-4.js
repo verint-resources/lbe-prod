@@ -860,7 +860,7 @@ function addAutoComplete() {
 		$('[id*="forename"],[id*="firstname"],[id*="first_name"]').attr("autocomplete","given-name");
 		$('[id*="surname"],[id*="lastname"],[id*="last_name"]').attr("autocomplete","family-name"); 		
 		$('[id*="phone"],[id*="tel"]').attr("autocomplete","tel");
-		$('[id*="town"]').attr("autocomplete","address-level2"); 
+		$('[id*="town"]').attr("autocomplete","shipping address-level2"); 
 		$('[id*="postcode"]').attr("autocomplete","postal-code"); 
 		$('[id*="street_name"], [id*="address_name"]').attr("autocomplete","address-line1 street-address"); 
 	}
