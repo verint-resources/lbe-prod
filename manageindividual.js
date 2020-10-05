@@ -38,13 +38,15 @@ function do_KDF_Ready_Individual(event, kdf) {
 	KDF.setVal('eml_subscriber', KDF.getVal('eml_cust_info_email'));
 	    
         if (KDF.getVal('txt_access') === 'agent' && custDetailsCheck()) {
-            KDF.customdata('update-individual-new', individualTemplateIdentifier + 'no-address-update', true, true, {
-                'customerID': KDF.getVal('txt_customer_id'),
-                'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
-                'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
-                'phone': KDF.getVal('tel_cust_info_phone'),
-                'email': KDF.getVal('eml_cust_info_email')
-            });
+            if (KDF.check('.dform_section_area_customer_information') === 0) {
+            	KDF.customdata('update-individual-new', individualTemplateIdentifier + 'no-address-update', true, true, {
+					'customerID': KDF.getVal('txt_customer_id'),
+					'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
+					'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
+					'phone': KDF.getVal('tel_cust_info_phone'),
+					'email': KDF.getVal('eml_cust_info_email')
+				});
+            }
         }
         else {
             KDF.gotoNextPage();
@@ -54,18 +56,20 @@ function do_KDF_Ready_Individual(event, kdf) {
     // Button "Continue" on Customer details - address page click event.
     $('#dform_widget_button_but_continue_customer_address').click(function () {
         if (KDF.getVal('txt_access') === 'agent' && custAddresssCheck() || custDetailsCheck()) {
-            KDF.customdata('update-individual-new', individualTemplateIdentifier + 'create', true, true, {
-                'customerID': KDF.getVal('txt_customer_id'),
-                'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
-                'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
-                'phone': KDF.getVal('tel_cust_info_phone'),
-                'email': KDF.getVal('eml_cust_info_email'),
-                'num_p_streetnumber': KDF.getVal('num_p_streetnumber'),
-                'txt_p_streetname': KDF.getVal('txt_p_streetname'),
-                'txt_p_town': KDF.getVal('txt_p_town'),
-                'txt_p_postcode': KDF.getVal('txt_p_postcode'),
-                'txt_p_uprn': KDF.getVal('txt_p_uprn')
-            });
+            if (KDF.check('.dform_section_area_customer_details_address') === 0) {
+                KDF.customdata('update-individual-new', individualTemplateIdentifier + 'create', true, true, {
+					'customerID': KDF.getVal('txt_customer_id'),
+					'txt_first_name': KDF.getVal('txt_cust_info_first_name'),
+					'txt_last_name': KDF.getVal('txt_cust_info_last_name'),
+					'phone': KDF.getVal('tel_cust_info_phone'),
+					'email': KDF.getVal('eml_cust_info_email'),
+					'num_p_streetnumber': KDF.getVal('num_p_streetnumber'),
+					'txt_p_streetname': KDF.getVal('txt_p_streetname'),
+					'txt_p_town': KDF.getVal('txt_p_town'),
+					'txt_p_postcode': KDF.getVal('txt_p_postcode'),
+					'txt_p_uprn': KDF.getVal('txt_p_uprn')
+				});	
+            }
         }
         else {
             KDF.gotoNextPage();
@@ -118,19 +122,21 @@ function do_KDF_Ready_Individual(event, kdf) {
     /* create individual when button continue is clicked*/
     $('#dform_widget_button_but_continue_individual_address').click(function () {
         console.log('dform_widget_button_but_continue_individual_address clicked');
-
-        KDF.customdata('create-individual-new', individualTemplateIdentifier + 'create', true, true, {
-            'txt_c_forename': KDF.getVal('txt_c_forename'),
-            'txt_c_surname': KDF.getVal('txt_c_surname'),
-            'tel_c_telephone': KDF.getVal('tel_c_telephone'),
-            'eml_c_email': KDF.getVal('eml_c_email'),
-            'tel_c_mobile': KDF.getVal('tel_c_mobile'),
-            'txt_c_addressnumber': KDF.getVal('txt_c_addressnumber'),
-            'txt_c_addressline1': KDF.getVal('txt_c_addressline1'),
-            'txt_c_town': KDF.getVal('txt_c_town'),
-            'txt_c_postcode': KDF.getVal('txt_c_postcode'),
-            'txt_c_uprn': KDF.getVal('txt_c_uprn')
-        });
+        
+        if (KDF.check('dform_section_area_create_individual_address') === 0) {
+            KDF.customdata('create-individual-new', individualTemplateIdentifier + 'create', true, true, {
+				'txt_c_forename': KDF.getVal('txt_c_forename'),
+				'txt_c_surname': KDF.getVal('txt_c_surname'),
+				'tel_c_telephone': KDF.getVal('tel_c_telephone'),
+				'eml_c_email': KDF.getVal('eml_c_email'),
+				'tel_c_mobile': KDF.getVal('tel_c_mobile'),
+				'txt_c_addressnumber': KDF.getVal('txt_c_addressnumber'),
+				'txt_c_addressline1': KDF.getVal('txt_c_addressline1'),
+				'txt_c_town': KDF.getVal('txt_c_town'),
+				'txt_c_postcode': KDF.getVal('txt_c_postcode'),
+				'txt_c_uprn': KDF.getVal('txt_c_uprn')
+			});	
+        }
     });
 
     $('#dform_widget_ps_existing_customer_resultholder').on('show', function () {
@@ -245,7 +251,15 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 				$("#dform_widget_eml_cust_info_email").attr("readonly", true);
 				$("#dform_widget_tel_cust_info_phone").attr("readonly", true);
 				$("#dform_widget_txta_cust_info_address").attr("readonly", true);
+				$("#dform_widget_txt_cust_info_street_number").attr("readonly", true);
+				$("#dform_widget_txt_cust_info_street_name").attr("readonly", true);
+				$("#dform_widget_txt_cust_info_town").attr("readonly", true);
+				$("#dform_widget_txt_cust_info_postcode").attr("readonly", true);
 
+				KDF.setVal('txt_cust_info_street_number', KDF.getVal('txt_logic_streetnumber'));
+				KDF.setVal('txt_cust_info_street_name', KDF.getVal('txt_logic_streetname'));
+				KDF.setVal('txt_cust_info_town', KDF.getVal('txt_logic_town'));
+				KDF.setVal('txt_cust_info_postcode', KDF.getVal('txt_logic_postcode'));
 			}
 			
 			KDF.showWidget('but_cust_info_update_address');
@@ -310,6 +324,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
     console.log('do_KDF_objectdataLoaded_Individual type: ' + type);
     console.log('do_KDF_objectdataLoaded_Individual id: ' + id);
+    console.log('do_KDF_objectdataLoaded_Individual response: ', response);
     if (type === 'customer') {
         console.log('I am a customer ');
         KDF.setVal('txt_customer_id', id);
@@ -422,5 +437,4 @@ function clearCustomerInformation() {
     KDF.setVal('tel_cust_info_phone', '');
     KDF.setVal('txta_cust_info_address', '');
 }
-
 
