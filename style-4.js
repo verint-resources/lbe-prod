@@ -41,9 +41,10 @@ function addAccordion(){
 		}
 	    });
 	}
-	if (KDF.getVal('txt_customer_id') !== '') {
-            $('.accordion_label[data-for="'+search_widget_name+'"]').click();
-        }
+	if (KDF.getVal('txt_customer_id') !== '' && typeof KDF.getParams().customerid !== 'undefined') {
+		$('.accordion_label[data-for="dform_widget_cs_customer_search_id"]').click();
+		$('.accordion_label[data-for="dform_widget_ps_citizen_property_search_id"]').click();
+	}
 }//end addAccordion
 /**
 =====================================
