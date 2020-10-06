@@ -94,7 +94,7 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.hideWidget('but_individual_not_found');
         KDF.hideWidget('but_cust_info_update_address');
     });
-
+    
     $('#dform_widget_ps_create_individual_resultholder').on('show', function () {
         console.log('ps_create_individual_resultholder on show event');
         KDF.showWidget('txt_c_addressnumber');
@@ -248,13 +248,13 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 			if (KDF.kdf().access === 'citizen') {
 				$("#dform_widget_txt_cust_info_first_name").attr("readonly", true);
 				$("#dform_widget_txt_cust_info_last_name").attr("readonly", true);
-				$("#dform_widget_eml_cust_info_email").attr("readonly", true);
-				$("#dform_widget_tel_cust_info_phone").attr("readonly", true);
+				$("#dform_widget_eml_cust_info_email").attr("readonly", false);
+				$("#dform_widget_tel_cust_info_phone").attr("readonly", false);
 				$("#dform_widget_txta_cust_info_address").attr("readonly", true);
-				$("#dform_widget_txt_cust_info_street_number").attr("readonly", true);
-				$("#dform_widget_txt_cust_info_street_name").attr("readonly", true);
-				$("#dform_widget_txt_cust_info_town").attr("readonly", true);
-				$("#dform_widget_txt_cust_info_postcode").attr("readonly", true);
+				$("#dform_widget_txt_cust_info_street_number").attr("readonly", false);
+				$("#dform_widget_txt_cust_info_street_name").attr("readonly", false);
+				$("#dform_widget_txt_cust_info_town").attr("readonly", false);
+				$("#dform_widget_txt_cust_info_postcode").attr("readonly", false);
 
 				KDF.setVal('txt_cust_info_street_number', KDF.getVal('txt_logic_streetnumber'));
 				KDF.setVal('txt_cust_info_street_name', KDF.getVal('txt_logic_streetname'));
