@@ -48,6 +48,11 @@ function do_KDF_Ready_Individual(event, kdf) {
 				});
             }
         }
+        else if (KDF.getVal('txt_access') === 'citizen') {	
+			var address = KDF.getVal('txt_cust_info_street_number') + ', ' + KDF.getVal('txt_cust_info_street_name') + ', ' + KDF.getVal('txt_cust_info_town') + ', ' + KDF.getVal('txt_cust_info_postcode');
+			KDF.setVal('txta_cust_info_address', address);
+			KDF.gotoNextPage();
+        }
         else {
             KDF.gotoNextPage();
         }
@@ -94,7 +99,7 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.hideWidget('but_individual_not_found');
         KDF.hideWidget('but_cust_info_update_address');
     });
-    
+
     $('#dform_widget_ps_create_individual_resultholder').on('show', function () {
         console.log('ps_create_individual_resultholder on show event');
         KDF.showWidget('txt_c_addressnumber');
