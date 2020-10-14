@@ -189,6 +189,9 @@ function do_KDF_Custom_OSMap(event, kdf, response, action, actionedby) {
 				KDF.setVal('txt_map_uprn', response.data.UPRN);
 				KDF.setVal('txt_map_full_address', response.data.description);
 			}
+			if(KDF.getVal('txt_customer_id') === ''){
+				KDF.setVal('txta_cust_info_address', KDF.getVal('txt_map_full_address'));
+		    	}
 			var popup = L.popup().setContent(response.data.description);
 			pinMarker.addTo(map).bindPopup(popup).openPopup();
 		} else if (action === 'get_open_case_marker') {
