@@ -183,6 +183,8 @@ function do_KDF_Custom_OSMap(event, kdf, response, action, actionedby) {
 
 			var popup = L.popup().setContent(response.data.description);
 			pinMarker.addTo(map).bindPopup(popup).openPopup();
+			
+			KDF.setVal('txt_subs_address', response.data.description);
 		} else if (action === 'reverse_geocode') {
 			if (response.data.outcome === 'success') {
 				KDF.setVal('le_associated_obj_id', response.data.object_id);
@@ -194,6 +196,8 @@ function do_KDF_Custom_OSMap(event, kdf, response, action, actionedby) {
 		    	}
 			var popup = L.popup().setContent(response.data.description);
 			pinMarker.addTo(map).bindPopup(popup).openPopup();
+			
+			KDF.setVal('txt_subs_address', response.data.description);
 		} else if (action === 'get_open_case_marker') {
 			var markers = [];
 
