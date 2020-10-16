@@ -62,7 +62,7 @@ function toggleDebugStyle(){debugStyle = !debugStyle;} var debugStyle = false;
 applyStyle(['recommended']);
 //KS: see 'Non-recommended defaults' within 'defaultNewStyle(elements)' for optional defaults */
 function commonRegex() {
-    regexSearch("[0-9A-Za-z ]{2,}");
+    //regexSearch("[0-9A-Za-z ]{2,}");
     regexSearch('[0-9A-Za-z ]{1,}',
         '.dform_widget_searchfield.txt-gov [data-customalias="forename"]');
     regexSearch('^(EN|en|eN|En|N|n)[A-Za-z0-9\\s]{0,6}$',
