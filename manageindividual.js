@@ -8,7 +8,17 @@ function do_KDF_Ready_Individual(event, kdf) {
     if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
         KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'KDF_Ready', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
     }
-    else if (KDF.kdf().access === 'citizen' || KDF.getVal('rad_viewmode') === 'R' || KDF.getVal('rad_viewmode') === 'U') {
+    else if (KDF.kdf().access === 'citizen') {
+    	KDF.showSection('area_customer_information');
+
+	    KDF.showWidget('ps_citizen_property_search');
+// 		KDF.showWidget('txt_cust_info_street_number');
+// 		KDF.showWidget('txt_cust_info_street_name');
+// 		KDF.showWidget('txt_cust_info_town');
+// 		KDF.showWidget('txt_cust_info_postcode');
+		KDF.hideWidget('txta_cust_info_address');
+    }
+    else if (KDF.getVal('rad_viewmode') === 'R' || KDF.getVal('rad_viewmode') === 'U') {
 	    KDF.showSection('area_customer_information');
     }
 
@@ -49,9 +59,18 @@ function do_KDF_Ready_Individual(event, kdf) {
             }
         }
         else if (KDF.getVal('txt_access') === 'citizen') {	
-			var address = KDF.getVal('txt_cust_info_street_number') + ', ' + KDF.getVal('txt_cust_info_street_name') + ', ' + KDF.getVal('txt_cust_info_town') + ', ' + KDF.getVal('txt_cust_info_postcode');
-			KDF.setVal('txta_cust_info_address', address);
-			KDF.gotoNextPage();
+			if (KDF.check('.dform_section_area_customer_information') === 0) {
+				KDF.hideWidget('ahtm_search_address_warning');
+	            var address = KDF.getVal('txt_cust_info_street_number') + ', ' + KDF.getVal('txt_cust_info_street_name') + ', ' + KDF.getVal('txt_cust_info_town') + ', ' + KDF.getVal('txt_cust_info_postcode');
+				KDF.setVal('txta_cust_info_address', address);
+
+				if (KDF.getVal('txt_cust_info_street_number') != '') {
+				    KDF.gotoNextPage();	
+				}
+			    else {
+					KDF.showWidget('ahtm_search_address_warning');
+				}	
+			}
         }
         else {
             KDF.gotoNextPage();
@@ -159,7 +178,12 @@ function do_KDF_Ready_Individual(event, kdf) {
     });
 
     $('#dform_widget_ps_citizen_property_search_resultholder').on('show', function () {
-        KDF.showWidget('but_property_notfound_citizen');
+        KDF.hideWidget('ahtm_search_address_warning');
+        KDF.hideWidget('but_property_notfound_citizen');
+		KDF.showWidget('txt_cust_info_street_number');
+		KDF.showWidget('txt_cust_info_street_name');
+		KDF.showWidget('txt_cust_info_town');
+		KDF.showWidget('txt_cust_info_postcode');
     });
 
     $('#dform_widget_ps_citizen_property_search_resultholder').on('hide', function () {
@@ -303,6 +327,16 @@ function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
 				KDF.setVal('txt_cust_info_street_name', KDF.getVal('txt_logic_streetname'));
 				KDF.setVal('txt_cust_info_town', KDF.getVal('txt_logic_town'));
 				KDF.setVal('txt_cust_info_postcode', KDF.getVal('txt_logic_postcode'));
+
+				KDF.showWidget('ps_citizen_property_search');
+				// Collapse the property search widget.
+				$('.accordion_label[data-for="dform_widget_ps_citizen_property_search_id"]').click();
+
+				KDF.showWidget('txt_cust_info_street_number');
+				KDF.showWidget('txt_cust_info_street_name');
+				KDF.showWidget('txt_cust_info_town');
+				KDF.showWidget('txt_cust_info_postcode');
+				KDF.hideWidget('txta_cust_info_address');
 			}
 			
 			KDF.showWidget('but_cust_info_update_address');
