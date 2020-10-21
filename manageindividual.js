@@ -294,9 +294,6 @@ function do_KDF_Ready_Individual(event, kdf) {
 
 }//end do_KDF_Ready_Individual
 
-function do_KDF_Custom_Individual(event, kdf, response, action, actionedby) {
-	do_KDF_Custom_Individual(event, kdf, response, action);
-}
 function do_KDF_Custom_Individual(event, kdf, response, action) {
     //if (typeof response.actionedby == 'undefined' || response.actionedby == '') { response.actionedby = 'na'; }
     //console.log('actionedby= ' + response.actionedby);
