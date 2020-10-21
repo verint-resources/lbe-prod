@@ -145,7 +145,7 @@ function initialiseOSMap(mapHolder) {
 	// KDF_ready for map - End
 }
 
-function do_KDF_Custom_OSMap(event, kdf, response, action, actionedby) {
+function do_KDF_Custom_OSMap(event, kdf, response, action) {
 	var isOSMapTemplate = false;
 
 	if (response.actionedby.indexOf(osmapTemplateIdentifier) === 0) {
