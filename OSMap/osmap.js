@@ -124,6 +124,7 @@ function initialiseOSMap(mapHolder) {
 		});
 	}
 
+	/* Open Case Marker Function
 	map.on("moveend", function (event) {
 		console.log('Zoom level:', map.getZoom());
 		var xmin = map.getBounds().getWest();
@@ -142,6 +143,7 @@ function initialiseOSMap(mapHolder) {
 			});
 		}
 	});
+	*/
 	// KDF_ready for map - End
 }
 
