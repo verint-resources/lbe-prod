@@ -24,11 +24,11 @@ function addAccordion(){
 		label = "street";
 	    }
 
-	    $(element).find('fieldset[data-type="search"').wrap('<div class="accordion_container" data-for="' + search_widget_name + '"></div>');
+	    $(element).find('fieldset[data-type="search"]').wrap('<div class="accordion_container" data-for="' + search_widget_name + '"></div>');
 
 	    $('.accordion_container[data-for="' + search_widget_name + '"]').prepend('<label class="accordion_label" data-for="' + search_widget_name + '">Search for ' + label + '</label>');
 
-	    $(element).find('fieldset[data-type="search"').wrap('<div class="accordion_content" data-for="' + search_widget_name + '" style></div>');
+	    $(element).find('fieldset[data-type="search"]').wrap('<div class="accordion_content" data-for="' + search_widget_name + '" style></div>');
 
 	    $('.accordion_label[data-for="' + search_widget_name + '"]').click(function () {
 		$(this).toggleClass("closed");
