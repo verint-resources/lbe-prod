@@ -427,7 +427,7 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
     console.log('do_KDF_objectdataLoaded_Individual type: ' + type);
     console.log('do_KDF_objectdataLoaded_Individual id: ' + id);
     console.log('do_KDF_objectdataLoaded_Individual response: ', response);
-    if (type === 'customer') {
+    if (type === 'customer' && kdf.widgetresponse.actionedby === 'cs_customer_search') {
         console.log('I am a customer ');
         KDF.setVal('txt_customer_id', id);
     	KDF.setVal('txt_cust_info_street_number', response["profile-AddressNumber"]);
