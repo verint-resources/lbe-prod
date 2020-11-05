@@ -6,23 +6,51 @@ function do_KDF_Ready_Individual(event, kdf) {
     console.log('do_KDF_Ready_Individual');
     
 	/* Not required for indivudal template to call person-retrieve-enew, information populated via Profile
+	
     if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
         KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'KDF_Ready', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
-    }
-    else */ 
-    if (KDF.kdf().access === 'citizen') {
-    	KDF.showSection('area_customer_information');
+    } */
+	
+	KDF.showSection('area_customer_information');
+	
+	if (KDF.kdf().access === 'agent' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
+		KDF.showWidget('but_cust_info_update_address');
+		$('#dform_widget_txta_cust_info_address').prop('readonly', true);	
+	}
+	else if (KDF.kdf().access === 'citizen') {
+    		$("#dform_widget_txt_cust_info_first_name").attr("readonly", false);
+		$("#dform_widget_txt_cust_info_last_name").attr("readonly", false);
+		$("#dform_widget_eml_cust_info_email").attr("readonly", false);
+		$("#dform_widget_tel_cust_info_phone").attr("readonly", false);
+		$("#dform_widget_txta_cust_info_address").attr("readonly", true);
+		$("#dform_widget_txt_cust_info_street_number").attr("readonly", false);
+		$("#dform_widget_txt_cust_info_street_name").attr("readonly", false);
+		$("#dform_widget_txt_cust_info_town").attr("readonly", false);
+		$("#dform_widget_txt_cust_info_postcode").attr("readonly", false);
+
+		KDF.setVal('txt_cust_info_street_number', KDF.getVal('txt_logic_streetnumber'));
+		KDF.setVal('txt_cust_info_street_name', KDF.getVal('txt_logic_streetname'));
+		KDF.setVal('txt_cust_info_town', KDF.getVal('txt_logic_town'));
+		KDF.setVal('txt_cust_info_postcode', KDF.getVal('txt_logic_postcode'));
 
 	    KDF.showWidget('ps_citizen_property_search');
-// 		KDF.showWidget('txt_cust_info_street_number');
-// 		KDF.showWidget('txt_cust_info_street_name');
-// 		KDF.showWidget('txt_cust_info_town');
-// 		KDF.showWidget('txt_cust_info_postcode');
+		// Collapse the property search widget.
+		if (KDF.kdf().authenticated) {
+			$('.accordion_label[data-for="dform_widget_ps_citizen_property_search_id"]').click();
+			
+			$("#dform_widget_txt_cust_info_first_name").attr("readonly", true);
+			$("#dform_widget_txt_cust_info_last_name").attr("readonly", true);
+		}
+		
+		KDF.showWidget('txt_cust_info_street_number');
+		KDF.showWidget('txt_cust_info_street_name');
+		KDF.showWidget('txt_cust_info_town');
+		KDF.showWidget('txt_cust_info_postcode');
 		KDF.hideWidget('txta_cust_info_address');
     }
-    else if (KDF.getVal('rad_viewmode') === 'R' || KDF.getVal('rad_viewmode') === 'U') {
-	    KDF.showSection('area_customer_information');
-    }
+    // else if (KDF.getVal('rad_viewmode') === 'R' || KDF.getVal('rad_viewmode') === 'U') {
+	    // KDF.showSection('area_customer_information');
+    // }
 
     var form_name = kdf.name;
 
@@ -45,11 +73,9 @@ function do_KDF_Ready_Individual(event, kdf) {
 
     // Button "Continue" on Your Details page click event.
     $('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
-        console.log('KDF.getVal(txt_access)=' + KDF.getVal('txt_access'));
-        console.log('custDetailsCheck= ' + custDetailsCheck());
-	KDF.setVal('eml_subscriber', KDF.getVal('eml_cust_info_email'));
+		KDF.setVal('eml_subscriber', KDF.getVal('eml_cust_info_email'));
 	    
-        if (KDF.getVal('txt_access') === 'agent' && custDetailsCheck()) {
+        if (KDF.kdf().access === 'agent' && custDetailsCheck()) {
             if (KDF.check('.dform_section_area_customer_information') === 0) {
             	KDF.customdata('update-individual-new', individualTemplateIdentifier + 'no-address-update', true, true, {
 					'customerID': KDF.getVal('txt_customer_id'),
@@ -60,36 +86,31 @@ function do_KDF_Ready_Individual(event, kdf) {
 				});
             }
         }
-        else if (KDF.getVal('txt_access') === 'citizen') {	
-		if (KDF.check('.dform_section_area_customer_information') === 0) {
-			KDF.hideWidget('ahtm_search_address_warning');
-			var address = KDF.getVal('txt_cust_info_street_number') + ', ' + KDF.getVal('txt_cust_info_street_name') + ', ' + KDF.getVal('txt_cust_info_town') + ', ' + KDF.getVal('txt_cust_info_postcode');
-			KDF.setVal('txta_cust_info_address', address);
+        else if (KDF.kdf().access === 'citizen') {	
+			if (KDF.check('.dform_section_area_customer_information') === 0) {
+				KDF.hideWidget('ahtm_search_address_warning');
+				var address = KDF.getVal('txt_cust_info_street_number') + ', ' + KDF.getVal('txt_cust_info_street_name') + ', ' + KDF.getVal('txt_cust_info_town') + ', ' + KDF.getVal('txt_cust_info_postcode');
+				KDF.setVal('txta_cust_info_address', address);
 
-			if (($('input[name=txt_cust_info_street_number]').prop('required') && KDF.getVal('txt_cust_info_street_number') == '') || 
-			($('input[name=txt_cust_info_street_name]').prop('required') && KDF.getVal('txt_cust_info_street_name') == '') || 
-			($('input[name=txt_cust_info_town]').prop('required') && KDF.getVal('txt_cust_info_town') == '') || 
-			($('input[name=txt_cust_info_postcode]').prop('required') && KDF.getVal('txt_cust_info_postcode') == '')) {
-				KDF.showWidget('ahtm_search_address_warning');
+				if (($('input[name=txt_cust_info_street_number]').prop('required') && KDF.getVal('txt_cust_info_street_number') == '') || 
+				($('input[name=txt_cust_info_street_name]').prop('required') && KDF.getVal('txt_cust_info_street_name') == '') || 
+				($('input[name=txt_cust_info_town]').prop('required') && KDF.getVal('txt_cust_info_town') == '') || 
+				($('input[name=txt_cust_info_postcode]').prop('required') && KDF.getVal('txt_cust_info_postcode') == '')) {
+					KDF.showWidget('ahtm_search_address_warning');
+				}
+				else {
+					KDF.gotoNextPage();
+				}	
 			}
-			else {
-				KDF.gotoNextPage();
-			}	
-		}
         }
         else {
     		KDF.gotoNextPage();
         }
     });
 
-    // Button "Update Address" Citizen Journey on Your Details page click event
-    $('#dform_widget_button_but_update_address_citizen').click(function() {
-    	KDF.showWidget('ps_citizen_property_search');
-    });
-
     // Button "Continue" on Customer details - address page click event.
     $('#dform_widget_button_but_continue_customer_address').click(function () {
-        if (KDF.getVal('txt_access') === 'agent' && custAddresssCheck() || custDetailsCheck()) {
+        if (KDF.kdf().access === 'agent' && custAddresssCheck() || custDetailsCheck()) {
             if (KDF.check('.dform_section_area_customer_details_address') === 0) {
                 KDF.customdata('update-individual-new', individualTemplateIdentifier + 'create', true, true, {
 					'customerID': KDF.getVal('txt_customer_id'),
@@ -518,4 +539,3 @@ function clearCustomerInformation() {
     KDF.setVal('tel_cust_info_phone', '');
     KDF.setVal('txta_cust_info_address', '');
 }
-
