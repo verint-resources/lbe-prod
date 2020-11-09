@@ -141,7 +141,10 @@ function defaultNewStyle(elements) {
                 case "tel": $("[data-type='tel']").addClass('tel-gov'); break;
                 case "time": $("[data-type='time']").addClass('time-gov'); break;
                 case "txta": $("[data-type='textarea']").addClass('txta-gov'); break;
-                case "sel": $("[data-type='select']").addClass('sel-gov'); break;
+                case "sel": 
+			$("[data-type='select']").addClass('sel-gov'); 
+			$("[data-type='select']").addClass('sel-select-result');
+			break;
                 case "file": $("[data-type='file']").addClass('file-gov'); break;
                 case "btn": $("[data-type='button']").addClass('btn-gov'); break;
                 case "search": $(".dform_widget_type_search").addClass('search-gov'); break;
@@ -277,7 +280,8 @@ function applyNewStyle() {
     //KS:- if there is no function name the it presumes the function name is the selector excluding the first (.)
     var elementsToUpdate = [
         //KS: single class name
-        ['.rad-gov'], ['.chk-gov'], ['.mchk-gov'], ['.warning-notice'], ['.info-notice'], ['.txta-gov'], ['.file-gov'], ['.search-gov'], ['.detail-gov'], ['.search-no-results'], ['.required-notice'],
+        ['.rad-gov'], ['.chk-gov'], ['.mchk-gov'], ['.warning-notice'], ['.info-notice'], ['.txta-gov'], ['.file-gov'], ['.search-gov'], ['.detail-gov'], ['.search-no-results'],
+	['.required-notice'], ['.sel-select-result'],
         //KS: grouped class names
         ['.file-gov[class*="file-limit-"]','file-limit'],
         ['[data-type="text"] div:first-child .dform_hidden','txt-hidden'],
@@ -474,6 +478,14 @@ var updateStyleFunctions = {
     	}else{
     	    if (debugStyle) console.debug('Could not add mchk-margin to element. Try adding the class mchk-margin-# (e.g. mchk-margin-50) first')
     	}
+	},
+	'sel-select-result': function(element){
+		var el = element.find('select');
+		
+		if (el.find('> option:first').val() === '') {
+			el.find('> option:first').text('Please select');
+			el.find('> option:first').prop('hidden', true);
+		}
 	},
 }
 
