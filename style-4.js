@@ -483,7 +483,7 @@ var updateStyleFunctions = {
 		var el = element.find('select');
 		
 		if (el.find('> option:first').val() === '') {
-			el.find('> option:first').text('Please select');
+			el.find('> option:first').text('Please select...');
 			el.find('> option:first').prop('hidden', true);
 		}
 	},
