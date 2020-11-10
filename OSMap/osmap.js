@@ -30,8 +30,8 @@ function initialiseOSMap(mapHolder) {
 	
 	// Add legend to the map - Start
 	var legend_icons = [
-		{label:"Current Location", url:"https://unpkg.com/leaflet@1.0.0/dist/images/marker-icon.png"},
-		{label:"Open Issue", url:"https://ver-dev-workings.github.io/files/OSMap/resources/content/map-blue.png"}
+		{label:"Current Location", url:"https://unpkg.com/leaflet@1.0.0/dist/images/marker-icon.png"}
+		//,{label:"Open Issue", url:"https://ver-dev-workings.github.io/files/OSMap/resources/content/map-blue.png"}
 	];
 	if (legend_icons.length > 0) {
 		var legend = L.control({position: 'topright'});
