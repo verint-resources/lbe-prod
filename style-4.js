@@ -63,6 +63,7 @@ applyStyle(['recommended']);
 //KS: see 'Non-recommended defaults' within 'defaultNewStyle(elements)' for optional defaults */
 function commonRegex() {
     //regexSearch("[0-9A-Za-z ]{2,}");
+	regexSearch('[0-9A-Za-z ]{2,}', '.dform_widget_searchfield.txt-gov [data-customalias="name"]');
     regexSearch('[0-9A-Za-z ]{1,}',
         '.dform_widget_searchfield.txt-gov [data-customalias="forename"]');
     regexSearch('^(EN|en|eN|En|N|n)[A-Za-z0-9 \\s]{0,6}$',
@@ -142,8 +143,7 @@ function defaultNewStyle(elements) {
                 case "time": $("[data-type='time']").addClass('time-gov'); break;
                 case "txta": $("[data-type='textarea']").addClass('txta-gov'); break;
                 case "sel": 
-			$("[data-type='select']").addClass('sel-gov'); 
-			$("[data-type='select']").addClass('sel-select-result');
+			$("[data-type='select']").addClass('sel-gov');
 			break;
                 case "file": $("[data-type='file']").addClass('file-gov'); break;
                 case "btn": $("[data-type='button']").addClass('btn-gov'); break;
@@ -281,7 +281,7 @@ function applyNewStyle() {
     var elementsToUpdate = [
         //KS: single class name
         ['.rad-gov'], ['.chk-gov'], ['.mchk-gov'], ['.warning-notice'], ['.info-notice'], ['.txta-gov'], ['.file-gov'], ['.search-gov'], ['.detail-gov'], ['.search-no-results'],
-	['.required-notice'], ['.sel-select-result'],
+	['.required-notice'], ['.sel-gov'],
         //KS: grouped class names
         ['.file-gov[class*="file-limit-"]','file-limit'],
         ['[data-type="text"] div:first-child .dform_hidden','txt-hidden'],
@@ -479,11 +479,16 @@ var updateStyleFunctions = {
     	    if (debugStyle) console.debug('Could not add mchk-margin to element. Try adding the class mchk-margin-# (e.g. mchk-margin-50) first')
     	}
 	},
-	'sel-select-result': function(element){
+	'sel-gov': function(element){//AS: added "Please select..." option to select box
 		var el = element.find('select');
 		
-		if (el.find('> option:first').val() === '') {
+		if (el.find('> option:first').val() === '' && el.find('>option').length  > 1) {
 			el.find('> option:first').text('Please select...');
+			el.find('> option:first').prop('hidden', true);
+		}
+		else {
+			el.find('> option:first').text('No results...');
+			el.find('> option:first').val('No results...');
 			el.find('> option:first').prop('hidden', true);
 		}
 	},
