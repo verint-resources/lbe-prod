@@ -205,15 +205,10 @@ function do_KDF_Ready_Individual(event, kdf) {
 
     $('#dform_widget_ps_citizen_property_search_resultholder').on('show', function () {
         KDF.hideWidget('ahtm_search_address_warning');
-        KDF.hideWidget('but_property_notfound_citizen');
 		KDF.showWidget('txt_cust_info_street_number');
 		KDF.showWidget('txt_cust_info_street_name');
 		KDF.showWidget('txt_cust_info_town');
 		KDF.showWidget('txt_cust_info_postcode');
-    });
-
-    $('#dform_widget_ps_citizen_property_search_resultholder').on('hide', function () {
-        KDF.hideWidget('but_property_notfound_citizen');
     });
 
     $('#dform_widget_button_but_property_notfound_customer').click(function () {
@@ -234,31 +229,6 @@ function do_KDF_Ready_Individual(event, kdf) {
 
         KDF.hideWidget('but_property_notfound_customer');
 
-    });
-
-    $('#dform_widget_button_but_property_notfound_citizen').click(function () {
-        //KDF.showWidget('ahtm_cancel_edit_manually_citizendetails');
-        KDF.showWidget('txt_cust_info_street_number');
-        KDF.showWidget('txt_cust_info_street_name');
-        KDF.showWidget('txt_cust_info_town');
-        KDF.showWidget('txt_cust_info_postcode');
-        KDF.hideWidget('but_property_notfound_citizen');
-
-    });
-
-    $('#cancel_edit_manually_citizendetails').click(function () {
-        KDF.setVal('txt_cust_info_street_number', '');
-        KDF.setVal('txt_cust_info_street_name', '');
-        KDF.setVal('txt_cust_info_town', '');
-        KDF.setVal('txt_cust_info_postcode', '');
-        KDF.hideWidget('ahtm_cancel_edit_manual_citizendetails');
-        KDF.showWidget('but_property_notfound_citizen');
-        
-        KDF.hideWidget('ahtm_cancel_edit_manually_citizendetails');
-        KDF.hideWidget('txt_cust_info_street_number');
-        KDF.hideWidget('txt_cust_info_street_name');
-        KDF.hideWidget('txt_cust_info_town');
-        KDF.hideWidget('txt_cust_info_postcode');
     });
 
     $('#cancel_edit_manually_customerdetails').click(function () {
@@ -315,9 +285,6 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.showWidget('but_property_notfound');
 
     });
-
-
-
 }//end do_KDF_Ready_Individual
 
 function do_KDF_Custom_Individual(event, kdf, response, action) {
@@ -398,28 +365,6 @@ function do_KDF_Custom_Individual(event, kdf, response, action) {
 			}
 		}
 	}
-
-	/* ORIGINAL
-	if (action === 'person-retrieve-new') {
-	    if (response.actionedby === 'kdf_ready') {
-	        $('#dform_widget_txta_cust_info_address').prop('readonly', true);
-	    }
-	    else if (response.actionedby === 'update-individual' || response.actionedby === 'create-individual') {
-	        KDF.gotoNextPage();
-	    }
-	}
-	else if (action === 'update-individual-new') {
-        KDF.customdata('person-retrieve-new', 'update-individual', true, true, {'person_search_results':KDF.getVal('txt_customer_id')});
-    }
-	else if (action == 'create-individual-new') {
-        if (response.data.txt_customerID !== undefined) {
-            KDF.setVal('txt_customer_id',response.data.txt_customerID);
-            KDF.setCustomerID(response.data.txt_customerID,false,false); //set Reporter
-            KDF.customdata('person-retrieve-new', 'create-individual', true, true, {'person_search_results':KDF.getVal('txt_customer_id')});
-        }
-	}
-    */
-
 }//end do_KDF_Custom_Individual()
 
 
@@ -441,69 +386,8 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
 
 
 function do_KDF_fieldChange_Individual(event, kdf, field) {
-
-    /*
-    if (field.name == 'ps_createindividual_txt_streetname' || field.name == 'ps_createindividual_txt_postcode') {
-
-        var streetName = KDF.getVal('ps_createindividual_txt_streetname').length;
-        console.log('streetName =', streetName);
-        var postCode = KDF.getVal('ps_createindividual_txt_postcode').length;
-        console.log('postCode =', postCode);
-
-        var totalLength = streetName + postCode;
-        console.log('totalLength = ', totalLength);
-
-        if (totalLength > 1) {
-            console.log('allow to proceed');
-            $('#dform_widget_ps_create_individual_searchbutton').prop('disabled', false);
-        }
-
-        if (totalLength < 2) {
-            console.log('Not allowed to proceed');
-            $('#dform_widget_ps_create_individual_searchbutton').prop('disabled', true);
-            event.preventDefault();
-            KDF.showInfo('Please complete the search fields before proceeding');
-        }
-     
-
-    }//end (field.name == 'ps_createindividual_txt_streetname' ||  field.name == 'ps_createindividual_txt_postcode')
-     */
-
-
-    /*
-    //Deals with the Customer details - address (Property Search Widget)
-    if (field.name == 'ps_customerdetails_txt_streetname' || field.name == 'ps_customerdetails_txt_postcode') {
-
-        var streetName = KDF.getVal('ps_customerdetails_txt_streetname').length;
-        console.log('streetName =', streetName);
-        var postCode = KDF.getVal('ps_customerdetails_txt_postcode').length;
-        console.log('postCode =', postCode);
-
-        var totalLength = streetName + postCode;
-        console.log('totalLength = ', totalLength);
-
-        if (totalLength > 1) {
-            console.log('allow to proceed');
-            $('#dform_widget_ps_existing_customer_searchbutton').prop('disabled', false);
-        }
-
-        if (totalLength < 2) {
-            console.log('Not allowed to proceed');
-            $('#dform_widget_ps_existing_customer_searchbutton').prop('disabled', true);
-            event.preventDefault();
-            KDF.showInfo('Please complete the search fields before proceeding');
-        }
-
-    }//end (field.name == 'ps_createindividual_txt_streetname' ||  field.name == 'ps_createindividual_txt_postcode')
-
-   */
-
-
-
+	
 }//end do_KDF_fieldChange_Individual
-
-
-
 
 // Check if the customer detail is change
 function custDetailsCheck() {
