@@ -1,6 +1,12 @@
 #map {
-  height: 600px; 
-  width:auto;
+    height: 600px;
+    width: 70% !important;
+}
+
+@media (max-width: 768px){
+    #map {
+        width: 100% !important;
+    }
 }
 
 .legend {
