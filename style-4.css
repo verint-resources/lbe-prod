@@ -1613,18 +1613,6 @@ var {
   content: "\25b6";
 }
 
-/* MAP Style - Start */
-#map {
-    width: 70% !important;
-}
-
-@media (max-width: 768px){
-    #map {
-        width: 100% !important;
-    }
-}
-/* MAP Style - End*/
-
 /* Summary Table - Start */
 .summary_table_style
  table, td { 
