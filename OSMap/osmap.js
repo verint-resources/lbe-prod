@@ -80,6 +80,7 @@ function initialiseOSMap(mapHolder) {
 	// Ensure map cannot be clicked on Read mode.
 	if (KDF.getVal('rad_viewmode') !== 'R') {
 		map.on("click", function (event) {
+			KDF.setVal('txt_map_full_address', '');
 			var clickedMarker = event;
 			//console.log(event)
 
@@ -144,8 +145,19 @@ function initialiseOSMap(mapHolder) {
 		}
 	});
 	*/
-	// KDF_ready for map - End
-}
+	// Button "Continue" on Map page is clicked - Start
+	$("#dform_widget_button_but_map_next").off('click').on('click', function() {
+		KDF.hideWidget('ahtm_no_location_selected');
+		if (KDF.getVal('txt_map_full_address') === '') {
+			window.scrollTo(0,0);
+			KDF.showWidget('ahtm_no_location_selected');
+		}
+		else {
+			KDF.gotoNextPage();
+		}
+	})
+	// Button "Continue" on Map page is clicked - End
+} // initialiseOSMap for map - End
 
 function do_KDF_Custom_OSMap(event, kdf, response, action) {
 	var isOSMapTemplate = false;
