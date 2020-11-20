@@ -481,8 +481,11 @@ var updateStyleFunctions = {
 		var el = element.find('select');
 		
 		if (el.find('option:first').val() === '' && el.find('option').length  > 1) {
+			el.find('option:first').val('');
 			el.find('option:first').text('Please select...');
+			el.find('option:first').removeAttr('disabled');
 			el.find('option:first').prop('hidden', true);
+			el.find('option:first').removeAttr('disabled');
 		}
 		else {
 			el.find('option:first').text('No results...');
