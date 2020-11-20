@@ -480,14 +480,14 @@ var updateStyleFunctions = {
 	'sel-gov': function(element){//AS: added "Please select..." option to select box
 		var el = element.find('select');
 		
-		if (el.find('> option:first').val() === '' && el.find('>option').length  > 1) {
-			el.find('> option:first').text('Please select...');
-			el.find('> option:first').prop('hidden', true);
+		if (el.find('option:first').val() === '' && el.find('option').length  > 1) {
+			el.find('option:first').text('Please select...');
+			el.find('option:first').prop('hidden', true);
 		}
 		else {
-			el.find('> option:first').text('No results...');
-			el.find('> option:first').val('No results...');
-			el.find('> option:first').prop('hidden', true);
+			el.find('option:first').text('No results...');
+			el.find('option:first').val('No results...');
+			el.find('option:first').prop('hidden', true);
 		}
 	},
 }
