@@ -485,7 +485,6 @@ var updateStyleFunctions = {
 			el.find('option:first').text('Please select...');
 			el.find('option:first').removeAttr('disabled');
 			el.find('option:first').prop('hidden', true);
-			el.find('option:first').removeAttr('disabled');
 		}
 		else {
 			el.find('option:first').text('No results...');
