@@ -9,6 +9,11 @@
     }
 }
 
+/*Override the underline on map zoom control*/
+#dform_container a.leaflet-control-zoom-in, #dform_container a.leaflet-control-zoom-out {
+    text-decoration:none;
+}
+
 .legend {
     line-height: 18px;
     color: #555;
