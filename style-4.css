@@ -860,7 +860,7 @@ KS: Custom gov radio buttons - Start
 }
 /*KS quick fix to avoid changing all radio items*/
 .rad-gov label{
-    text-transform: lowercase;
+    text-transform: inherit;
 }
 .rad-gov.rad-uppercase label{
     text-transform: uppercase;
