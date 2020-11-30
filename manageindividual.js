@@ -8,10 +8,10 @@ function do_KDF_Ready_Individual(event, kdf) {
 	var form_name = kdf.name;
     addAccordion();
     
-	/* Not required for indivudal template to call person-retrieve-enew, information populated via Profile
-    if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
+	/* Enable only for test, Please disable after you test - Not required for indivudal template to call person-retrieve-enew, information populated via Profile
+    */if (KDF.getVal('txt_customer_id') !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
         KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'KDF_Ready', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });
-    } */
+    }
 	
 	KDF.showSection('area_customer_information');
 	
