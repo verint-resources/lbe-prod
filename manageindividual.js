@@ -380,14 +380,16 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
 function do_KDF_optionSelected_Individual(event, kdf, field, label, val) {
     if (field === 'rad_confirm_address') {
     	if (val === 'Yes') {
-            KDF.hideSection('area_your_details_addressdetails');
-            KDF.setVal('txt_cust_info_street_number', KDF.getVal('txt_temp_cust_info_street_number'));
-    		KDF.setVal('txt_cust_info_street_name', KDF.getVal('txt_temp_cust_info_street_name'));
+            	KDF.hideSection('area_your_details_addressdetails');
+		KDF.setVal('txt_cust_info_uprn', KDF.getVal('txt_temp_cust_info_uprn'));
+            	KDF.setVal('txt_cust_info_street_number', KDF.getVal('txt_temp_cust_info_street_number'));
+		KDF.setVal('txt_cust_info_street_name', KDF.getVal('txt_temp_cust_info_street_name'));
     		KDF.setVal('txt_cust_info_town', KDF.getVal('txt_temp_cust_info_town'));
     		KDF.setVal('txt_cust_info_postcode', KDF.getVal('txt_temp_cust_info_postcode'));
     	}
     	else {
     		KDF.showSection('area_your_details_addressdetails');
+    		KDF.setVal('txt_cust_info_uprn', '');
     		KDF.setVal('txt_cust_info_street_number', '');
     		KDF.setVal('txt_cust_info_street_name', '');
     		KDF.setVal('txt_cust_info_town', '');
