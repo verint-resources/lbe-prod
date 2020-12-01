@@ -660,7 +660,7 @@ function detailToggle(){
 function noResultsFound(){
     //KS: when there is no results, add a non-selectable option to say such
 	var text = 'No results found';
-    if ($(this).children().length < 1){
+    if ($(this).find('option:not([hidden])').length < 1){
         $(this).html('<option hidden>'+text+'</option>')
     }
 	//KS: trigger: '_style_noSearchResults, [element, noResultText]'
@@ -670,7 +670,7 @@ function selectResult(){
     //KS: when there is no results, add a non-selectable option to say such
 	var text = 'Please select a result…';
     //KS: BUG-FIX so that it works with 'No results returned' adding an option
-    if ($(this).children(':not([hidden])').length > 0){
+    if ($(this).find('option:not([hidden])').length > 0){
 	    $(this).find('option:first').attr('hidden', '').text('Please select a result…')
     }
 	//KS: trigger: '_style_selectResult, [element, selectResult]'
