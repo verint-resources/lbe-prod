@@ -40,6 +40,7 @@ function do_KDF_Ready_Individual(event, kdf) {
 		KDF.setVal('txt_cust_info_postcode', KDF.getVal('txt_logic_postcode'));
 
 		if (KDF.kdf().authenticated) {
+			KDF.hideWidget('html_citizen_property_search_help');
 			KDF.hideWidget('ps_citizen_property_search');
 			KDF.hideWidget('rad_confirm_address');
 			KDF.hideWidget('ahtm_manually_entered_address_info');
