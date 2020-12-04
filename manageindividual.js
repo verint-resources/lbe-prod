@@ -305,6 +305,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action) {
 			KDF.showWidget('but_cust_info_update_address');
 			//Ensure the First Name and Last Name are read-only, aunthenticated citizen
 			if (KDF.kdf().access === 'citizen') {
+				KDF.hideWidget('html_citizen_property_search_help');
 				KDF.hideWidget('but_cust_info_update_address');
 				KDF.hideWidget('ps_citizen_property_search');
 				KDF.hideWidget('rad_confirm_address');
