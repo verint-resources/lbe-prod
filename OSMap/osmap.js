@@ -179,7 +179,9 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 			var lat,lon;
 			lon = coor[0];
 			lat = coor[1];
-
+			
+			KDF.setVal('txt_easting', response.data.easting);
+			KDF.setVal('txt_northing', response.data.northing);
 			KDF.setVal('le_gis_lon', lon);
 			KDF.setVal('le_gis_lat', lat);
 			KDF.setVal('le_associated_obj_id', response.data.object_id);
@@ -201,6 +203,8 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 			KDF.setVal('txt_subs_address', response.data.description);
 		} else if (action === 'reverse_geocode') {
 			if (response.data.outcome === 'success') {
+				KDF.setVal('txt_easting', response.data.easting);
+				KDF.setVal('txt_northing', response.data.northing);
 				KDF.setVal('le_associated_obj_id', response.data.object_id);
 				KDF.setVal('txt_map_uprn', response.data.UPRN);
 				KDF.setVal('txt_map_full_address', response.data.description);
