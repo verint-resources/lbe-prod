@@ -6,24 +6,22 @@ function do_KDF_Ready_Individual(event, kdf) {
     console.log('do_KDF_Ready_Individual');
 	
 	var form_name = kdf.name;
-    addAccordion();
-    
-	/* Enable only for test, Please disable after you test - Not required for indivudal template to call person-retrieve-enew, information populated via Profile
-    */if (typeof KDF.getParams().customerid !== 'undefined' && KDF.getParams().customerid !== '' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
-        KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'KDF_Ready', true, true, { 'person_search_results': KDF.getParams().customerid });
-    }
-	
+	addAccordion();
 	KDF.showSection('area_customer_information');
 	
 	if (KDF.kdf().access === 'agent' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
 		KDF.showWidget('but_cust_info_update_address');
-		$('#dform_widget_txta_cust_info_address').prop('readonly', true);	
+		$('#dform_widget_txta_cust_info_address').prop('readonly', true);
+		
+		if (typeof KDF.getParams().customerid !== 'undefined' && KDF.getParams().customerid !== '') {
+			KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'KDF_Ready', true, true, { 'person_search_results': KDF.getParams().customerid });
+		}
 	}
 	else if (KDF.kdf().access === 'citizen') {
 		KDF.showWidget('ps_citizen_property_search');
 		KDF.hideWidget('txta_cust_info_address');
 		
-    	$("#dform_widget_txt_cust_info_first_name").attr("readonly", false);
+    		$("#dform_widget_txt_cust_info_first_name").attr("readonly", false);
 		$("#dform_widget_txt_cust_info_last_name").attr("readonly", false);
 		$("#dform_widget_eml_cust_info_email").attr("readonly", false);
 		$("#dform_widget_tel_cust_info_phone").attr("readonly", false);
@@ -40,11 +38,13 @@ function do_KDF_Ready_Individual(event, kdf) {
 		KDF.setVal('txt_cust_info_postcode', KDF.getVal('txt_logic_postcode'));
 
 		if (KDF.kdf().authenticated) {
+			KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'KDF_Ready', true, true, { 'person_search_results': KDF.kdf().profileData.customerid });
+			
 			KDF.hideWidget('html_citizen_property_search_help');
 			KDF.hideWidget('ps_citizen_property_search');
 			KDF.hideWidget('rad_confirm_address');
 			KDF.hideWidget('ahtm_manually_entered_address_info');
-            KDF.showSection('area_your_details_addressdetails');
+            		KDF.showSection('area_your_details_addressdetails');
 
 			$("#dform_widget_txt_cust_info_first_name").attr("readonly", true);
 			$("#dform_widget_txt_cust_info_last_name").attr("readonly", true);
