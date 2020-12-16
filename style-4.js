@@ -343,9 +343,9 @@ var updateStyleFunctions = {
         element.find('button').addClass('btn-gov');
 	},
 	'chk-gov': function(element){
-		var el = element.find('> div').not(":has(span)");
-        el.append('<span class="chk-check"></span>');
-        el.find(".helptext").insertAfter(element.find("label"));
+		var el = element.find('> div').not(":has(span.chk-check)")
+		el.append('<span class="chk-check"></span>');
+		el.find(".helptext").insertAfter(element.find("label"));
 	},
 	'file-gov': function(element){
 		$("[type='file']").attr('title', 'File upload');//KS: avoid WCAG error
