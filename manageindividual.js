@@ -100,6 +100,12 @@ function do_KDF_Ready_Individual(event, kdf) {
 					KDF.showWidget('ahtm_search_address_warning');
 				}
 				else {
+					if (KDF.getVal('rad_confirm_address') === 'No') {
+						KDF.setPropertyID(null, false, false);
+					}
+					else {
+						KDF.setPropertyID(KDF.getVal('ps_citizen_property_search_id', false, false);
+					}
 					KDF.gotoNextPage();
 				}	
 			}
