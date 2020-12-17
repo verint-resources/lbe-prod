@@ -101,10 +101,10 @@ function do_KDF_Ready_Individual(event, kdf) {
 				}
 				else {
 					if (KDF.getVal('rad_confirm_address') === 'No') {
-						KDF.setPropertyID(null, false, false);
+						KDF.setVal('le_associated_obj_id', '');
 					}
 					else {
-						KDF.setPropertyID(KDF.getVal('ps_citizen_property_search_id', false, false));
+						KDF.setVal('le_associated_obj_id', KDF.getVal('ps_citizen_property_search_id'));
 					}
 					KDF.gotoNextPage();
 				}	
