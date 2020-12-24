@@ -380,8 +380,9 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
         KDF.setVal('txt_customer_id', id);
     	KDF.setVal('txt_cust_info_street_number', response["profile-AddressNumber"]);
 		KDF.setVal('txt_cust_info_street_name', response["profile-AddressLine1"]);
-		KDF.setVal('txt_cust_info_town', response["profile-City"]);
+		KDF.setVal('txt_cust_info_town', response["profile-AddressLine4"]);
 		KDF.setVal('txt_cust_info_postcode', response["profile-Postcode"]);
+		KDF.setVal('txta_cust_info_address', response["profile-Address"]);
         KDF.showWidget('but_cust_info_update_address');
         KDF.showSection('area_customer_information');
     }
