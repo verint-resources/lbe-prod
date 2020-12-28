@@ -1,0 +1,32 @@
+﻿<footer class="container text-center" role="contentinfo">
+  <ul class="nav nav-pills center-pills">
+    <li id="feedback">
+      <p>Rate this page:&nbsp;
+        <span onclick="showDoorbellModal()" aria-label="Rate this page">
+          <span class="glyphicon glyphicon-ok-sign positive"></span>  
+          <span class="glyphicon glyphicon-exclamation-sign neutral"></span>  
+          <span class="glyphicon glyphicon-remove-sign negative"></span> 
+        </span>
+      </p>
+    </li>
+  </ul>
+  <div class="">
+  <ul class="nav nav-pills center-pills mobile-pills">
+    <li class="weblink"><a href="https://new.enfield.gov.uk/council-opening-hours/">Council opening hours</a></li>
+    <li class="weblink"><a href="https://new.enfield.gov.uk/contact-us/">Contact us / feedback</a></li>
+    <li class="weblink"><a href="https://new.enfield.gov.uk/privacy-notice/">Privacy notice</a></li>
+    <li class="weblink"><a href="https://new.enfield.gov.uk/terms-of-use/">Terms of use</a></li>  
+	<li class="weblink"><a href="https://new.enfield.gov.uk/privacy-notice/#6">Cookie policy</a></li>	
+  </ul>
+  </div>
+  <ul class="nav nav-pills center-pills">
+    <li><a href="https://twitter.com/EnfieldCouncil" target="_blank" aria-label="Twitter"><i class="fa fa-twitter"></i></a></li>
+    <li><a href="http://www.facebook.com/pages/Enfield-Council/252946378095154" target="_blank" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>
+    <li><a href="https://www.youtube.com/user/EnfieldCouncil" target="_blank"><i class="fa fa-youtube-play" aria-label="Youtube"></i></a></li>
+    <li><a href="https://www.linkedin.com/company/london-borough-of-enfield/" target="_blank" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+  </ul>
+  <ul class="nav nav-pills center-pills padding-15">
+      <li>© <span id="currentYear"></span> Enfield Council</li>
+  </ul>
+  <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="" data-toggle="tooltip" data-placement="left" data-original-title="Click to return on the top page" ><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+</footer>

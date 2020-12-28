@@ -1,0 +1,101 @@
+<header>
+<div class="masthead">      
+  <nav class="navbar" role="navigation"> 		
+    <div class="container"> 			  
+      <div class="row navbar-header">           
+        <div class="col-xs-4">                     
+          <a class="navbar-brand" href="https://new.enfield.gov.uk/"><img alt="Enfield Council" src="EnfieldSkinPack/image/Enfield_Logo.jpg"/></a>           
+        </div>           
+        <div class="col-xs-8">             
+          <div class= "row">               
+            <!-- nav links -->               
+            <ul class="nav navbar-nav navbar-right" id="nav-links">                 
+              <!-- Start of Google Translate ------->                 
+              <li class="" id="google-translate"><div id="google_translate_element"></div></li>                 
+              <!-- End of Google Translate ---------->                 
+              <li class="black" id="accessiblity"><a href="https://new.enfield.gov.uk/accessibility-statement/">Accessibility</a></li>                 
+              <li class="dropdown" id="signin"><a href="https://new.enfield.gov.uk/signin">Register | Login</a>                   
+					<div class="dropdown-menu hidden-sm" id="signin-menu">
+						<p class="h3">Benefits of Enfield&nbsp;Connected</p><p>Your account will ...</p>
+                        <ul>
+                           	<li>make it easier for you to request many of our services online</li>
+                            <li>save you time by pre-filling forms with the details you give us</li>
+                            <li>provide confirmation that your request has been received</li>
+                        </ul>
+					</div>               
+              </li> 
+	      <li class="" id="newsletter"><a target="_blank" href="https://public.govdelivery.com/accounts/UKENFIELD/subscriber/topics">Newsletters</a></li>	                              
+            </ul>             
+          </div>             
+          <div class="row">               
+            <div class="main-search-desktop">
+              <form style="display:table">                                            
+                <span style="display:table-cell; vertical-align: top; width: 100%; padding-right: 20px;">
+                  <input type="text" class="st-default-search-input form-control" style="height: 54px; width: 100%; padding: 0px 0px 0px 10px; background: none;" placeholder="How can we help you?"/>
+                </span>
+                <button type="submit" class="btn btn-primary" style="display: table-cell;">Search</button>
+              </form>
+            </div>           
+          </div>         
+        </div>                
+      </div>
+      <div id="nav-links-mobile">  
+          <div class="row text-center">
+            <ul class="nav navbar-nav" >             
+              <!-- Start of Google Translate ------->             
+              <li class="" id="google-translate-mobile"><div id="mobile_google_translate"></div></li>             
+              <!-- End of Google Translate --------->             
+              <li class="black " id="accessiblity-mobile"><a href="https://new.enfield.gov.uk/accessibility-statement/">Accessibility</a></li> 
+	      <li class="" id="newsletter-mobile"><a target="_blank" href="https://public.govdelivery.com/accounts/UKENFIELD/subscriber/topics">Newsletters</a></li>          
+            </ul> 
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="main-search-mobile">
+                <form style="display:table">                                            
+                  <span style="display:table-cell; vertical-align: top; width: 100%; padding-right: 20px;">
+                    <input type="text" class="st-default-search-input form-control" style="height: 54px; width: 100%; padding: 0px 0px 0px 10px; background: none;" placeholder="How can we help you?"/>
+                  </span>
+                  <button type="submit" class="btn btn-primary" style="display: table-cell;">Search</button>
+                </form>
+              </div>
+            </div>
+          </div>
+      </div>  
+      <div class="row">           
+          <div class="a-z col-xs-12">             
+            <ul class="well list-unstyled">               
+              <li><a href="https://new.enfield.gov.uk/a-z-of-services/a">A</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/b">B</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/c">C</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/d">D</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/e">E</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/f">F</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/g">G</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/h">H</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/i">I</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/j">J</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/k">K</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/l">L</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/m">M</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/n">N</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/o">O</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/p">P</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/q">Q</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/r">R</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/s">S</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/t">T</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/u">U</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/v">V</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/w">W</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/x">X</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/y">Y</a></li>
+        				<li><a href="https://new.enfield.gov.uk/a-z-of-services/z">Z</a></li>    
+            </ul> 
+          </div>
+        </div>         
+    </div>   
+  </nav> 
+</div> 
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</header> 
