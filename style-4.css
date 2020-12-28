@@ -772,10 +772,10 @@ KS: Custom gov radio buttons - Start
 
 /*KS: Span for each radio button*/
 .rad-gov > div > fieldset > span  {
-  /*display: block;
+  display: block;
   position: relative;
   padding-left: 35px;
-  margin-bottom: 12px;*/
+  margin-bottom: 12px;
   /*cursor: pointer;*/
   font-size: 1rem;
   -webkit-user-select: none;
