@@ -173,6 +173,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 
 		// KDF_custom for map - Start
 		if (action === 'retrieve_property') {
+			KDF.hideWidget('ahtm_no_location_selected');
 			var coor = proj4('EPSG:27700', 'EPSG:4326', [response.data.easting, response.data.northing]);
 			console.log("Coor :", coor);
 
@@ -203,6 +204,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 			KDF.setVal('txt_subs_address', response.data.description);
 		} else if (action === 'reverse_geocode') {
 			if (response.data.outcome === 'success') {
+				KDF.hideWidget('ahtm_no_location_selected');
 				KDF.setVal('txt_easting', response.data.easting);
 				KDF.setVal('txt_northing', response.data.northing);
 				KDF.setVal('le_associated_obj_id', response.data.object_id);
