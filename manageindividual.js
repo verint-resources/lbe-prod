@@ -12,6 +12,8 @@ function do_KDF_Ready_Individual(event, kdf) {
 	if (KDF.kdf().access === 'agent' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
 		KDF.showWidget('but_cust_info_update_address');
 		$('#dform_widget_txta_cust_info_address').prop('readonly', true);
+		$('#dform_widget_eml_cust_info_email').prop('required', false);
+		$('#dform_widget_tel_cust_info_phone').prop('required', true);
 		
 		if (typeof KDF.getParams().customerid !== 'undefined' && KDF.getParams().customerid !== '') {
 			KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'KDF_Ready', true, true, { 'person_search_results': KDF.getParams().customerid });
@@ -31,6 +33,9 @@ function do_KDF_Ready_Individual(event, kdf) {
 		$("#dform_widget_txt_cust_info_street_name").attr("readonly", false);
 		$("#dform_widget_txt_cust_info_town").attr("readonly", false);
 		$("#dform_widget_txt_cust_info_postcode").attr("readonly", false);
+		
+		$('#dform_widget_eml_cust_info_email').prop('required', true);
+		$('#dform_widget_tel_cust_info_phone').prop('required', false);
 
 		KDF.setVal('txt_cust_info_street_number', KDF.getVal('txt_logic_streetnumber'));
 		KDF.setVal('txt_cust_info_street_name', KDF.getVal('txt_logic_streetname'));
