@@ -156,8 +156,8 @@ Need to deside on new generic button - the continue should be promanant - maybe 
     width: auto !important;
     white-space: nowrap;
     padding: 0.3em 0.6em !important;
-    font-size: 1rem !important;
-    font-weight: bold !important;
+    /*font-size: 1rem !important;
+    font-weight: bold !important;*/
     margin-right: 3px !important;
 	text-decoration: none !important;
 	font-family: "MyriadPro",Helvetica,Arial,sans-serif !important;
@@ -808,7 +808,7 @@ KS: Custom gov radio buttons - Start
   background-color: white;/*uncheck background*/
   border-radius: 75%;
   /*border: 3px solid #00529b;Inconsistint sizing between host and VOF*/
-  box-shadow: inset 0 0 0 3px #00529b;
+  box-shadow: inset 0 0 0 2px rgb(213, 43, 30) !important;
 }
 /*KS: Create the indicator (the dot/circle - hidden when not checked) */
 .rad-check:after {
@@ -822,12 +822,12 @@ KS: Custom gov radio buttons - Start
 }
 /*KS: Style the indicator (dot/circle) */
 .rad-gov > div > fieldset > span  .rad-check:after {
-  top: 6px;
-  left: 6px;
-  width: 16px;
-  height: 16px;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: #00529b;
+  background: rgb(213, 43, 30) !important;;
 }
 /*KS: Customizes the help text */
 .rad-gov > div > fieldset .helptext {
@@ -1484,13 +1484,13 @@ abbr{
 }
 
 .btn-gov:hover, .btn-gov:focus, .btn-back:hover, .btn-back:focus{
-    background-color: #ff4b3d !important;
-    border-color: #ff4b3d !important;
+    /*background-color: #ff4b3d !important;
+    border-color: #ff4b3d !important;*/
     color: #fff !important;
 }
 .btn-continue:hover, .btn-continue:focus{
-    background-color: #ff4b3d !important;
-    border-color: #ff4b3d !important; 
+    /*background-color: #ff4b3d !important;
+    border-color: #ff4b3d !important; */
     /*color: #fff !important; */
 	text-decoration: none !important;
 }
@@ -1671,10 +1671,10 @@ background-color: lightblue;
 	color: black !important;
 }
 
-.btn-continue, .btn-gov {
+/*.btn-continue, .btn-gov {
 	text-decoration: underline !important;
 	
-}
+}*/
 
 .btn-continue:hover, .btn-back:focus, .btn-gov:hover, .btn-gov:focus {
 	text-decoration: none !important;
@@ -1684,12 +1684,12 @@ background-color: lightblue;
 	background-color: #FFFFFF !important;
 	border-color: #CCCCCC !important;
 	color: #333333 !important;
-	text-decoration: underline !important;
+	text-decoration: none !important;
 }
 
 .btn-back:hover, .btn-back:focus {
-	background-color: #EBEBEB !important;
-	border-color: #ADADAD !important;
+	/*background-color: #EBEBEB !important;
+	border-color: #ADADAD !important;*/
 	color: #333333 !important;
 	text-decoration: none !important;
 }
