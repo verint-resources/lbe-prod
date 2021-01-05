@@ -108,7 +108,7 @@ function do_KDF_Ready_Individual(event, kdf) {
 					if (KDF.getVal('rad_confirm_address') === 'No') {
 						KDF.setVal('le_associated_obj_id', '');
 					}
-					else {
+					else if (KDF.getVal('rad_confirm_address') === 'Yes') {
 						KDF.setVal('le_associated_obj_id', KDF.getVal('ps_citizen_property_search_id'));
 					}
 					KDF.gotoNextPage();
