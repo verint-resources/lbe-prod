@@ -166,7 +166,7 @@ Need to deside on new generic button - the continue should be promanant - maybe 
 /*btn-gov------------------------------------*/
 .btn-gov{
     box-shadow: inset 0 -2px 0 /*#003618*/ #00529b !important;
-    background: /*#00823b*/ #00529b!important;
+     background: /*#00823b*/ #00529b !important;
 }
 .btn-gov:hover{
     box-shadow: inset 0 -2px 0 /*#003618*/ #00529b !important;
@@ -1441,7 +1441,7 @@ abbr{
     color: white !important;
     cursor: pointer !important;
     font-family: "Roboto",sans-serif !important;
-    margin: 0 0 .75rem !important;
+    margin: 0 0 .75rem 3px !important;
     padding: .625rem 1.5rem !important;
     text-align: center !important;
     text-decoration: none !important;
@@ -1670,7 +1670,17 @@ background-color: lightblue;
 	
 }*/
 
-.btn-continue:hover, .btn-back:focus, .btn-gov:hover, .btn-gov:focus {
+#dform_container a {
+	/*color: #0752a3 !important;*/
+	font-weight: bold !important;
+	text-decoration: none !important;
+}
+
+#dform_container a:hover, a:focus {
+	text-decoration: underline !important;
+}
+
+#dform_container .btn-continue:hover, #dform_container .btn-back:focus, #dform_container .btn-gov:hover, #dform_container .btn-gov:focus {
 	text-decoration: none !important;
 }
 
@@ -1688,12 +1698,3 @@ background-color: lightblue;
 	text-decoration: none !important;
 }
 
-#dform_container a {
-	/*color: #0752a3 !important;*/
-	font-weight: bold !important;
-	text-decoration: none !important;
-}
-
-#dform_container a:hover, a:focus {
-	text-decoration: underline !important;
-}
