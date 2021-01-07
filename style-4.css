@@ -1154,6 +1154,7 @@ KS: Custom gov multi-checkbox - Start
     background: #00823b;
     margin-bottom: 6px;
 }
+
 .box-blue{
     background: #00529b;
     margin-bottom: 6px;
@@ -1162,10 +1163,16 @@ KS: Custom gov multi-checkbox - Start
     background: #CE4C03;
     margin-bottom: 6px;
 }
-.box-green fieldset, .box-blue fieldset, .box-orange fieldset{
+
+.box-confirmation{
+    background: rgb(213, 43, 30);
+    margin-bottom: 6px;
+}
+
+.box-green fieldset, .box-blue fieldset, .box-orange fieldset, .box-confirmation fieldset{
     border: none !important;
 }
-.box-green legend,.box-blue legend,.box-orange legend{
+.box-green legend,.box-blue legend,.box-orange legend, .box-confirmation legend{
     color: white !important;
     font-weight: 700 !important;
     font-size: 1.5rem !important;
