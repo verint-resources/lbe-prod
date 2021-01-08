@@ -6,10 +6,10 @@ function do_KDF_Ready_Individual(event, kdf) {
     console.log('do_KDF_Ready_Individual');
 	
 	var form_name = kdf.name;
-	addAccordion();
-	KDF.showSection('area_customer_information');
+	addAccordion();	
 	
 	if (KDF.kdf().access === 'agent' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
+		KDF.hideSection('area_your_details_next_updateaddress');
 		KDF.showWidget('but_cust_info_update_address');
 		$('#dform_widget_txta_cust_info_address').prop('readonly', true);
 		$('#dform_widget_eml_cust_info_email').prop('required', false);
@@ -20,6 +20,8 @@ function do_KDF_Ready_Individual(event, kdf) {
 		}
 	}
 	else if (KDF.kdf().access === 'citizen') {
+		KDF.showSection('area_customer_information');
+		KDF.showSection('area_your_details_next_updateaddress');
 		KDF.showWidget('ps_citizen_property_search');
 		KDF.hideWidget('txta_cust_info_address');
 		
@@ -80,8 +82,9 @@ function do_KDF_Ready_Individual(event, kdf) {
     // Button "Continue" on Your Details page click event.
     $('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
 		KDF.setVal('eml_subscriber', KDF.getVal('eml_cust_info_email'));
-	    
-        if (KDF.kdf().access === 'agent' && custDetailsCheck()) {
+	    var remainAnonymous = $('#dform_widget_chk_anonymous')[0].checked ? $('#dform_widget_chk_anonymous')[0].value : $('#dform_widget_chk_anonymous').data('unchecked-value');
+        
+        if (KDF.kdf().access === 'agent' && custDetailsCheck() && remainAnonymous !== 'true') {
             if (KDF.check('.dform_section_area_customer_information') === 0) {
             	KDF.customdata('update-individual-new', individualTemplateIdentifier + 'no-address-update', true, true, {
 					'customerID': KDF.getVal('txt_customer_id'),
@@ -158,6 +161,7 @@ function do_KDF_Ready_Individual(event, kdf) {
         KDF.hideWidget('but_individual_not_found');
         KDF.hideWidget('but_cust_info_update_address');
         KDF.hideSection('area_customer_information');
+        KDF.hideSection('area_your_details_next_updateaddress');
     });
 
     $('#dform_widget_ps_create_individual_resultholder').on('show', function () {
@@ -343,6 +347,7 @@ function do_KDF_Custom_Individual(event, kdf, response, action) {
 			KDF.setVal('txt_cust_info_postcode', KDF.getVal('txt_logic_postcode'));
 			
 			KDF.showSection('area_customer_information');
+			KDF.showSection('area_your_details_next_updateaddress');
 			$('#dform_widget_txta_cust_info_address').prop('readonly', true);
 		}
 		else if (action === 'person-retrieve-new' && actionedBySource == 'update-individual') {
@@ -390,6 +395,7 @@ function do_KDF_objectdataLoaded_Individual(event, kdf, response, type, id) {
 		KDF.setVal('txta_cust_info_address', response["profile-Address"]);
         KDF.showWidget('but_cust_info_update_address');
         KDF.showSection('area_customer_information');
+        KDF.showSection('area_your_details_next_updateaddress');
     }
     else if (type === 'property' && kdf.widgetresponse.actionedby === 'ps_citizen_property_search') {
     	KDF.showWidget('rad_confirm_address');
@@ -414,6 +420,32 @@ function do_KDF_optionSelected_Individual(event, kdf, field, label, val) {
     		KDF.setVal('txt_cust_info_street_name', '');
     		KDF.setVal('txt_cust_info_town', '');
     		KDF.setVal('txt_cust_info_postcode', '');
+    	}
+    }
+    else if (field === 'chk_anonymous') {
+    	if (val === 'true') {
+    		KDF.showSection('area_your_details_next_updateaddress');
+            KDF.hideSection('area_customer_information');
+            KDF.hideSection('area_customer_information_search');
+            KDF.hideWidget('but_cust_info_update_address');
+            KDF.hideSection('area_customer_property_search');
+            KDF.setVal('rad_identifyc', 'no');
+    	}
+    	else {
+    		KDF.showSection('area_customer_information_search');
+		KDF.showSection('area_customer_property_search');
+    		KDF.setVal('rad_identifyc', 'yes');
+
+            if (KDF.getVal('txt_cust_info_first_name') !== '') {
+            	KDF.showSection('area_customer_information');
+                KDF.showWidget('but_cust_info_update_address');
+                KDF.showWidget('cs_customer_search');
+            }
+            else {
+            	KDF.hideSection('area_your_details_next_updateaddress');
+            	KDF.hideSection('area_customer_information');
+            	KDF.hideWidget('but_cust_info_update_address');
+            }
     	}
     }
 } //end do_KDF_optionSelected_Individual
