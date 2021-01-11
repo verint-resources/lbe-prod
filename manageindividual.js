@@ -429,12 +429,36 @@ function do_KDF_optionSelected_Individual(event, kdf, field, label, val) {
             KDF.hideSection('area_customer_information_search');
             KDF.hideWidget('but_cust_info_update_address');
             KDF.hideSection('area_customer_property_search');
+
             KDF.setVal('rad_identifyc', 'no');
+    		KDF.setVal('txt_cust_info_first_name', '');
+    		KDF.setVal('txt_cust_info_last_name', '');
+    		KDF.setVal('txt_cust_info_email', '');
+    		KDF.setVal('txt_cust_info_phone', '');
+    		KDF.setVal('txta_cust_info_address', '');
+
+    		KDF.setVal('txt_cust_info_street_number', '');
+			KDF.setVal('txt_cust_info_street_name', '');
+			KDF.setVal('txt_cust_info_town', '');
+			KDF.setVal('txt_cust_info_postcode', '');
+            
     	}
     	else {
     		KDF.showSection('area_customer_information_search');
-		KDF.showSection('area_customer_property_search');
-    		KDF.setVal('rad_identifyc', 'yes');
+    		KDF.showSection('area_customer_property_search');
+
+			KDF.setVal('txt_cust_info_first_name', KDF.getVal('txt_logic_firstname'));
+    		KDF.setVal('txt_cust_info_last_name', KDF.getVal('txt_logic_lastname'));
+    		KDF.setVal('txt_cust_info_email', KDF.getVal('txt_logic_email'));
+    		KDF.setVal('txt_cust_info_phone', KDF.getVal('txt_logic_phone'));
+
+			KDF.setVal('txt_cust_info_street_number', KDF.getVal('txt_logic_streetnumber'));
+			KDF.setVal('txt_cust_info_street_name', KDF.getVal('txt_logic_streetname'));
+			KDF.setVal('txt_cust_info_town', KDF.getVal('txt_logic_town'));
+			KDF.setVal('txt_cust_info_postcode', KDF.getVal('txt_logic_postcode'));
+
+    		var address = KDF.getVal('txt_logic_streetnumber') + ', ' + KDF.getVal('txt_logic_streetname') + ', ' + KDF.getVal('txt_logic_town') + ', ENFIELD, ' + KDF.getVal('txt_logic_postcode');
+    		KDF.setVal('txta_cust_info_address', address);
 
             if (KDF.getVal('txt_cust_info_first_name') !== '') {
             	KDF.showSection('area_customer_information');
