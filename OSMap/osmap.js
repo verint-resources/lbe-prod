@@ -241,7 +241,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 
 function do_KDF_optionSelected_OSMap(event, kdf, field, label, val) {
 	// KDF_optionSelected for map - Start
-	if (field === "ps_property_search_map_id") {
+	if (field === "ps_property_search_map_id" && val !== null && val !== '') {
 		KDF.customdata('retrieve_property', osmapTemplateIdentifier + 'create', true, true, {
 			'object_id': val
 		});
