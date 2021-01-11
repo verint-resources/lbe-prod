@@ -82,7 +82,10 @@ function do_KDF_Ready_Individual(event, kdf) {
     // Button "Continue" on Your Details page click event.
     $('#dform_widget_button_but_customer_detail_continue').off('click').on('click', function () {
 		KDF.setVal('eml_subscriber', KDF.getVal('eml_cust_info_email'));
-	    var remainAnonymous = $('#dform_widget_chk_anonymous')[0].checked ? $('#dform_widget_chk_anonymous')[0].value : $('#dform_widget_chk_anonymous').data('unchecked-value');
+	    
+	    if ($('#dform_widget_chk_anonymous').length > 0) {
+	    	var remainAnonymous = $('#dform_widget_chk_anonymous')[0].checked ? $('#dform_widget_chk_anonymous')[0].value : $('#dform_widget_chk_anonymous').data('unchecked-value');
+	    }
         
         if (KDF.kdf().access === 'agent' && custDetailsCheck() && remainAnonymous !== 'true') {
             if (KDF.check('.dform_section_area_customer_information') === 0) {
