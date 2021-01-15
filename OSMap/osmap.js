@@ -151,8 +151,12 @@ function initialiseOSMap(mapHolder) {
 	$("#dform_widget_button_but_map_next").off('click').on('click', function() {
 		KDF.hideWidget('ahtm_no_location_selected');
 		if (KDF.getVal('txt_map_full_address') === '') {
-			window.scrollTo(0,0);
-			KDF.showWidget('ahtm_no_location_selected');
+			if(KDF.getVal('le_gis_lat') !==''){
+				KDF.gotoNextPage();
+			} else {
+			    window.scrollTo(0,0);
+			    KDF.showWidget('ahtm_no_location_selected');
+			}
 		}
 		else {
 			KDF.gotoNextPage();
