@@ -77,6 +77,7 @@ function initialiseOSMap(mapHolder) {
 		map.setView([KDF.getVal('le_gis_lat'), KDF.getVal('le_gis_lon')], 18);
 	}
 
+										   
 	// Ensure map cannot be clicked on Read mode.
 	if (KDF.getVal('rad_viewmode') !== 'R') {
 		map.on("click", function (event) {
@@ -112,6 +113,7 @@ function initialiseOSMap(mapHolder) {
 
 				// OS Places API need format in British National Grid (EPSG:27700)
 				var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
+			
 				KDF.customdata('reverse_geocode', osmapTemplateIdentifier + 'on_click', true, true, {
 					'longitude': coor[0].toString(),
 					'latitude': coor[1].toString()
@@ -158,6 +160,7 @@ function initialiseOSMap(mapHolder) {
 	})
 	// Button "Continue" on Map page is clicked - End
 } // initialiseOSMap for map - End
+ 
 
 function do_KDF_Custom_OSMap(event, kdf, response, action) {
 	var isOSMapTemplate = false;
@@ -203,6 +206,9 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 			
 			KDF.setVal('txt_subs_address', response.data.description);
 		} else if (action === 'reverse_geocode') {
+			KDF.setVal('txt_map_uprn', '');
+			KDF.setVal('txt_map_full_address', '');
+			
 			if (response.data.outcome === 'success') {
 				KDF.hideWidget('ahtm_no_location_selected');
 				KDF.setVal('txt_easting', response.data.easting);
@@ -210,6 +216,13 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 				KDF.setVal('le_associated_obj_id', response.data.object_id);
 				KDF.setVal('txt_map_uprn', response.data.UPRN);
 				KDF.setVal('txt_map_full_address', response.data.description);
+			} else {
+					var lon = KDF.getVal('le_gis_lon');
+					var lat = KDF.getVal('le_gis_lat');
+					var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
+					
+					KDF.setVal('txt_easting', coor[0].toString());
+					KDF.setVal('txt_northing', coor[1].toString());
 			}
 			var popup = L.popup().setContent(response.data.description);
 			pinMarker.addTo(map).bindPopup(popup).openPopup();
@@ -250,6 +263,11 @@ function do_KDF_optionSelected_OSMap(event, kdf, field, label, val) {
 }
 
 /*
+														  
+						
+   
+  
+  
 The MIT License (MIT)
 
 Copyright (c) 2016 James Halliday
