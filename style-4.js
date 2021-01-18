@@ -3,6 +3,46 @@
         ACCORDION - START
 =====================================
 **/
+function resizeIframe(id, externalWindow) {
+var winH, obj = document.getElementById(id);
+/*Edinburgh form iFrame global scaling - START*/
+if (!obj) {
+document.getElementById("kActionBody").removeAttribute("style");
+return;
+}
+
+if (document.body && document.body.offsetWidth) {
+winH = document.body.offsetHeight;
+}
+if (document.compatMode=='CSS1Compat' &&
+document.documentElement &&
+document.documentElement.offsetWidth ) {
+winH = document.documentElement.offsetHeight;
+}
+if (window.innerWidth && window.innerHeight) {
+winH = window.innerHeight;
+}
+ 
+if(obj.getAttribute("src") && /\/form\//g.test(obj.getAttribute("src"))){
+//if has a src and it's a form url, add a scale to the iframe
+obj.style['transform'] = 'scale(0.75)';
+}
+if (obj.style.transform){
+var scale = parseFloat(obj.style.transform.substring(6,obj.style.transform.lastIndexOf(")")));
+winH = (winH / scale)-45;
+obj.style['transform-origin'] = '0px 0px 0px';
+obj.style['width'] = (100 / scale)+"%";
+obj.parentNode.parentNode.parentNode.style.overflow = 'hidden';
+} 
+	if (externalWindow) {
+		obj.style.height = winH - obj.offsetTop - 15 + 'px';
+	} else if (externalWindow === undefined) {
+		obj.style.height = (winH - obj.offsetTop - 100) + 'px';
+	} else {
+		obj.style.height = winH - obj.offsetTop - 100 + 'px';
+	}
+};
+
 function addAccordion(){
 	console.log('accordion has started');
 	var elements = $('.accordion');
