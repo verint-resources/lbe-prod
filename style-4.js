@@ -4,6 +4,9 @@
 =====================================
 **/
 function resizeIframe(id, externalWindow) {
+console.log(id)
+console.log(externalWindow)
+console.log('resize it')
 var winH, obj = document.getElementById(id);
 /*Edinburgh form iFrame global scaling - START*/
 if (!obj) {
