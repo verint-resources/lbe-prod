@@ -57,13 +57,19 @@ function do_KDF_Ready_Sharepoint (event, kdf) {
 		}
 		
 		if (!fileError) {
+			var fileMatch = false;
 			formParams.allowedFileType.forEach(function (arrayItem) {
 				//console.log(arrayItem);
 				//console.log(fileName.split('.').pop());
-				if (arrayItem === fileNameClean.toLowerCase()){
-					fileError= false;
+				
+				if (arrayItem == fileNameClean.toLowerCase()){
+					fileMatch= true;
+				} 
+				
+				if (fileMatch){
+					fileError = false;
 				} else {
-					fileError= true;
+					fileError = true;
 				}
 				
 			});
