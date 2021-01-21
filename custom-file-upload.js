@@ -184,10 +184,13 @@ function do_KDF_Save_Sharepoint() {
 	
 	if (!formParams.kdfSaveFlag) {
 		
-		$('#dform_successMessage').remove();
-		//console.log(KDF.kdf().form.caseid)
-		//formParams.kdfSaveFlag = true;
-		KDF.customdata('sharepoint_token', 'imitateKdfReady', true, true, {'SaveForm': 'true', 'caseid': KDF.kdf().form.caseid});
+		if (formParams.fileBlob !== '') {
+		
+			$('#dform_successMessage').remove();
+			//console.log(KDF.kdf().form.caseid)
+			//formParams.kdfSaveFlag = true;
+			KDF.customdata('sharepoint_token', 'imitateKdfReady', true, true, {'SaveForm': 'true', 'caseid': KDF.kdf().form.caseid});
+		}
 	}
 }
 
