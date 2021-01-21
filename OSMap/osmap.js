@@ -256,6 +256,13 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 	}
 }
 
+function do_KDF_CustomError_OSMap(event, customaction, xhr, settings, thrownError) {
+	if (customaction === 'reverse_geocode') {
+		KDF.setVal('le_gis_lon', '');
+		KDF.setVal('le_gis_lat', '');	
+	}
+}
+
 function do_KDF_optionSelected_OSMap(event, kdf, field, label, val) {
 	// KDF_optionSelected for map - Start
 	if (field === "ps_property_search_map_id" && val !== null && val !== '') {
