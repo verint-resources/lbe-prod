@@ -1,7 +1,6 @@
-  
 var formParams = {
 	fileBlob: '',
-	inputFileID: '$("#custom_fileupload")',
+	inputFileID: '$("#custom_fileupload_holder")',
 	randomNumber: '',
 	allowedFileType: ['jpeg','png','jpg'],
 	maxFileSize: '4000000',
@@ -14,26 +13,34 @@ var formParams = {
 
 function do_KDF_Ready_Sharepoint (event, kdf) {
 
-    if(KDF.kdf().form.readonly){
+    if((KDF.kdf().form.readonly && KDF.kdf().access == 'citizen') || (KDF.kdf().viewmode == 'R')){
+		KDF.makeReadonly();
     	KDF.hideWidget('ahtm_custom_fileupload');
 		KDF.showSection('area_file_view_mode');
     	 KDF.customdata('sharepoint_token', 'imitateKdfReady readonly', true, true, {});
-    }
+		 console.log('123123')
+    } else if (KDF.kdf().viewmode == 'U') {
+		KDF.showWidget('ahtm_custom_fileupload');
+		KDF.hideSection('area_file_view_mode');
+    	 KDF.customdata('sharepoint_token', 'imitateKdfReady readonly', true, true, {});
+		 console.log('asdfsafds')
+	}
+	
 
 	var CustomFileUploadWidget=$('#custom_fileupload_holder');
+console.log($('#custom_fileupload_holder'))
+	if($('#custom_fileupload_holder').length>0){
 
-	if(CustomFileUploadWidget.length>0){
-
-        var widget = '<div data-type="file" data-name="file_ootb" data-active="true" data-agentonly="false" class="file-progress lbe-file-gov">' + 
-								'<div><label>Please upload two photos of the problem. Files must be less than 4MB in size.</label></div>' +
+        	var widget = '<div data-type="file" data-name="file_ootb" data-active="true" data-agentonly="false" class="file-progress lbe-file-gov">' + 
+								'<div><label>Please upload photo of the problem</label></div>' +
 							  '<div style="position: relative;"><input id="custom_fileupload" type="file" name="uploadedFile">' + 
 							  '<span class="file-gov-icon"><span class="file-gov-icon-a"></span><span class="file-gov-icon-b"></span><label class="file-gov-text">Upload file</label></span>' +
-							  '<div class="helptext">Image file types accepted are .jpeg, .jpg or .png.</div>' +
+							  '<div class="helptext">Image file types accepted are .jpeg, .jpg or .png up to 4MB in size</div>' +
 							'<div class="dform_fileupload_progressbar" id="custom_fileupload_progressbar"></div>'+
 							 '<div class="filenames" id="custom_fileupload_files"></div><br><br></div>'+
 						  ' </div>'	;
 
-			CustomFileUploadWidget.html(widget);
+			$('#custom_fileupload_holder').html(widget);
 			
             formParams.randomNumber = Math.floor((Math.random() * 100000) + 1);
 	}
@@ -151,13 +158,28 @@ function do_KDF_Custom_Sharepoint (response, action) {
         	var access_token = response.data['access_token'];
 			//console.log(response.data['full_classification']);
         	if (!KDF.kdf().form.readonly && formParams.deleteFileSelector == '') {
-				if (!formParams.kdfSaveFlag){
-					console.log(response.data['full_classification']);
-					formParams.kdfSaveFlag = true;
-					formParams.full_classification = response.data['full_classification'];
+				
+				if (KDF.kdf().viewmode == 'U' && formParams.fileBlob == '') {
+					if (KDF.getVal('txt_filename_one') !== ''){
+					
+						sharepointFileThumbnail (KDF.getVal('txt_sharepointID_one'), access_token, 'txt_filename_one')
+					}
+				
+					if (KDF.getVal('txt_filename_two') !== ''){
+						console.log('txt_filename_two')
+						sharepointFileThumbnail (KDF.getVal('txt_sharepointID_two'), access_token, 'txt_filename_two')
+					}
+				} else if (formParams.fileBlob !== ''){
+					
+					if (!formParams.kdfSaveFlag) {
+						formParams.kdfSaveFlag = true;
+						formParams.full_classification = response.data['full_classification'];
+					}
+					
+					sharepointFileUploader(access_token);
 				}
 				
-                sharepointFileUploader(access_token);
+                
         	} else if (!KDF.kdf().form.readonly && formParams.deleteFileSelector !== '') {
                 deleteFile(access_token);
         	} 
@@ -183,7 +205,6 @@ function do_KDF_Custom_Sharepoint (response, action) {
 function do_KDF_Save_Sharepoint() {
 	
 	if (!formParams.kdfSaveFlag) {
-		
 		if (formParams.fileBlob !== '') {
 		
 			$('#dform_successMessage').remove();
@@ -249,16 +270,29 @@ function sharepointFileThumbnail (itemID, access_token, widgetName){
 		
 		if (!KDF.kdf().form.readonly) {
 			
-			$(".dform_fileupload_progressbar").html("<div style='width: 60%;'>");
-	
-			if(KDF.getVal('txt_filename_one_thumb') == ''){
-				KDF.setVal('txt_filename_one_thumb', response.value[0].medium['url']);
-			} else {
-				KDF.setVal('txt_filename_two_thumb', response.value[0].medium['url']);
+			if (KDF.kdf().viewmode === 'U' && formParams.fileBlob == ''){
+				
+				if (widgetName == 'txt_filename_one') {
+					KDF.setVal('txt_filename_one_thumb', response.value[0].medium['url']);
+				} else if (widgetName == 'txt_filename_two') {
+					KDF.setVal('txt_filename_two_thumb', response.value[0].medium['url']);
+				}
+		
+				addFileContainer(widgetName);
+			} else if (formParams.fileBlob !== ''){
+				
+				$(".dform_fileupload_progressbar").html("<div style='width: 60%;'>");
+		
+				if(KDF.getVal('txt_filename_one_thumb') == ''){
+					KDF.setVal('txt_filename_one_thumb', response.value[0].medium['url']);
+				} else {
+					KDF.setVal('txt_filename_two_thumb', response.value[0].medium['url']);
+				}
+		
+				setTimeout(function(){ addFileContainer(); $(".dform_fileupload_progressbar").html("<div style='width: 100%;'>"); }, 1000);
 			}
-	
-			setTimeout(function(){ addFileContainer(); $(".dform_fileupload_progressbar").html("<div style='width: 100%;'>"); }, 1000);
-		} else {
+			
+		} else if (KDF.kdf().form.readonly || KDF.kdf().viewmode == 'R') {
 				var thumbnailUrl = response.value[0].medium['url'];
 				var html;
 		
@@ -276,21 +310,33 @@ function sharepointFileThumbnail (itemID, access_token, widgetName){
 	
 }
 
-function addFileContainer() {
+function addFileContainer(widgetName) {
     var fileName;
     var fileThumbnail;
 	var widgetName;
 
-	if(KDF.getVal('txt_sharepointID_one') !== '' && KDF.getVal('txt_sharepointID_two') == ''){
-         fileName = KDF.getVal('txt_filename_one');
-         fileThumbnail = KDF.getVal('txt_filename_one_thumb');
-		 widgetName = 'txt_filename_one';
-	} else if (KDF.getVal('txt_sharepointID_one') !== '' && KDF.getVal('txt_sharepointID_two') !== '') {
-		fileName = KDF.getVal('txt_filename_two');
-         fileThumbnail = KDF.getVal('txt_filename_two_thumb');
-		 widgetName = 'txt_filename_two';
+	if (KDF.kdf().viewmode == 'U' && formParams.fileBlob == '') {
+		console.log(widgetName)
+		if (widgetName == 'txt_filename_one') {
+			fileName = KDF.getVal('txt_filename_one');
+			fileThumbnail = KDF.getVal('txt_filename_one_thumb');
+		} else if (widgetName == 'txt_filename_two') {
+			fileName = KDF.getVal('txt_filename_two');
+			fileThumbnail = KDF.getVal('txt_filename_two_thumb');
+		}
+		
+	} else if (formParams.fileBlob !== ''){
+		if($('.filenames .txt_filename_one').length < 1 ){
+			fileName = KDF.getVal('txt_filename_one');
+			fileThumbnail = KDF.getVal('txt_filename_one_thumb');
+			widgetName = 'txt_filename_one';
+		} else if ($('.filenames .txt_filename_two').length < 1 ) {
+			fileName = KDF.getVal('txt_filename_two');
+			fileThumbnail = KDF.getVal('txt_filename_two_thumb');
+			widgetName = 'txt_filename_two';
+		}
 	}
-	//$(".dform_fileupload_progressbar").html("<div style='width: 100%;'>");
+	
 	console.log(fileName)
 
 	$(".filenames").append('<span class="' + widgetName + '"> <img id="file_container" style="width: 196px; height: 196px" class="'+ widgetName  +'" src='+ fileThumbnail  + '><div>' + fileName + '<span id="' + widgetName +  '" style="font-weight:bold;" class="delete_file">4</span></div></span>');
@@ -372,65 +418,4 @@ function deleteFile (access_token){
 	});
 	
 	formParams.deleteFileSelector = '';
-}
-
-function aasharepointDownloadFile(access_token) {
-	var selector = formParams.imgClickSelector;
-	var sharepointID;
-	
-	if (selector === 'txt_filename_one'){
-		sharepointID = KDF.getVal('txt_sharepointID_one');
-	} else {
-		sharepointID = KDF.getVal('txt_sharepointID_two');
-	}
-	console.log
-	var getFileURL = formParams.fileUploadUrl + sharepointID + '/content';
-	/*
-	$.ajax({
-    url: getFileURL, 
-    headers: {Authorization: access_token},
-    type: 'GET',
-	dataType: 'json',
-    complete: function(response) {
-		//console.log(data)
-		console.log(response.getAllResponseHeaders)
-		console.log(response)
-		
-		console.log('asd')
-			if (response.redirect) {
-				// data.redirect contains the string URL to redirect to
-				window.location.href = response.redirect;
-			}
-		}
-		
-    }).fail(function( jqXHR, textStatus ) {
-			//console.log(jqXHR.getAllResponseHeaders)
-			console.log(textStatus)
-	});
-	*/
-	
-	var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-      // return if not ready state 4
-      if (this.readyState !== 4) {
-        return;
-      }
-console.log('123123123123')
-      // check for redirect
-      if (this.status === 302 /* or may any other redirect? */) {
-        var location = this.getResponseHeader("Location");
-        //return ajax.call(this, location /*params*/, callback);
-		console.log(location)
-		console.log('asdfasfd')
-      } 
-
-      // return data
-     // var data = JSON.parse(this.responseText);
-      //callback(data);
-  };
-  xmlhttp.open("GET", getFileURL, true);
-  xmlhttp.setRequestHeader('Authorization', access_token)
-  xmlhttp.send();
-	
-	formParams.imgClickSelector = '';
 }
