@@ -10,7 +10,7 @@
 }
 
 /*Override the underline on map zoom control*/
-#dform_container a.leaflet-control-zoom-in, #dform_container a:leaflet-control-zoom-in, a:leaflet-control-zoom-in, #dform_container a.leaflet-control-zoom-out, #dform_container a:leaflet-control-zoom-out, a:leaflet-control-zoom-out, #dform_container a.leaflet-popup-close-button {
+#dform_container a.leaflet-control-zoom-in, #dform_container a.leaflet-control-zoom-in:hover, a.leaflet-control-zoom-in:focus, #dform_container a.leaflet-control-zoom-out, #dform_container a.leaflet-control-zoom-out:hover, a.leaflet-control-zoom-out:focus, #dform_container a.leaflet-popup-close-button {
     text-decoration:none !important;
 }
 
