@@ -367,6 +367,9 @@ function do_KDF_Custom_Individual(event, kdf, response, action) {
 			KDF.gotoNextPage();
 
 		}
+		else if (action === 'person-retrieve-new' && actionedBySource == 'search-individual') {
+			KDF.setVal('txt_cust_info_uprn', KDF.getVal('txt_logic_uprn'));
+		}
 		else if (action === 'update-individual-new') {
 			console.log('custom action point 4');
 			KDF.showSuccess('Individual Details Updated');
