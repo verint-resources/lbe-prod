@@ -21,8 +21,11 @@ function initialiseOSMap(mapHolder) {
 			return;
 	$(mapHolder).attr('data-mapready',true);
 	map = L.map('map').setView([51.653046, -0.089580], 12);
+	
+	var apiKey = 'ER0fA2XKDuJAd2Ze2xAe5Ljium4jGQQJ';
+   	var serviceUrl = 'https://api.os.uk/maps/raster/v1/zxy';
 
-	L.tileLayer('https://api2.ordnancesurvey.co.uk/mapping_api/v1/service/zxy/EPSG%3A3857/Outdoor%203857/{z}/{x}/{y}.png?key=Y7CTxkXcd66CoBs2ry7I1QAOkZAomw82', {
+	L.tileLayer(serviceUrl + '/Outdoor_3857/{z}/{x}/{y}.png?key=' + apiKey, {
 		maxZoom: 20,
 		minZoom: 7
 	}).addTo(map);
