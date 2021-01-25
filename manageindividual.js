@@ -122,6 +122,9 @@ function do_KDF_Ready_Individual(event, kdf) {
 			}
         }
         else {
+		if (KDF.kdf().access === 'agent') {
+			KDF.customdata('person-retrieve-new', individualTemplateIdentifier + 'search-individual', true, true, { 'person_search_results': KDF.getVal('txt_customer_id') });	
+		}
     		KDF.gotoNextPage();
         }
     });
