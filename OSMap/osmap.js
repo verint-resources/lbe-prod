@@ -27,7 +27,8 @@ function initialiseOSMap(mapHolder) {
 
 	L.tileLayer(serviceUrl + '/Outdoor_3857/{z}/{x}/{y}.png?key=' + apiKey, {
 		maxZoom: 20,
-		minZoom: 7
+		minZoom: 7,
+		zoom: 14
 	}).addTo(map);
 	map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.
 	
