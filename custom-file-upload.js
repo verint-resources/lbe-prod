@@ -242,11 +242,11 @@ function sharepointFileUploader (access_token){
         if(KDF.getVal('txt_sharepointID_one') == ''){
         	KDF.setVal('txt_sharepointID_one', response.id);
         	KDF.setVal('txt_filename_one', fileName);
-			KDF.setVal('txt_sharepoint_link_one', response['@microsoft.graph.downloadUrl']);
+			KDF.setVal('txt_sharepoint_link_one', response['webUrl']);
         } else {
         	KDF.setVal('txt_sharepointID_two', response.id);
         	KDF.setVal('txt_filename_two', fileName);
-			KDF.setVal('txt_sharepoint_link_two', response['@microsoft.graph.downloadUrl']);
+			KDF.setVal('txt_sharepoint_link_two', response['webUrl']);
         }
 
     });
