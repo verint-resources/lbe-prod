@@ -215,6 +215,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 			KDF.setVal('txt_subs_address', response.data.description);
 		} else if (action === 'reverse_geocode') {
 			KDF.setVal('txt_map_uprn', '');
+			KDF.setVal('txt_map_usrn', '');
 			KDF.setVal('txt_map_full_address', '');
 			
 			if (response.data.outcome === 'success') {
@@ -223,6 +224,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 				KDF.setVal('txt_northing', response.data.northing);
 				KDF.setVal('le_associated_obj_id', response.data.object_id);
 				KDF.setVal('txt_map_uprn', response.data.UPRN);
+				KDF.setVal('txt_map_usrn', response.data.USRN);
 				KDF.setVal('txt_map_full_address', response.data.description);
 			} else {
 					var lon = KDF.getVal('le_gis_lon');
