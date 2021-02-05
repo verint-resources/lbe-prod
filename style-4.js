@@ -873,6 +873,15 @@ function getFieldsLabels(isPosLeft){
 	return selector;
 }
 
+//KS: IE compatability for .isInteger
+Number.isInteger = Number.isInteger || function(value) {
+    return typeof value === "number" && 
+           isFinite(value) && 
+           Math.floor(value) === value;
+};
+
+
+
 /** 
 =====================================
             STYLING - END
@@ -926,6 +935,8 @@ function addAutoComplete() {
 		$('[id*="street_name"], [id*="address_name"]').attr("autocomplete","address-line1 street-address"); 
 	}
 }
+
+
 /** 
 =====================================
 		CEC Accessibility - END
