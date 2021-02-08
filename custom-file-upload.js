@@ -32,7 +32,7 @@ console.log($('#custom_fileupload_holder'))
 	if($('#custom_fileupload_holder').length>0){
 
         	var widget = '<div data-type="file" data-name="file_ootb" data-active="true" data-agentonly="false" class="file-progress lbe-file-gov">' + 
-								'<div><label>Please upload photo of the problem</label></div>' +
+								'<div><label>Please upload up to two photos of the problem</label></div>' +
 							  '<div style="position: relative;"><input id="custom_fileupload" type="file" name="uploadedFile">' + 
 							  '<span class="file-gov-icon"><span class="file-gov-icon-a"></span><span class="file-gov-icon-b"></span><label class="file-gov-text">Upload file</label></span>' +
 							  '<div class="helptext">Image file types accepted are .jpeg, .jpg or .png up to 4MB in size</div>' +
