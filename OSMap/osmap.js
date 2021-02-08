@@ -1,3 +1,8 @@
+var s = document.createElement("script");
+s.type = "text/javascript";
+s.src = "https://cdn.jsdelivr.net/npm/@turf/turf@6.3.0/turf.min.js";
+$("head").append(s);
+
 var map, pinMarker, openCasesMarkers;
 var osmapTemplateIdentifier = 'osmap_template_';
 proj4.defs([
@@ -31,6 +36,19 @@ function initialiseOSMap(mapHolder) {
 		zoom: 14
 	}).addTo(map);
 	map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.
+	var lyrGroup = new L.layerGroup().addTo(map);
+	  var styles = {
+        'street': {
+            color: 'red',
+			fillOpacity: 0.5
+        }
+    };
+	 // Create an empty GeoJSON FeatureCollection.
+    var geoJson = {
+        "type": "FeatureCollection",
+        "features": []
+    };
+
 	
 	// Add legend to the map - Start
 	var legend_icons = [
@@ -93,6 +111,11 @@ function initialiseOSMap(mapHolder) {
 			var lon = clickedMarker.latlng.lng;
 			// real_Lat = real_Lat.toString().substring(0,9);
 			//console.log(real_Lat)
+			
+			var center = [ lon, lat ];
+			console.log(center)
+        // {Turf.js} Create a point form the centre position.
+			//var point = turf.point(center);
 
 			console.log("Perform Reverse Geocode");
 			console.log("Lat : ", lat);
@@ -117,11 +140,15 @@ function initialiseOSMap(mapHolder) {
 
 				// OS Places API need format in British National Grid (EPSG:27700)
 				var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
-			
+				
+				var center = [ lon, lat ];
+				getNearestStreet(center)
+			/*
 				KDF.customdata('reverse_geocode', osmapTemplateIdentifier + 'on_click', true, true, {
 					'longitude': coor[0].toString(),
 					'latitude': coor[1].toString()
 				});
+			*/
 			} else {
 				var popup = L.popup()
 					.setContent('You can\'t drop a pin here as it\'s outside the London Borough of Enfield. <a href="https://www.gov.uk/find-your-local-council" target="_blank">Find out which council you should contact about this problem.<\/a>');
@@ -130,6 +157,189 @@ function initialiseOSMap(mapHolder) {
 			}
 		});
 	}
+	
+function getNearestStreet(center){
+	   lyrGroup.clearLayers();
+
+        // {Turf.js} Create a point form the centre position.
+        var point = turf.point(center);
+
+        // {Turf.js} Takes the centre point coordinate and calculates a circular polygon
+        // of the given radius in kilometres; and steps for precision.
+        var circle = turf.circle(center, 0.2, { steps: 24, units: 'kilometers' });
+
+        // {Turf.js} Flip the circle geometry coordinates from [x, y] to [y, x].
+        circle = turf.flip(circle);
+
+        // Get the circle geometry coordinates and return a new space-delimited string.
+        var coords = circle.geometry.coordinates[0].join(' ');
+
+        // Create an OGC XML filter parameter value which will select the Street
+        // features intersecting the circle polygon coordinates.
+        var xml = '<ogc:Filter>';
+        xml += '<ogc:Intersects>';
+        xml += '<ogc:PropertyName>SHAPE</ogc:PropertyName>';
+        xml += '<gml:Polygon srsName="urn:ogc:def:crs:EPSG::4326">';
+        xml += '<gml:outerBoundaryIs>';
+        xml += '<gml:LinearRing>';
+        xml += '<gml:coordinates>' + coords + '</gml:coordinates>';
+        xml += '</gml:LinearRing>';
+        xml += '</gml:outerBoundaryIs>';
+        xml += '</gml:Polygon>';
+        xml += '</ogc:Intersects>';
+        xml += '</ogc:Filter>';
+
+        // Define parameters object.
+        var wfsParams = {
+            key: 'xCOy7AYWEjobrfYAumRuwUtvFkgbp1Nq',
+            service: 'WFS',
+            request: 'GetFeature',
+            version: '2.0.0',
+            typeNames: 'Highways_Street',
+            outputFormat: 'GEOJSON',
+            srsName: 'urn:ogc:def:crs:EPSG::4326',
+            filter: xml,
+            count: 100,
+            startIndex: 0
+        };
+
+        var resultsRemain = true;
+
+        geoJson.features.length = 0;
+        function fetchWhile(resultsRemain) {
+            if( resultsRemain ) {
+                fetch(getUrl(wfsParams))
+                    .then(response => response.json())
+                    .then(data => {
+                        wfsParams.startIndex += wfsParams.count;
+
+                        geoJson.features.push.apply(geoJson.features, data.features);
+
+                        resultsRemain = data.features.length < wfsParams.count ? false : true;
+
+                        fetchWhile(resultsRemain);
+                    });
+            }
+            else {
+                if( geoJson.features.length ){findNearest(point, geoJson);}
+                else {
+					var lon = KDF.getVal('le_gis_lon');
+					var lat = KDF.getVal('le_gis_lat');
+					var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
+					
+					KDF.setVal('txt_easting', coor[0].toString());
+					KDF.setVal('txt_northing', coor[1].toString());
+					
+					map.setView([lat, lon], 18);
+					pinMarker = new L.marker([lat, lon], {
+						interactive: true
+					});
+					
+					var popup = L.popup().setContent('Location has been selected');
+					pinMarker.addTo(map).bindPopup(popup).openPopup();
+				}
+            }
+        }
+
+        fetchWhile(resultsRemain);
+}
+
+function onEachFeature(feature, layer) {
+		// does this feature have a property named popupContent?
+		if (feature.properties) {
+			var popupContent = 'USRN: ' + feature.properties.InspireIDLocalID + '<br>' + feature.properties.DesignatedName1 + ', ' + feature.properties.Town1
+			layer.bindPopup(popupContent);
+		}
+	}
+	
+    /**
+     * Creates a GeoJSON layer.
+     * @param {object} obj - GeoJSON features object.
+     * @param {object} style - Style options.
+     */
+    function createGeoJSONLayer(obj, style) {
+        //return new L.geoJson({"type": "MultiLineString", "coordinates": obj.geometry.coordinates}, styles);
+		return new L.geoJson({"type": "MultiLineString", "coordinates": obj.geometry.coordinates, "properties": obj.properties}, {
+			style: styles.street,
+			onEachFeature: onEachFeature
+		});
+    }
+
+    /**
+     * Return URL with encoded parameters.
+     * @param {object} params - The parameters object to be encoded.
+     */
+    function getUrl(params) {
+        var encodedParameters = Object.keys(params)
+            .map(paramName => paramName + '=' + encodeURI(params[paramName]))
+            .join('&');
+
+        return 'https://api.os.uk/features/v1/wfs?' + encodedParameters;
+    }
+
+    /**
+     * Determines the nearest feature in a GeoJSON object.
+     * @param {object} point - GeoJSON point centroid.
+     * @param {object} features - GeoJSON street FeatureCollection.
+     */
+    function findNearest(point, features) {
+        var nearestFeature, nearestDistance = 1;
+
+        // {Turf.js} Iterate over features in street FeatureCollection.
+        turf.featureEach(features, function(currentFeature, featureIndex) {
+            if( featureIndex === 0 )
+                nearestFeature = currentFeature;
+
+            // {Turf.js} Test if point centroid is within the current street feature.
+            if( turf.booleanWithin(point, currentFeature) ) {
+                nearestFeature = currentFeature;
+                nearestDistance = 0;
+                return;
+            }
+
+            // {Turf.js} Iterate over coordinates in current street feature.
+            turf.coordEach(currentFeature, function(currentCoord, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) {
+                // {Turf.js} Calculates the distance between two points in kilometres.
+                var distance = turf.pointToLineDistance(point, turf.lineString(currentCoord));
+
+                // If the distance is less than that whch has previously been calculated
+                // replace the nearest values with those from the current index.
+                if( distance <= nearestDistance ) {
+                    nearestFeature = currentFeature;
+                    nearestDistance = distance;
+                    return;
+                }
+            });
+        });
+		
+		var lon = KDF.getVal('le_gis_lon');
+		var lat = KDF.getVal('le_gis_lat');
+		
+		map.setView([lat, lon], 18);
+		pinMarker = new L.marker([lat, lon], {
+					interactive: true
+		});
+		console.log('Nearest Feature: ', nearestFeature);
+		var popupContent = nearestFeature.properties.DesignatedName1 + ', ' + nearestFeature.properties.Town1
+		var popup = L.popup().setContent(popupContent);
+		pinMarker.addTo(map).bindPopup(popup).openPopup();
+		
+		var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);			
+		KDF.setVal('txt_easting', coor[0].toString());
+		KDF.setVal('txt_northing', coor[1].toString());
+		
+		KDF.hideWidget('ahtm_no_location_selected');
+		//KDF.setVal('le_associated_obj_id', response.data.object_id);
+		KDF.setVal('txt_map_usrn', nearestFeature.properties.InspireIDLocalID);
+		KDF.setVal('txt_map_full_address', popupContent);
+		KDF.setVal('txt_subs_address', popupContent);
+					
+		KDF.customdata('street-search', osmapTemplateIdentifier + 'findNearest', true, true, {
+					'usrn': nearestFeature.properties.InspireIDLocalID
+				});
+        //lyrGroup.addLayer(createGeoJSONLayer(nearestFeature, 'street'));
+		
+    }
 
 	/* Open Case Marker Function
 	map.on("moveend", function (event) {
@@ -138,7 +348,6 @@ function initialiseOSMap(mapHolder) {
 		var xmax = map.getBounds().getEast();
 		var ymin = map.getBounds().getSouth();
 		var ymax = map.getBounds().getNorth();
-
 		console.log('Map extend:', xmin, xmax, ymin, ymax);
 		if (map.getZoom() >= 14) {
 			KDF.customdata('get_open_case_marker', osmapTemplateIdentifier + 'kdf_ready', true, false, {
@@ -257,6 +466,8 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 			});
 
 			openCasesMarkers = L.layerGroup(markers).addTo(map);
+		} else if (action === 'street-search') {
+			KDF.setVal('le_associated_obj_id', response.data['prop_search_results']);
 		}
 		//KDF_custom for map - End
 	}
@@ -286,19 +497,15 @@ function do_KDF_optionSelected_OSMap(event, kdf, field, label, val) {
   
   
 The MIT License (MIT)
-
 Copyright (c) 2016 James Halliday
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
