@@ -131,13 +131,13 @@ console.log($('#custom_fileupload_holder'))
         }
 
      $('body').on('click','img',function(){
+		 if ( $(this).attr('class').includes('filename')){
+			if(KDF.kdf().form.readonly){
+				console.log($(this).attr('class'));
 		 
-		 if(KDF.kdf().form.readonly){
-		 
-			console.log($(this).attr('class').closest);
-		 
-			formParams.imgClickSelector = $(this).attr('class');
-			KDF.customdata('sharepoint_token', 'imgClickEvent', true, true, {});
+				formParams.imgClickSelector = $(this).attr('class');
+				KDF.customdata('sharepoint_token', 'imgClickEvent', true, true, {});
+			}
 		 }
 	  })
 	  
