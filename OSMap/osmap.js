@@ -267,9 +267,9 @@ function onEachFeature(feature, layer) {
      * @param {object} params - The parameters object to be encoded.
      */
     function getUrl(params) {
-        var encodedParameters = Object.keys(params)
-            .map(paramName => paramName + '=' + encodeURI(params[paramName]))
-            .join('&');
+       var encodedParameters = Object.keys(params).map(function (paramName) {
+			return paramName + '=' + encodeURI(params[paramName]);
+	   }).join('&');
 
         return 'https://api.os.uk/features/v1/wfs?' + encodedParameters;
     }
