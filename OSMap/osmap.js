@@ -1,7 +1,7 @@
 var s = document.createElement("script");
 s.type = "text/javascript";
-s.src = "https://ver-dev-workings.github.io/files/turf.js";
-document.head.appendChild(s);
+s.src = "https://cdn.jsdelivr.net/npm/@turf/turf@6.3.0/turf.min.js";
+$("head").append(s);
 
 var map, pinMarker, openCasesMarkers;
 var osmapTemplateIdentifier = 'osmap_template_';
@@ -208,17 +208,14 @@ function getNearestStreet(center){
         geoJson.features.length = 0;
         function fetchWhile(resultsRemain) {
             if( resultsRemain ) {
-                fetch(getUrl(wfsParams))
-                    .then(response => response.json())
-                    .then(data => {
-                        wfsParams.startIndex += wfsParams.count;
-
-                        geoJson.features.push.apply(geoJson.features, data.features);
-
-                        resultsRemain = data.features.length < wfsParams.count ? false : true;
-
-                        fetchWhile(resultsRemain);
-                    });
+             fetch(getUrl(wfsParams)).then(function (response) {
+				return response.json();
+				}).then(function (data) {
+					wfsParams.startIndex += wfsParams.count;
+					geoJson.features.push.apply(geoJson.features, data.features);
+					resultsRemain = data.features.length < wfsParams.count ? false : true;
+					fetchWhile(resultsRemain);
+				});
             }
             else {
                 if( geoJson.features.length ){findNearest(point, geoJson);}
