@@ -114,8 +114,6 @@ function initialiseOSMap(mapHolder) {
 			
 			var center = [ lon, lat ];
 			console.log(center)
-        // {Turf.js} Create a point form the centre position.
-			//var point = turf.point(center);
 
 			console.log("Perform Reverse Geocode");
 			console.log("Lat : ", lat);
@@ -160,22 +158,13 @@ function initialiseOSMap(mapHolder) {
 	
 function getNearestStreet(center){
 	   lyrGroup.clearLayers();
-
-        // {Turf.js} Create a point form the centre position.
         var point = turf.point(center);
 
-        // {Turf.js} Takes the centre point coordinate and calculates a circular polygon
-        // of the given radius in kilometres; and steps for precision.
         var circle = turf.circle(center, 0.2, { steps: 24, units: 'kilometers' });
 
-        // {Turf.js} Flip the circle geometry coordinates from [x, y] to [y, x].
         circle = turf.flip(circle);
 
-        // Get the circle geometry coordinates and return a new space-delimited string.
         var coords = circle.geometry.coordinates[0].join(' ');
-
-        // Create an OGC XML filter parameter value which will select the Street
-        // features intersecting the circle polygon coordinates.
         var xml = '<ogc:Filter>';
         xml += '<ogc:Intersects>';
         xml += '<ogc:PropertyName>SHAPE</ogc:PropertyName>';
@@ -189,7 +178,6 @@ function getNearestStreet(center){
         xml += '</ogc:Intersects>';
         xml += '</ogc:Filter>';
 
-        // Define parameters object.
         var wfsParams = {
             key: 'xCOy7AYWEjobrfYAumRuwUtvFkgbp1Nq',
             service: 'WFS',
@@ -209,9 +197,6 @@ function getNearestStreet(center){
         function fetchWhile(resultsRemain) {
             if( resultsRemain ) {
 				$.ajax({url: getUrl(wfsParams)}).done(function(data) {
-             //fetch(getUrl(wfsParams)).then(function (response) {
-				//return response.json();
-				//}).then(function (data) {
 					wfsParams.startIndex += wfsParams.count;
 					geoJson.features.push.apply(geoJson.features, data.features);
 					resultsRemain = data.features.length < wfsParams.count ? false : true;
@@ -312,13 +297,16 @@ function onEachFeature(feature, layer) {
 		
 		var lon = KDF.getVal('le_gis_lon');
 		var lat = KDF.getVal('le_gis_lat');
-		
+		var streetName;
 		map.setView([lat, lon], 18);
 		pinMarker = new L.marker([lat, lon], {
 					interactive: true
 		});
 		console.log('Nearest Feature: ', nearestFeature);
-		var popupContent = nearestFeature.properties.DesignatedName1 + ', ' + nearestFeature.properties.Town1
+		
+		nearestFeature.properties.DesignatedName1 === '' ? streetName = nearestFeature.properties.Descriptor1 : streetName = nearestFeature.properties.DesignatedName1;
+		
+		var popupContent = streetName + ', ' + nearestFeature.properties.Town1
 		var popup = L.popup().setContent(popupContent);
 		pinMarker.addTo(map).bindPopup(popup).openPopup();
 		
@@ -335,7 +323,6 @@ function onEachFeature(feature, layer) {
 		KDF.customdata('street-search', osmapTemplateIdentifier + 'findNearest', true, true, {
 					'usrn': nearestFeature.properties.InspireIDLocalID
 				});
-        //lyrGroup.addLayer(createGeoJSONLayer(nearestFeature, 'street'));
 		
     }
 
