@@ -1,7 +1,7 @@
 var s = document.createElement("script");
 s.type = "text/javascript";
 s.src = "https://ver-dev-workings.github.io/files/turf.js";
-$("head").append(s);
+document.head.appendChild(s);
 
 var map, pinMarker, openCasesMarkers;
 var osmapTemplateIdentifier = 'osmap_template_';
