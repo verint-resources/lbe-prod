@@ -116,6 +116,7 @@ console.log($('#custom_fileupload_holder'))
                 $(".dform_fileupload_progressbar").html("<div style='width: 30%;'>");
 				
 				if (!formParams.kdfSaveFlag) {
+					preventScroll();
 					KDF.save();
 				} else {
 					KDF.customdata('sharepoint_token', 'imitateKdfReady', true, true, {});
@@ -203,7 +204,7 @@ function do_KDF_Custom_Sharepoint (response, action) {
 }
 
 function do_KDF_Save_Sharepoint() {
-	
+	allowScroll();
 	if (!formParams.kdfSaveFlag) {
 		if (formParams.fileBlob !== '') {
 		
@@ -248,7 +249,8 @@ function sharepointFileUploader (access_token){
         	KDF.setVal('txt_filename_two', fileName);
 			KDF.setVal('txt_sharepoint_link_two', response['webUrl']);
         }
-
+		preventScroll();
+		KDF.save();
     });
 	
 	
@@ -412,10 +414,32 @@ function deleteFile (access_token){
 			KDF.setVal('txt_filename_two', '')
 			KDF.setVal('txt_filename_two_thumb', '')
 		}
-				
+		preventScroll();
+		KDF.save();
 	}).fail(function() {
 		KDF.showError('Delete file has failed, please try again');
 	});
 	
 	formParams.deleteFileSelector = '';
+}
+
+function preventScroll() {
+	
+	var scrollPosition = [
+        self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+        self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop
+    ];
+    
+    var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
+	html.data('scroll-position', scrollPosition);
+	html.data('previous-overflow', html.css('overflow'));
+	html.css('overflow', 'hidden');
+	window.scrollTo(scrollPosition[0], scrollPosition[1]);
+}
+
+function allowScroll() {
+	 var html = jQuery('html');
+	 var scrollPosition = html.data('scroll-position');
+	 html.css('overflow', html.data('previous-overflow'));
+	 window.scrollTo(scrollPosition[0], scrollPosition[1])
 }
