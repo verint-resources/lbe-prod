@@ -3,49 +3,6 @@
         ACCORDION - START
 =====================================
 **/
-function resizeIframe(id, externalWindow) {
-console.log(id)
-console.log(externalWindow)
-console.log('resize it')
-var winH, obj = document.getElementById(id);
-/*Edinburgh form iFrame global scaling - START*/
-if (!obj) {
-document.getElementById("kActionBody").removeAttribute("style");
-return;
-}
-
-if (document.body && document.body.offsetWidth) {
-winH = document.body.offsetHeight;
-}
-if (document.compatMode=='CSS1Compat' &&
-document.documentElement &&
-document.documentElement.offsetWidth ) {
-winH = document.documentElement.offsetHeight;
-}
-if (window.innerWidth && window.innerHeight) {
-winH = window.innerHeight;
-}
- 
-if(obj.getAttribute("src") && /\/form\//g.test(obj.getAttribute("src"))){
-//if has a src and it's a form url, add a scale to the iframe
-obj.style['transform'] = 'scale(0.75)';
-}
-if (obj.style.transform){
-var scale = parseFloat(obj.style.transform.substring(6,obj.style.transform.lastIndexOf(")")));
-winH = (winH / scale)-45;
-obj.style['transform-origin'] = '0px 0px 0px';
-obj.style['width'] = (100 / scale)+"%";
-obj.parentNode.parentNode.parentNode.style.overflow = 'hidden';
-} 
-	if (externalWindow) {
-		obj.style.height = winH - obj.offsetTop - 15 + 'px';
-	} else if (externalWindow === undefined) {
-		obj.style.height = (winH - obj.offsetTop - 100) + 'px';
-	} else {
-		obj.style.height = winH - obj.offsetTop - 100 + 'px';
-	}
-};
-
 function addAccordion(){
 	console.log('accordion has started');
 	var elements = $('.accordion');
@@ -522,18 +479,25 @@ var updateStyleFunctions = {
 	},
 	'sel-gov': function(element){//AS: added "Please select..." option to select box
 		var el = element.find('select');
+		var el_ID = element.attr('id');
+		var searchWidget = false;
 		
-		if (el.find('option:first').val() === '' && el.find('option').length  > 1) {
-			el.find('option:first').val('');
-			el.find('option:first').text('Please select...');
-			el.find('option:first').removeAttr('disabled');
-			el.find('option:first').prop('hidden', true);
-		}
-		else {
-			el.find('option:first').text('No results...');
-			el.find('option:first').val('No results...');
-			el.find('option:first').prop('hidden', true);
-		}
+		typeof el_ID !== 'undefined' ? el_ID.includes('_resultholder') === true ? searchWidget = true : searchWidget = false : searchWidget = false
+			
+		//if (!searchWidget){
+			if (el.find('option:first').val() === '' && el.find('option').length  > 1) {
+				el.find('option:first').val('');
+				el.find('option:first').text('Please select...');
+				el.find('option:first').removeAttr('disabled');
+				el.find('option:first').prop('hidden', true);
+			}
+			else {
+				el.find('option:first').text('No results...');
+				el.find('option:first').val('No results...');
+				el.find('option:first').prop('hidden', true);
+				el.find('option:first').prop('disabled', true);
+			}
+		//}
 	},
 }
 
@@ -634,16 +598,18 @@ var listenerFunctions = {
 			  if ($(this).val() !== ""){
 				valid += 1;
 			  }
+			  
+			  console.log($(this).val())
 			});
 			if (valid > 0) {
 			  $(this).parents('.searchwidget').removeClass('dform_widgeterror');
-			  $(this).parents('.searchwidget').find('.dform_validationMessage').first().empty();
+			  //$(this).parents('.searchwidget').find('.dform_validationMessage').first().empty();
 			  $(this).parents('.searchwidget').find('.dform_validationMessage').first().hide();
   		  KDF.searchwidget($(this).data("action"), $(this).data("widgetname"));
 			} else {
 			  e.preventDefault();
 			  $(this).parents('.searchwidget').addClass('dform_widgeterror');
-			  $(this).parents('.searchwidget').find('> .dform_validationMessage').text(message);
+			  //$(this).parents('.searchwidget').find('> .dform_validationMessage').text(message);
 			  $(this).parents('.searchwidget').find('> .dform_validationMessage').show();
 			  $(this).parents('.searchwidget').find(".dform_widget_searchfield:visible :input").first().focus();
 			}
@@ -704,7 +670,8 @@ function noResultsFound(){
     //KS: when there is no results, add a non-selectable option to say such
 	var text = 'No results found';
     if ($(this).find('option:not([hidden])').length < 1){
-        $(this).html('<option hidden>'+text+'</option>')
+        $(this).html('<option value="' + text + '" selected="true" hidden>'+text+'</option>')
+		$(this).find('option:first').prop('disabled', true);
     }
 	//KS: trigger: '_style_noSearchResults, [element, noResultText]'
 	$(formName()).trigger('_style_noSearchResults',[$(this), text]);
