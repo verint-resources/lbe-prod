@@ -140,7 +140,7 @@ function initialiseOSMap(mapHolder) {
 				var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
 				
 				var center = [ lon, lat ];
-				getNearestStreet(center)
+				getNearestStreet(center, '0.2')
 			/*
 				KDF.customdata('reverse_geocode', osmapTemplateIdentifier + 'on_click', true, true, {
 					'longitude': coor[0].toString(),
@@ -156,11 +156,12 @@ function initialiseOSMap(mapHolder) {
 		});
 	}
 	
-function getNearestStreet(center){
+function getNearestStreet(center, radius){
 	   lyrGroup.clearLayers();
         var point = turf.point(center);
+		console.log(radius)
 
-        var circle = turf.circle(center, 0.2, { steps: 24, units: 'kilometers' });
+        var circle = turf.circle(center, radius, { steps: 24, units: 'kilometers' });
 
         circle = turf.flip(circle);
 
@@ -179,7 +180,7 @@ function getNearestStreet(center){
         xml += '</ogc:Filter>';
 
         var wfsParams = {
-            key: 'xCOy7AYWEjobrfYAumRuwUtvFkgbp1Nq',
+            key: 'ER0fA2XKDuJAd2Ze2xAe5Ljium4jGQQJ',
             service: 'WFS',
             request: 'GetFeature',
             version: '2.0.0',
@@ -206,20 +207,27 @@ function getNearestStreet(center){
             else {
                 if( geoJson.features.length ){findNearest(point, geoJson);}
                 else {
-					var lon = KDF.getVal('le_gis_lon');
-					var lat = KDF.getVal('le_gis_lat');
-					var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
 					
-					KDF.setVal('txt_easting', coor[0].toString());
-					KDF.setVal('txt_northing', coor[1].toString());
-					
-					map.setView([lat, lon], 18);
-					pinMarker = new L.marker([lat, lon], {
-						interactive: true
-					});
-					
-					var popup = L.popup().setContent('Location has been selected');
-					pinMarker.addTo(map).bindPopup(popup).openPopup();
+						if (radius == '0.2') { getNearestStreet(center, '0.5')} 
+							else if (radius == '0.5') { getNearestStreet(center, '1')}
+							else if (radius == '1') { 
+							
+								var lon = KDF.getVal('le_gis_lon');
+								var lat = KDF.getVal('le_gis_lat');
+								var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
+								
+								KDF.setVal('txt_easting', coor[0].toString());
+								KDF.setVal('txt_northing', coor[1].toString());
+								
+								map.setView([lat, lon], 18);
+								pinMarker = new L.marker([lat, lon], {
+									interactive: true
+								});
+								
+								var popup = L.popup().setContent('Location has been selected');
+								pinMarker.addTo(map).bindPopup(popup).openPopup();
+							}
+						
 				}
             }
         }
