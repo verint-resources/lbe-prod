@@ -312,9 +312,15 @@ function onEachFeature(feature, layer) {
 		});
 		console.log('Nearest Feature: ', nearestFeature);
 		
-		nearestFeature.properties.DesignatedName1 === '' ? streetName = nearestFeature.properties.Descriptor1 : streetName = nearestFeature.properties.DesignatedName1;
+		if (nearestFeature.properties.DesignatedName1 !== '') {
+			streetName = nearestFeature.properties.DesignatedName1 + ', ' + nearestFeature.properties.Town1;
+		} else if (nearestFeature.properties.Descriptor1 !==''){
+			streetName = nearestFeature.properties.Descriptor1 + ', ' + nearestFeature.properties.Town1;
+		} else {
+			streetName = 'Location has been selected'	
+		}
 		
-		var popupContent = streetName + ', ' + nearestFeature.properties.Town1
+		var popupContent = streetName;
 		var popup = L.popup().setContent(popupContent);
 		pinMarker.addTo(map).bindPopup(popup).openPopup();
 		
