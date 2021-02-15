@@ -495,7 +495,6 @@ var updateStyleFunctions = {
 				el.find('option:first').text('No results...');
 				el.find('option:first').val('No results...');
 				el.find('option:first').prop('hidden', true);
-				el.find('option:first').prop('disabled', true);
 			}
 		//}
 	},
@@ -603,13 +602,13 @@ var listenerFunctions = {
 			});
 			if (valid > 0) {
 			  $(this).parents('.searchwidget').removeClass('dform_widgeterror');
-			  //$(this).parents('.searchwidget').find('.dform_validationMessage').first().empty();
+			  $(this).parents('.searchwidget').find('.dform_validationMessage').first().empty();
 			  $(this).parents('.searchwidget').find('.dform_validationMessage').first().hide();
   		  KDF.searchwidget($(this).data("action"), $(this).data("widgetname"));
 			} else {
 			  e.preventDefault();
 			  $(this).parents('.searchwidget').addClass('dform_widgeterror');
-			  //$(this).parents('.searchwidget').find('> .dform_validationMessage').text(message);
+			  $(this).parents('.searchwidget').find('> .dform_validationMessage').text(message);
 			  $(this).parents('.searchwidget').find('> .dform_validationMessage').show();
 			  $(this).parents('.searchwidget').find(".dform_widget_searchfield:visible :input").first().focus();
 			}
@@ -670,8 +669,7 @@ function noResultsFound(){
     //KS: when there is no results, add a non-selectable option to say such
 	var text = 'No results found';
     if ($(this).find('option:not([hidden])').length < 1){
-        $(this).html('<option value="' + text + '" selected="true" hidden>'+text+'</option>')
-		$(this).find('option:first').prop('disabled', true);
+        $(this).html('<option hidden>'+text+'</option>')
     }
 	//KS: trigger: '_style_noSearchResults, [element, noResultText]'
 	$(formName()).trigger('_style_noSearchResults',[$(this), text]);
