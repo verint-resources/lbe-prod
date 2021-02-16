@@ -159,7 +159,7 @@ function initialiseOSMap(mapHolder) {
 function getNearestStreet(center, radius){
 	   lyrGroup.clearLayers();
         var point = turf.point(center);
-		console.log(radius)
+		console.log('radius ' + radius)
 
         var circle = turf.circle(center, radius, { steps: 24, units: 'kilometers' });
 
@@ -210,7 +210,10 @@ function getNearestStreet(center, radius){
 					
 						if (radius == '0.2') { getNearestStreet(center, '0.5')} 
 							else if (radius == '0.5') { getNearestStreet(center, '1')}
-							else if (radius == '1') { 
+							else if (radius == '1') { getNearestStreet(center, '1.2')}
+							else if (radius == '1.2') { getNearestStreet(center, '1.5')}
+							else if (radius == '1.5') { getNearestStreet(center, '2')}
+							else if (radius == '2') { 
 							
 								var lon = KDF.getVal('le_gis_lon');
 								var lat = KDF.getVal('le_gis_lat');
