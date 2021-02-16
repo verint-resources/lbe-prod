@@ -230,6 +230,7 @@ function do_KDF_Ready_Individual(event, kdf) {
     });
 	
 	$('#dform_widget_ps_citizen_property_search_resultholder').on('show', function () {
+	KDF.hideWidget('ahtm_search_address_warning');
         KDF.showWidget('rad_confirm_address');
     });
 
