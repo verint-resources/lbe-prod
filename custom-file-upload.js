@@ -466,7 +466,9 @@ function allowScroll() {
 	 var html = jQuery('html');
 	 var scrollPosition = html.data('scroll-position');
 	 html.css('overflow', html.data('previous-overflow'));
-	 window.scrollTo(scrollPosition[0], scrollPosition[1])
+	if (scrollPosition !== undefined){
+	 	window.scrollTo(scrollPosition[0], scrollPosition[1])
+	}
 }
 
 function inIframe () {
