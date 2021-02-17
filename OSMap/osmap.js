@@ -3,7 +3,7 @@ s.type = "text/javascript";
 s.src = "https://ver-dev-workings.github.io/files/turf.js";
 $("head").append(s);
 
-var map, pinMarker, openCasesMarkers;
+var map, pinMarker, openCasesMarkers, geoJson;
 var osmapTemplateIdentifier = 'osmap_template_';
 proj4.defs([
 		[
@@ -36,15 +36,9 @@ function initialiseOSMap(mapHolder) {
 		zoom: 14
 	}).addTo(map);
 	map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.
-	var lyrGroup = new L.layerGroup().addTo(map);
-	  var styles = {
-        'street': {
-            color: 'red',
-			fillOpacity: 0.5
-        }
-    };
+	
 	 // Create an empty GeoJSON FeatureCollection.
-    var geoJson = {
+    geoJson = {
         "type": "FeatureCollection",
         "features": []
     };
@@ -155,9 +149,145 @@ function initialiseOSMap(mapHolder) {
 			}
 		});
 	}
-	
+
+	/* Open Case Marker Function
+	map.on("moveend", function (event) {
+		console.log('Zoom level:', map.getZoom());
+		var xmin = map.getBounds().getWest();
+		var xmax = map.getBounds().getEast();
+		var ymin = map.getBounds().getSouth();
+		var ymax = map.getBounds().getNorth();
+		console.log('Map extend:', xmin, xmax, ymin, ymax);
+		if (map.getZoom() >= 14) {
+			KDF.customdata('get_open_case_marker', osmapTemplateIdentifier + 'kdf_ready', true, false, {
+				'le_eventcode': '4100009',
+				'xmin': xmin.toString(),
+				'xmax': xmax.toString(),
+				'ymin': ymin.toString(),
+				'ymax': ymax.toString()
+			});
+		}
+	});
+	*/
+	// Button "Continue" on Map page is clicked - Start
+	$("#dform_widget_button_but_map_next").off('click').on('click', function() {
+		KDF.hideWidget('ahtm_no_location_selected');
+		if (KDF.getVal('txt_map_full_address') === '') {
+			if(KDF.getVal('le_gis_lat') !==''){
+				KDF.gotoNextPage();
+			} else {
+			    window.scrollTo(0,0);
+			    KDF.showWidget('ahtm_no_location_selected');
+			}
+		}
+		else {
+			KDF.gotoNextPage();
+		}
+	})
+	// Button "Continue" on Map page is clicked - End
+} // initialiseOSMap for map - End
+ 
+
+function do_KDF_Custom_OSMap(event, kdf, response, action) {
+	var isOSMapTemplate = false;
+
+	if (response.actionedby.indexOf(osmapTemplateIdentifier) === 0) {
+		isOSMapTemplate = true;
+	}
+	console.log('is OSMap template ? ', isOSMapTemplate);
+
+	if (isOSMapTemplate) {
+		var actionedBySource = response.actionedby.replace(osmapTemplateIdentifier, '');
+		console.log('Actioned by source :', actionedBySource);
+
+		// KDF_custom for map - Start
+		if (action === 'retrieve_property') {
+			KDF.hideWidget('ahtm_no_location_selected');
+			var coor = proj4('EPSG:27700', 'EPSG:4326', [response.data.easting, response.data.northing]);
+			console.log("Coor :", coor);
+
+			var lat,lon;
+			lon = coor[0];
+			lat = coor[1];
+
+			KDF.setVal('le_gis_lon', lon);
+			KDF.setVal('le_gis_lat', lat);
+            
+            var center = [lon, lat];
+			getNearestStreet(center, 0.2);
+			
+			if (pinMarker !== undefined) {
+				map.removeLayer(pinMarker);
+			}
+		} else if (action === 'reverse_geocode') {
+			KDF.setVal('txt_map_uprn', '');
+			KDF.setVal('txt_map_usrn', '');
+			KDF.setVal('txt_map_full_address', '');
+			
+			if (response.data.outcome === 'success') {
+				KDF.hideWidget('ahtm_no_location_selected');
+				KDF.setVal('txt_easting', response.data.easting);
+				KDF.setVal('txt_northing', response.data.northing);
+				KDF.setVal('le_associated_obj_id', response.data.object_id);
+				KDF.setVal('txt_map_uprn', response.data.UPRN);
+				KDF.setVal('txt_map_usrn', response.data.USRN);
+				KDF.setVal('txt_map_full_address', response.data.description);
+			} else {
+					var lon = KDF.getVal('le_gis_lon');
+					var lat = KDF.getVal('le_gis_lat');
+					var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
+					
+					KDF.setVal('txt_easting', coor[0].toString());
+					KDF.setVal('txt_northing', coor[1].toString());
+			}
+			var popup = L.popup().setContent(response.data.description);
+			pinMarker.addTo(map).bindPopup(popup).openPopup();
+			
+			KDF.setVal('txt_subs_address', response.data.description);
+		} else if (action === 'get_open_case_marker') {
+			var markers = [];
+
+			if (openCasesMarkers !== undefined) {
+				openCasesMarkers.clearLayers();
+			}
+
+			response.data.forEach(function (marker) {
+				var icon = L.icon({
+						iconUrl: marker.icon,
+						iconAnchor: [15, 7]// point of the icon which will correspond to marker's location
+					});
+				markers.push(L.marker([marker.latitude, marker.longitude], {
+						icon: icon,
+						interactive: true
+					}).bindPopup(KDF.getVal('le_title') + ' ' + marker.title + '<br/>' + marker.description));
+			});
+
+			openCasesMarkers = L.layerGroup(markers).addTo(map);
+		} else if (action === 'street-search') {
+			KDF.setVal('le_associated_obj_id', response.data['prop_search_results']);
+		}
+		//KDF_custom for map - End
+	}
+}
+
+function do_KDF_CustomError_OSMap(event, customaction, xhr, settings, thrownError) {
+	if (customaction === 'reverse_geocode') {
+		KDF.setVal('le_gis_lon', '');
+		KDF.setVal('le_gis_lat', '');	
+	}
+}
+
+function do_KDF_optionSelected_OSMap(event, kdf, field, label, val) {
+	// KDF_optionSelected for map - Start
+	if (field === "ps_property_search_map_id" && val !== null && val !== '') {
+		KDF.customdata('retrieve_property', osmapTemplateIdentifier + 'create', true, true, {
+			'object_id': val
+		});
+	}
+	// KDF_optionSelected for map - End
+}
+
 function getNearestStreet(center, radius){
-	   lyrGroup.clearLayers();
         var point = turf.point(center);
 		console.log('radius ' + radius)
 
@@ -239,265 +369,111 @@ function getNearestStreet(center, radius){
 }
 
 function onEachFeature(feature, layer) {
-		// does this feature have a property named popupContent?
-		if (feature.properties) {
-			var popupContent = 'USRN: ' + feature.properties.InspireIDLocalID + '<br>' + feature.properties.DesignatedName1 + ', ' + feature.properties.Town1
-			layer.bindPopup(popupContent);
-		}
+	// does this feature have a property named popupContent?
+	if (feature.properties) {
+		var popupContent = 'USRN: ' + feature.properties.InspireIDLocalID + '<br>' + feature.properties.DesignatedName1 + ', ' + feature.properties.Town1
+		layer.bindPopup(popupContent);
 	}
-	
-    /**
-     * Creates a GeoJSON layer.
-     * @param {object} obj - GeoJSON features object.
-     * @param {object} style - Style options.
-     */
-    function createGeoJSONLayer(obj, style) {
-        //return new L.geoJson({"type": "MultiLineString", "coordinates": obj.geometry.coordinates}, styles);
-		return new L.geoJson({"type": "MultiLineString", "coordinates": obj.geometry.coordinates, "properties": obj.properties}, {
-			style: styles.street,
-			onEachFeature: onEachFeature
-		});
-    }
+}
 
-    /**
-     * Return URL with encoded parameters.
-     * @param {object} params - The parameters object to be encoded.
-     */
-    function getUrl(params) {
-       var encodedParameters = Object.keys(params).map(function (paramName) {
-			return paramName + '=' + encodeURI(params[paramName]);
-	   }).join('&');
-
-        return 'https://api.os.uk/features/v1/wfs?' + encodedParameters;
-    }
-
-    /**
-     * Determines the nearest feature in a GeoJSON object.
-     * @param {object} point - GeoJSON point centroid.
-     * @param {object} features - GeoJSON street FeatureCollection.
-     */
-    function findNearest(point, features) {
-        var nearestFeature, nearestDistance = 1;
-
-        // {Turf.js} Iterate over features in street FeatureCollection.
-        turf.featureEach(features, function(currentFeature, featureIndex) {
-            if( featureIndex === 0 )
-                nearestFeature = currentFeature;
-
-            // {Turf.js} Test if point centroid is within the current street feature.
-            if( turf.booleanWithin(point, currentFeature) ) {
-                nearestFeature = currentFeature;
-                nearestDistance = 0;
-                return;
-            }
-
-            // {Turf.js} Iterate over coordinates in current street feature.
-            turf.coordEach(currentFeature, function(currentCoord, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) {
-                // {Turf.js} Calculates the distance between two points in kilometres.
-                var distance = turf.pointToLineDistance(point, turf.lineString(currentCoord));
-
-                // If the distance is less than that whch has previously been calculated
-                // replace the nearest values with those from the current index.
-                if( distance <= nearestDistance ) {
-                    nearestFeature = currentFeature;
-                    nearestDistance = distance;
-                    return;
-                }
-            });
-        });
-		
-		var lon = KDF.getVal('le_gis_lon');
-		var lat = KDF.getVal('le_gis_lat');
-		var streetName;
-		map.setView([lat, lon], 18);
-		pinMarker = new L.marker([lat, lon], {
-					interactive: true
-		});
-		console.log('Nearest Feature: ', nearestFeature);
-		
-		if (nearestFeature.properties.DesignatedName1 !== '') {
-			streetName = nearestFeature.properties.DesignatedName1 + ', ' + nearestFeature.properties.Town1;
-		} else if (nearestFeature.properties.Descriptor1 !==''){
-			streetName = nearestFeature.properties.Descriptor1 + ', ' + nearestFeature.properties.Town1;
-		} else {
-			streetName = 'Location has been selected'	
-		}
-		
-		var popupContent = streetName;
-		var popup = L.popup().setContent(popupContent);
-		pinMarker.addTo(map).bindPopup(popup).openPopup();
-		
-		var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);			
-		KDF.setVal('txt_easting', coor[0].toString());
-		KDF.setVal('txt_northing', coor[1].toString());
-		
-		KDF.hideWidget('ahtm_no_location_selected');
-		//KDF.setVal('le_associated_obj_id', response.data.object_id);
-		KDF.setVal('txt_map_usrn', nearestFeature.properties.InspireIDLocalID);
-		KDF.setVal('txt_map_full_address', popupContent);
-		KDF.setVal('txt_subs_address', popupContent);
-					
-		KDF.customdata('street-search', osmapTemplateIdentifier + 'findNearest', true, true, {
-					'usrn': nearestFeature.properties.InspireIDLocalID
-				});
-		
-    }
-
-	/* Open Case Marker Function
-	map.on("moveend", function (event) {
-		console.log('Zoom level:', map.getZoom());
-		var xmin = map.getBounds().getWest();
-		var xmax = map.getBounds().getEast();
-		var ymin = map.getBounds().getSouth();
-		var ymax = map.getBounds().getNorth();
-		console.log('Map extend:', xmin, xmax, ymin, ymax);
-		if (map.getZoom() >= 14) {
-			KDF.customdata('get_open_case_marker', osmapTemplateIdentifier + 'kdf_ready', true, false, {
-				'le_eventcode': '4100009',
-				'xmin': xmin.toString(),
-				'xmax': xmax.toString(),
-				'ymin': ymin.toString(),
-				'ymax': ymax.toString()
-			});
-		}
+/**
+ * Creates a GeoJSON layer.
+ * @param {object} obj - GeoJSON features object.
+ * @param {object} style - Style options.
+ */
+function createGeoJSONLayer(obj, style) {
+	//return new L.geoJson({"type": "MultiLineString", "coordinates": obj.geometry.coordinates}, styles);
+	return new L.geoJson({"type": "MultiLineString", "coordinates": obj.geometry.coordinates, "properties": obj.properties}, {
+		style: styles.street,
+		onEachFeature: onEachFeature
 	});
-	*/
-	// Button "Continue" on Map page is clicked - Start
-	$("#dform_widget_button_but_map_next").off('click').on('click', function() {
-		KDF.hideWidget('ahtm_no_location_selected');
-		if (KDF.getVal('txt_map_full_address') === '') {
-			if(KDF.getVal('le_gis_lat') !==''){
-				KDF.gotoNextPage();
-			} else {
-			    window.scrollTo(0,0);
-			    KDF.showWidget('ahtm_no_location_selected');
+}
+
+/**
+ * Return URL with encoded parameters.
+ * @param {object} params - The parameters object to be encoded.
+ */
+function getUrl(params) {
+   var encodedParameters = Object.keys(params).map(function (paramName) {
+		return paramName + '=' + encodeURI(params[paramName]);
+   }).join('&');
+
+	return 'https://api.os.uk/features/v1/wfs?' + encodedParameters;
+}
+
+/**
+ * Determines the nearest feature in a GeoJSON object.
+ * @param {object} point - GeoJSON point centroid.
+ * @param {object} features - GeoJSON street FeatureCollection.
+ */
+function findNearest(point, features) {
+	var nearestFeature, nearestDistance = 1;
+
+	// {Turf.js} Iterate over features in street FeatureCollection.
+	turf.featureEach(features, function(currentFeature, featureIndex) {
+		if( featureIndex === 0 )
+			nearestFeature = currentFeature;
+
+		// {Turf.js} Test if point centroid is within the current street feature.
+		if( turf.booleanWithin(point, currentFeature) ) {
+			nearestFeature = currentFeature;
+			nearestDistance = 0;
+			return;
+		}
+
+		// {Turf.js} Iterate over coordinates in current street feature.
+		turf.coordEach(currentFeature, function(currentCoord, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) {
+			// {Turf.js} Calculates the distance between two points in kilometres.
+			var distance = turf.pointToLineDistance(point, turf.lineString(currentCoord));
+
+			// If the distance is less than that whch has previously been calculated
+			// replace the nearest values with those from the current index.
+			if( distance <= nearestDistance ) {
+				nearestFeature = currentFeature;
+				nearestDistance = distance;
+				return;
 			}
-		}
-		else {
-			KDF.gotoNextPage();
-		}
-	})
-	// Button "Continue" on Map page is clicked - End
-} // initialiseOSMap for map - End
- 
+		});
+	});
 
-function do_KDF_Custom_OSMap(event, kdf, response, action) {
-	var isOSMapTemplate = false;
+	var lon = KDF.getVal('le_gis_lon');
+	var lat = KDF.getVal('le_gis_lat');
+	var streetName;
+	map.setView([lat, lon], 18);
+	pinMarker = new L.marker([lat, lon], {
+				interactive: true
+	});
+	console.log('Nearest Feature: ', nearestFeature);
 
-	if (response.actionedby.indexOf(osmapTemplateIdentifier) === 0) {
-		isOSMapTemplate = true;
+	if (nearestFeature.properties.DesignatedName1 !== '') {
+		streetName = nearestFeature.properties.DesignatedName1 + ', ' + nearestFeature.properties.Town1;
+	} else if (nearestFeature.properties.Descriptor1 !==''){
+		streetName = nearestFeature.properties.Descriptor1 + ', ' + nearestFeature.properties.Town1;
+	} else {
+		streetName = 'Location has been selected'	
 	}
-	console.log('is OSMap template ? ', isOSMapTemplate);
 
-	if (isOSMapTemplate) {
-		var actionedBySource = response.actionedby.replace(osmapTemplateIdentifier, '');
-		console.log('Actioned by source :', actionedBySource);
+	var popupContent = streetName;
+	var popup = L.popup().setContent(popupContent);
+	pinMarker.addTo(map).bindPopup(popup).openPopup();
 
-		// KDF_custom for map - Start
-		if (action === 'retrieve_property') {
-			KDF.hideWidget('ahtm_no_location_selected');
-			var coor = proj4('EPSG:27700', 'EPSG:4326', [response.data.easting, response.data.northing]);
-			console.log("Coor :", coor);
+	var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);			
+	KDF.setVal('txt_easting', coor[0].toString());
+	KDF.setVal('txt_northing', coor[1].toString());
 
-			var lat,lon;
-			lon = coor[0];
-			lat = coor[1];
-			
-			KDF.setVal('txt_easting', response.data.easting);
-			KDF.setVal('txt_northing', response.data.northing);
-			KDF.setVal('le_gis_lon', lon);
-			KDF.setVal('le_gis_lat', lat);
-			KDF.setVal('le_associated_obj_id', response.data.object_id);
-			KDF.setVal('txt_map_uprn', response.data.UPRN);
-			KDF.setVal('txt_map_full_address', response.data.description);
+	KDF.hideWidget('ahtm_no_location_selected');
+	//KDF.setVal('le_associated_obj_id', response.data.object_id);
+	KDF.setVal('txt_map_usrn', nearestFeature.properties.InspireIDLocalID);
+	KDF.setVal('txt_map_full_address', popupContent);
+	KDF.setVal('txt_subs_address', popupContent);
 
-			if (pinMarker !== undefined) {
-				map.removeLayer(pinMarker);
-			}
-
-			map.setView([lat, lon], 18);
-			pinMarker = new L.marker([lat, lon], {
-					interactive: true
-				});
-
-			var popup = L.popup().setContent(response.data.description);
-			pinMarker.addTo(map).bindPopup(popup).openPopup();
-			
-			KDF.setVal('txt_subs_address', response.data.description);
-		} else if (action === 'reverse_geocode') {
-			KDF.setVal('txt_map_uprn', '');
-			KDF.setVal('txt_map_usrn', '');
-			KDF.setVal('txt_map_full_address', '');
-			
-			if (response.data.outcome === 'success') {
-				KDF.hideWidget('ahtm_no_location_selected');
-				KDF.setVal('txt_easting', response.data.easting);
-				KDF.setVal('txt_northing', response.data.northing);
-				KDF.setVal('le_associated_obj_id', response.data.object_id);
-				KDF.setVal('txt_map_uprn', response.data.UPRN);
-				KDF.setVal('txt_map_usrn', response.data.USRN);
-				KDF.setVal('txt_map_full_address', response.data.description);
-			} else {
-					var lon = KDF.getVal('le_gis_lon');
-					var lat = KDF.getVal('le_gis_lat');
-					var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
-					
-					KDF.setVal('txt_easting', coor[0].toString());
-					KDF.setVal('txt_northing', coor[1].toString());
-			}
-			var popup = L.popup().setContent(response.data.description);
-			pinMarker.addTo(map).bindPopup(popup).openPopup();
-			
-			KDF.setVal('txt_subs_address', response.data.description);
-		} else if (action === 'get_open_case_marker') {
-			var markers = [];
-
-			if (openCasesMarkers !== undefined) {
-				openCasesMarkers.clearLayers();
-			}
-
-			response.data.forEach(function (marker) {
-				var icon = L.icon({
-						iconUrl: marker.icon,
-						iconAnchor: [15, 7]// point of the icon which will correspond to marker's location
-					});
-				markers.push(L.marker([marker.latitude, marker.longitude], {
-						icon: icon,
-						interactive: true
-					}).bindPopup(KDF.getVal('le_title') + ' ' + marker.title + '<br/>' + marker.description));
+	KDF.customdata('street-search', osmapTemplateIdentifier + 'findNearest', true, true, {
+				'usrn': nearestFeature.properties.InspireIDLocalID
 			});
 
-			openCasesMarkers = L.layerGroup(markers).addTo(map);
-		} else if (action === 'street-search') {
-			KDF.setVal('le_associated_obj_id', response.data['prop_search_results']);
-		}
-		//KDF_custom for map - End
-	}
 }
 
-function do_KDF_CustomError_OSMap(event, customaction, xhr, settings, thrownError) {
-	if (customaction === 'reverse_geocode') {
-		KDF.setVal('le_gis_lon', '');
-		KDF.setVal('le_gis_lat', '');	
-	}
-}
-
-function do_KDF_optionSelected_OSMap(event, kdf, field, label, val) {
-	// KDF_optionSelected for map - Start
-	if (field === "ps_property_search_map_id" && val !== null && val !== '') {
-		KDF.customdata('retrieve_property', osmapTemplateIdentifier + 'create', true, true, {
-			'object_id': val
-		});
-	}
-	// KDF_optionSelected for map - End
-}
-
-/*
-														  
-						
-   
-  
-  
+/* 
 The MIT License (MIT)
 Copyright (c) 2016 James Halliday
 Permission is hereby granted, free of charge, to any person obtaining a copy
