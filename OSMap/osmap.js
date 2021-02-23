@@ -357,7 +357,7 @@ function getNearestStreet(center, radius){
 									interactive: true
 								});
 								
-								var popup = L.popup().setContent('Location has been selected');
+								var popup = L.popup().setContent('Your selected location has been noted');
 								pinMarker.addTo(map).bindPopup(popup).openPopup();
 							}
 						
@@ -450,7 +450,7 @@ function findNearest(point, features) {
 	} else if (nearestFeature.properties.Descriptor1 !==''){
 		streetName = nearestFeature.properties.Descriptor1 + ', ' + nearestFeature.properties.Town1;
 	} else {
-		streetName = 'Location has been selected'	
+		streetName = 'Your selected location has been noted'	
 	}
 
 	var popupContent = streetName;
