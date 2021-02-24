@@ -36,8 +36,8 @@ function do_KDF_Ready_Individual(event, kdf) {
 		$("#dform_widget_txt_cust_info_town").attr("readonly", false);
 		$("#dform_widget_txt_cust_info_postcode").attr("readonly", false);
 		
-		//$('#dform_widget_eml_cust_info_email').prop('required', true);
-		//$('#dform_widget_tel_cust_info_phone').prop('required', false);
+		$('#dform_widget_eml_cust_info_email').prop('required', true);
+		$('#dform_widget_tel_cust_info_phone').prop('required', false);
 
 		KDF.setVal('txt_cust_info_street_number', KDF.getVal('txt_logic_streetnumber'));
 		KDF.setVal('txt_cust_info_street_name', KDF.getVal('txt_logic_streetname'));
