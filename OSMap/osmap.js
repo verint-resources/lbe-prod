@@ -450,7 +450,7 @@ function findNearest(point, features) {
 	} else if (nearestFeature.properties.Descriptor1 !==''){
 		streetName = nearestFeature.properties.Descriptor1 + ', ' + nearestFeature.properties.Town1;
 	} else {
-		streetName = nearestFeature.properties.NationalRoadCode	
+		streetName = 'Your location has been noted.'
 	}
 
 	var popupContent = streetName;
