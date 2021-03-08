@@ -7,8 +7,10 @@ function do_KDF_Ready_Individual(event, kdf) {
 	
 	var form_name = kdf.name;
 	addAccordion();	
+	KDF.showSection('area_customer_information');
 	
 	if (KDF.kdf().access === 'agent' && KDF.getVal('rad_viewmode') !== 'R' && KDF.getVal('rad_viewmode') !== 'U') {
+		KDF.hideSection('area_customer_information');
 		KDF.hideSection('area_your_details_next_updateaddress');
 		KDF.showWidget('but_cust_info_update_address');
 		$('#dform_widget_txta_cust_info_address').prop('readonly', true);
