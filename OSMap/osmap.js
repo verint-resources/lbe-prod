@@ -398,7 +398,7 @@ function getUrl(params) {
 		return paramName + '=' + encodeURI(params[paramName]);
    }).join('&');
 
-	return 'https://api.os.uk/features/v1/wfs?' + encodedParameters;
+	return 'https://api.osss.uk/features/v1/wfs?' + encodedParameters;
 }
 
 /**
