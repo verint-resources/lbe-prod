@@ -28,7 +28,7 @@ function initialiseOSMap(mapHolder) {
 	map = L.map('map').setView([51.653046, -0.089580], 12);
 	
 	var apiKey = 'ER0fA2XKDuJAd2Ze2xAe5Ljium4jGQQJ';
-   	var serviceUrl = 'https://api.oss.uk/maps/raster/v1/zxy';
+   	var serviceUrl = 'https://api.os.uk/maps/raster/v1/zxy';
 
 	L.tileLayer(serviceUrl + '/Outdoor_3857/{z}/{x}/{y}.png?key=' + apiKey, {
 		maxZoom: 20,
@@ -398,7 +398,7 @@ function getUrl(params) {
 		return paramName + '=' + encodeURI(params[paramName]);
    }).join('&');
 
-	return 'https://api.osss.uk/features/v1/wfs?' + encodedParameters;
+	return 'https://api.os.uk/features/v1/wfs?' + encodedParameters;
 }
 
 /**
