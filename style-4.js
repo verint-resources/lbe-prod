@@ -93,6 +93,7 @@ function defineDefaultStyle() {
 	
 	updateCPETitle();
 	addAutoComplete();
+	toggleFormControlsButton();
 	
     //KS: can define listeners here, but can't later on, need to call 
     //KS: adds the recommended default styling - and acts a single location to change them
@@ -836,6 +837,16 @@ function getFieldsLabels(isPosLeft){
 	}
 	selector = selector.substring(2,selector.length);//KS: remove first ', '
 	return selector;
+}
+
+function toggleFormControlsButton() {
+	$("#dform_controls").hide();
+	KDF.hideNav();
+	
+	if (KDF.kdf().viewmode === 'U' || KDF.kdf().viewmode === 'R') {
+		$("#dform_controls").show();
+		KDF.showNav();
+	}
 }
 
 //KS: IE compatability for .isInteger
