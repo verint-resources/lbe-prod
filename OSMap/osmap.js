@@ -27,7 +27,7 @@ function initialiseOSMap(mapHolder) {
 	$(mapHolder).attr('data-mapready',true);
 	map = L.map('map').setView([51.653046, -0.089580], 12);
 	
-	var apiKey = 'ER0fA2XKDuJAd2Ze2xAe5Ljium4jGQQJ';
+	var apiKey = 'ER0fA2XKDuJAd2Ze2xAe5Ljium4jGQQJa';
    	var serviceUrl = 'https://api.os.uk/maps/raster/v1/zxy';
 	
 	var baseLayer = L.tileLayer(serviceUrl + '/Outdoor_3857/{z}/{x}/{y}.png?key=' + apiKey, {
