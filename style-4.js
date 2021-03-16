@@ -847,6 +847,9 @@ function toggleFormControlsButton() {
 		$("#dform_controls").show();
 		KDF.showNav();
 	}
+	else if (KDF.kdf().form.readonly === true && KDF.kdf().access === 'citizen') {
+		KDF.showNav();
+	}
 }
 
 //KS: IE compatability for .isInteger
