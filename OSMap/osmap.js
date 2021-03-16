@@ -29,12 +29,19 @@ function initialiseOSMap(mapHolder) {
 	
 	var apiKey = 'ER0fA2XKDuJAd2Ze2xAe5Ljium4jGQQJ';
    	var serviceUrl = 'https://api.os.uk/maps/raster/v1/zxy';
-
-	L.tileLayer(serviceUrl + '/Outdoor_3857/{z}/{x}/{y}.png?key=' + apiKey, {
+	
+	var baseLayer = L.tileLayer(serviceUrl + '/Outdoor_3857/{z}/{x}/{y}.png?key=' + apiKey, {
 		maxZoom: 20,
 		minZoom: 7,
 		zoom: 14
-	}).addTo(map);
+	})
+	
+	baseLayer.addTo(map);
+	baseLayer.on('tileerror', function(error, tile) {
+		KDF.showWidget('ahtm_basemap_error');
+		$('div[id="map"]').hide();
+	});
+	
 	map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.
 	
 	 // Create an empty GeoJSON FeatureCollection.
