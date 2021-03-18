@@ -1648,6 +1648,27 @@ background-color: lightblue;
 }
 /* Summary Table - End */
 
+/* Table - Start */
+.table_style table, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.table_style th.dform_th {
+	color: #fff;
+	background-color: #888;
+}
+
+.t01 tbody tr:nth-child(even) {
+	background-color: lightblue;
+}
+
+#dform_container table.t01 tr.selected td,
+#dform_container table.t01 tr:hover td {
+    background-color: unset;
+}
+/* Table - End */
+
 #dform_container button, #dform_container input, #dform_container select, #dform_container textarea {
 	/*text-decoration: underline !important;*/
 }
