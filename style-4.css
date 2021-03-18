@@ -1649,14 +1649,15 @@ background-color: lightblue;
 /* Summary Table - End */
 
 /* Table - Start */
-.table_style table, td {
+#dform_container.table_style table, td {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
 
-.table_style th.dform_th {
+#dform_container.table_style th.dform_th {
 	color: #fff;
 	background-color: #888;
+	font-weight: bold;
 }
 
 .t01 tbody tr:nth-child(even) {
