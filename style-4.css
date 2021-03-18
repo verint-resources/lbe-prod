@@ -1630,10 +1630,14 @@ var {
 }
 
 /* Summary Table - Start */
+#dform_container table {
+    border:1px solid black;
+}
+
 .summary_table_style
  table, td { 
      width:50%;
-  border: 1px solid black;
+  border: 1px 0px solid black;
   border-collapse: collapse;
 }
 .t01 tr:nth-child(even) {
@@ -1649,7 +1653,7 @@ background-color: lightblue;
 /* Summary Table - End */
 
 /* Table - Start */
-#dform_container .table_style table, td {
+#dform_container .table_style table td {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
