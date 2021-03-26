@@ -102,7 +102,7 @@ function initialiseOSMap(mapHolder) {
 
 										   
 	// Ensure map cannot be clicked on Read mode.
-	if (KDF.getVal('rad_viewmode') !== 'R') {
+	if (KDF.kdf().form.readonly !== true) {
 		map.on("click", function (event) {
 			KDF.setVal('txt_map_full_address', '');
 			var clickedMarker = event;
