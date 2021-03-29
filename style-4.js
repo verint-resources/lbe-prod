@@ -93,7 +93,7 @@ function defineDefaultStyle() {
 	
 	updateCPETitle();
 	addAutoComplete();
-	toggleFormControlsButton();
+	toggleNavigation();
 	
     //KS: can define listeners here, but can't later on, need to call 
     //KS: adds the recommended default styling - and acts a single location to change them
@@ -839,16 +839,22 @@ function getFieldsLabels(isPosLeft){
 	return selector;
 }
 
-function toggleFormControlsButton() {
+function toggleNavigation() {
 	$("#dform_controls").hide();
 	KDF.hideNav();
 	
-	if (KDF.kdf().viewmode === 'U' || KDF.kdf().viewmode === 'R') {
+	// Show save controls for agent
+	if (KDF.kdf().viewmode === 'U' || KDF.kdf().viewmode === 'R' && KDF.kdf().access === 'agent') {
 		$("#dform_controls").show();
 		KDF.showNav();
 	}
 	else if (KDF.kdf().form.readonly === true && KDF.kdf().access === 'citizen') {
 		KDF.showNav();
+	}
+	
+	// Hide all button controls on the form on Read mode for Agent and Citizen
+	if((KDF.kdf().access === 'agent' && KDF.kdf().viewmode === 'R') || (KDF.kdf().access === 'citizen' && KDF.kdf().form.readonly === true)) {
+		$('#dform_'+KDF.kdf().form.name).find('button').hide();	
 	}
 }
 
