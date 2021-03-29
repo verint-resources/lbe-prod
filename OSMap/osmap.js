@@ -235,6 +235,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 				KDF.hideWidget('ahtm_no_location_selected');
 				KDF.setVal('txt_easting', response.data.easting);
 				KDF.setVal('txt_northing', response.data.northing);
+				KDF.setVal('le_associated_obj_type', 'D4');
 				KDF.setVal('le_associated_obj_id', response.data.object_id);
 				KDF.setVal('le_title', response.data.description);
 				KDF.setVal('txt_map_uprn', response.data.UPRN);
@@ -272,6 +273,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 
 			openCasesMarkers = L.layerGroup(markers).addTo(map);
 		} else if (action === 'street-search') {
+			KDF.setVal('le_associated_obj_type', 'D4');
 			KDF.setVal('le_associated_obj_id', response.data['prop_search_results']);
 		}
 		//KDF_custom for map - End
