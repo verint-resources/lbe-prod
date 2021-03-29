@@ -236,6 +236,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 				KDF.setVal('txt_easting', response.data.easting);
 				KDF.setVal('txt_northing', response.data.northing);
 				KDF.setVal('le_associated_obj_id', response.data.object_id);
+				KDF.setVal('le_title', response.data.description);
 				KDF.setVal('txt_map_uprn', response.data.UPRN);
 				KDF.setVal('txt_map_usrn', response.data.USRN);
 				KDF.setVal('txt_map_full_address', response.data.description);
@@ -470,6 +471,7 @@ function findNearest(point, features) {
 
 	KDF.hideWidget('ahtm_no_location_selected');
 	//KDF.setVal('le_associated_obj_id', response.data.object_id);
+	KDF.setVal('le_title', popupContent);
 	KDF.setVal('txt_map_usrn', nearestFeature.properties.InspireIDLocalID);
 	KDF.setVal('txt_map_full_address', popupContent);
 	KDF.setVal('txt_subs_address', popupContent);
