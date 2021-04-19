@@ -33,7 +33,8 @@ function initialiseOSMap(mapHolder) {
 	var baseLayer = L.tileLayer(serviceUrl + '/Outdoor_3857/{z}/{x}/{y}.png?key=' + apiKey, {
 		maxZoom: 20,
 		minZoom: 7,
-		zoom: 14
+		zoom: 14,
+		errorTileUrl: '/path/to/default/tile.png'
 	})
 	
 	baseLayer.addTo(map);
