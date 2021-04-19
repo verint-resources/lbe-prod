@@ -34,15 +34,14 @@ function initialiseOSMap(mapHolder) {
 		maxZoom: 20,
 		minZoom: 7,
 		zoom: 14,
-		errorTileUrl: '/path/to/default/tile.png'
+		errorTileUrl: 'https://ver-dev-workings.github.io/files/OSMap/resources/content/error_tiles.png'
 	})
 	
 	baseLayer.addTo(map);
-	/*
-	baseLayer.on('tileerror', function(error, tile) {
-		KDF.showWidget('ahtm_basemap_error');
-		$('div[id="map"]').hide();
-	});*/
+	baseLayer.on("load",function() {    
+	    var tilesCheck = $('img.leaflet-tile').attr('src').includes('error_tiles.png');
+	    if(tilesCheck) {KDF.showWidget('ahtm_basemap_error'); $('div[id="map"]').hide();}
+	});
 	
 	map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.
 	
