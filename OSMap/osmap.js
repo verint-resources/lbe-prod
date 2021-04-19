@@ -37,10 +37,11 @@ function initialiseOSMap(mapHolder) {
 	})
 	
 	baseLayer.addTo(map);
+	/*
 	baseLayer.on('tileerror', function(error, tile) {
 		KDF.showWidget('ahtm_basemap_error');
 		$('div[id="map"]').hide();
-	});
+	});*/
 	
 	map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.
 	
