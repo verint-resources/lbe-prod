@@ -2,7 +2,7 @@ var formParams = {
 	fileBlob: '',
 	inputFileID: '$("#custom_fileupload_holder")',
 	randomNumber: '',
-	allowedFileType: ['jpeg','png','jpg'],
+	allowedFileType: [],
 	maxFileSize: '4000000',
 	imgClickSelector: '',
 	deleteFileSelector: '',
@@ -49,105 +49,22 @@ console.log($('#custom_fileupload_holder'))
 			});
 			
  
-    $("#custom_fileupload").change(function(){
-		
-		var fileError= false;
-		var fileName = $("#custom_fileupload")[0].files[0].name;
-		var fileNameClean = fileName.split('.').pop();
-		
-		if ( $("#custom_fileupload")[0].files[0].size <= formParams.maxFileSize) {
-				fileError= false;
-		} else {
-				fileError = true;
-				KDF.showError('File size is too large');
-		}
-		
-		if (!fileError) {
-			var fileMatch = false;
-			formParams.allowedFileType.forEach(function (arrayItem) {
-				//console.log(arrayItem);
-				//console.log(fileName.split('.').pop());
-				
-				if (arrayItem == fileNameClean.toLowerCase()){
-					fileMatch= true;
-				} 
-				
-				if (fileMatch){
-					fileError = false;
-				} else {
-					fileError = true;
-				}
-				
-			});
-			
-			if (fileError) {
-					KDF.showError('Incorrect file type selected.');
-			}
-		}
-		
-		if (!fileError) {
-			if (KDF.getVal('txt_filename_one') == ''){
-					fileError = false;
-			} else if (KDF.getVal('txt_filename_two') == '') {
-					fileError = false;
-			} else {
-					fileError = true;
-					KDF.showError('Maximum file upload has been reach');
-			}
-				
-		}
-		
-		if (!fileError) {
-			if (KDF.getVal('txt_filename_one') == fileName){
-					fileError = true;
-			} else if (KDF.getVal('txt_filename_two') == fileName) {
-					fileError = true;
-			} else {
-					fileError = false;
-			}
-			
-			if (fileError) {
-					KDF.showError('A file with this name already exists');
-			}
-				
-		}
-		
-		if (!fileError) {
-			KDF.hideMessages();
-            $(".dform_fileupload_progressbar").html("<div style='width: 0%;'>");
-            var selector = formParams.inputFileID;
+        $("#custom_fileupload").change(function(){
+		    var fileName = $("#custom_fileupload")[0].files[0].name;
+		    var fileNameClean = fileName.split('.').pop();
             
-            $(".dform_fileupload_progressbar").html("<div style='width: 10%;'>");
-			
-			$("#custom_fileupload").prop('disabled', true);
-			
-            var reader = new FileReader();
-             reader.readAsArrayBuffer($("#custom_fileupload")[0].files[0]);
-              
-              reader.onloadend = function() {
-                setFileBlobData(reader.result);
-                
-                $(".dform_fileupload_progressbar").html("<div style='width: 30%;'>");
-				
-				if (!formParams.kdfSaveFlag) {
-					
-					KDF.save();
-					$('#custom_fileupload_holder').focus()
-					$('#custom_fileupload_holder').focus()
-				} else {
-					KDF.customdata('sharepoint_token', 'imitateKdfReady', true, true, {});
-				}
-				
+            if (KDF.getVal('txt_FT_template') != '') {
 
-              };
-		}
-		
+		        KDF.customdata('sharepoint_config', '', true, true, {
+		            txt_FT_template: KDF.getVal('txt_FT_template'),
+		            txt_file_format: fileNameClean
+		        })
+            } else {
+            	KDF.showWarning('File Upload is not accessible, contact your administrator')
+            	$('#custom_fileupload_holder').hide()
+            }
 		
        });
-
-        function setFileBlobData (fileBlob){
-            formParams.fileBlob = fileBlob;
-        }
 
      $('body').on('click','img',function(){
 		 if ( $(this).attr('class').includes('filename')){
@@ -172,6 +89,81 @@ console.log($('#custom_fileupload_holder'))
 	  
 
 }
+
+function setFileBlobData (fileBlob){
+            formParams.fileBlob = fileBlob;
+        }
+
+
+function processFile() {
+             var fileError= false;
+		    var fileName = $("#custom_fileupload")[0].files[0].name;
+		    var fileNameClean = fileName.split('.').pop();
+		    
+		    if ( $("#custom_fileupload")[0].files[0].size <= formParams.maxFileSize) {
+		    		fileError= false;
+		    } else {
+		    		fileError = true;
+		    		KDF.showError('File size is too large');
+		    }
+		    
+		    if (!fileError) {
+		    	if (KDF.getVal('txt_filename_one') == ''){
+		    			fileError = false;
+		    	} else if (KDF.getVal('txt_filename_two') == '') {
+		    			fileError = false;
+		    	} else {
+		    			fileError = true;
+		    			KDF.showError('Maximum file upload has been reach');
+		    	}
+		    		
+		    }
+		    
+		    if (!fileError) {
+		    	if (KDF.getVal('txt_filename_one') == fileName){
+		    			fileError = true;
+		    	} else if (KDF.getVal('txt_filename_two') == fileName) {
+		    			fileError = true;
+		    	} else {
+		    			fileError = false;
+		    	}
+		    	
+		    	if (fileError) {
+		    			KDF.showError('A file with this name already exists');
+		    	}
+		    		
+		    }
+		    
+		    if (!fileError) {
+		    	KDF.hideMessages();
+                $(".dform_fileupload_progressbar").html("<div style='width: 0%;'>");
+                var selector = formParams.inputFileID;
+                
+                $(".dform_fileupload_progressbar").html("<div style='width: 10%;'>");
+		    	
+		    	$("#custom_fileupload").prop('disabled', true);
+		    	
+                var reader = new FileReader();
+                 reader.readAsArrayBuffer($("#custom_fileupload")[0].files[0]);
+                  
+                  reader.onloadend = function() {
+                    setFileBlobData(reader.result);
+                    
+                    $(".dform_fileupload_progressbar").html("<div style='width: 30%;'>");
+		    		
+		    		if (!formParams.kdfSaveFlag) {
+		    			
+		    			KDF.save();
+		    			document.getElementById("custom_fileupload_holder").focus();
+		    		} else {
+		    			KDF.customdata('sharepoint_token', 'imitateKdfReady', true, true, {});
+		    		}
+		    		
+    
+                  };
+		    }
+       	    
+       }
 
 function do_KDF_Custom_Sharepoint (response, action) {
         if (action === 'sharepoint_token') {
@@ -219,6 +211,12 @@ function do_KDF_Custom_Sharepoint (response, action) {
         	} else if (KDF.kdf().form.readonly && formParams.imgClickSelector !== '') {
 				sharepointDownloadFile(access_token)
 			}
+        } else if (action == 'sharepoint_config') {
+        	if (response.data['pass_status'] == 'good'){
+        		processFile();
+        	} else {
+        		KDF.showError('Incorrect file type selected.')
+        	}
         }
 }
 
