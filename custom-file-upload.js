@@ -132,6 +132,8 @@ console.log($('#custom_fileupload_holder'))
 				if (!formParams.kdfSaveFlag) {
 					
 					KDF.save();
+					$('#custom_fileupload_holder').focus()
+					$('#custom_fileupload_holder').focus()
 				} else {
 					KDF.customdata('sharepoint_token', 'imitateKdfReady', true, true, {});
 				}
