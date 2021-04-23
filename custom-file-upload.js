@@ -52,17 +52,21 @@ console.log($('#custom_fileupload_holder'))
         $("#custom_fileupload").change(function(){
 		    var fileName = $("#custom_fileupload")[0].files[0].name;
 		    var fileNameClean = fileName.split('.').pop();
-            
-            if (KDF.getVal('txt_FT_template') != '') {
-
+		    var template_name = KDF.getVal('txt_FT_template');
+		
+           	 if (KDF.getVal('txt_FT_template') == '') {
+			template_name = FT_template1;
+	    	}
 		        KDF.customdata('sharepoint_config', '', true, true, {
-		            txt_FT_template: KDF.getVal('txt_FT_template'),
+		            txt_FT_template: template_name,
 		            txt_file_format: fileNameClean
 		        })
-            } else {
+            
+		
+		/*else {
             	KDF.showWarning('File Upload is not accessible, contact your administrator')
             	$('#custom_fileupload_holder').hide()
-            }
+            }*/
 		
        });
 
