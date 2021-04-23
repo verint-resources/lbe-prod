@@ -55,7 +55,7 @@ console.log($('#custom_fileupload_holder'))
 		    var template_name = KDF.getVal('txt_FT_template');
 		
            	 if (KDF.getVal('txt_FT_template') == '' || $('#dform_widget_txt_FT_template').length  < 1) {
-			template_name = FT_template1;
+			template_name = 'FT_template1';
 	    	}
 		        KDF.customdata('sharepoint_config', '', true, true, {
 		            txt_FT_template: template_name,
