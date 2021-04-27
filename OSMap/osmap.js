@@ -464,7 +464,7 @@ function findNearest(point, features) {
 		streetName = nearestFeature.properties.NationalRoadCode + ', ' + nearestFeature.properties.Town1;
 	}
 
-	var popupContent = streetName;
+	var popupContent = 'The closest street to your chosen location is: ' + streetName;
 	var popup = L.popup().setContent(popupContent);
 	pinMarker.addTo(map).bindPopup(popup).openPopup();
 
@@ -474,10 +474,10 @@ function findNearest(point, features) {
 
 	KDF.hideWidget('ahtm_no_location_selected');
 	//KDF.setVal('le_associated_obj_id', response.data.object_id);
-	KDF.setVal('le_title', popupContent);
+	KDF.setVal('le_title', streetName);
 	KDF.setVal('txt_map_usrn', nearestFeature.properties.InspireIDLocalID);
-	KDF.setVal('txt_map_full_address', popupContent);
-	KDF.setVal('txt_subs_address', popupContent);
+	KDF.setVal('txt_map_full_address', streetName);
+	KDF.setVal('txt_subs_address', streetName);
 
 	KDF.customdata('street-search', osmapTemplateIdentifier + 'findNearest', true, true, {
 				'usrn': nearestFeature.properties.InspireIDLocalID
