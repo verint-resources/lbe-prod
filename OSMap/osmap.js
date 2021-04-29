@@ -281,9 +281,9 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 				var popupContent = 'The closest street to your chosen location is: ' + response.data['results_desc'];
 				var popup = L.popup().setContent(popupContent);
 				pinMarker.addTo(map).bindPopup(popup).openPopup();
-				KDF.setVal('le_title', streetName);
-				KDF.setVal('txt_map_full_address', streetName);
-				KDF.setVal('txt_subs_address', streetName);
+				KDF.setVal('le_title', response.data['results_desc']);
+				KDF.setVal('txt_map_full_address', response.data['results_desc']);
+				KDF.setVal('txt_subs_address', response.data['results_desc']);
 			}
 		}
 		//KDF_custom for map - End
