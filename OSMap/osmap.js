@@ -278,7 +278,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 			KDF.setVal('le_associated_obj_id', response.data['prop_search_results']);
 			
 			if (response.data['request_source'] == 'map_source') {
-				var popupContent = 'The closest street to your chosen location is: ' + response.data['result_desc'];
+				var popupContent = 'The closest street to your chosen location is: ' + response.data['results_desc'];
 				var popup = L.popup().setContent(popupContent);
 				pinMarker.addTo(map).bindPopup(popup).openPopup();
 				KDF.setVal('le_title', streetName);
