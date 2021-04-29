@@ -276,6 +276,15 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 		} else if (action === 'street-search') {
 			KDF.setVal('le_associated_obj_type', 'D4');
 			KDF.setVal('le_associated_obj_id', response.data['prop_search_results']);
+			
+			if (response.data['request_source'] == 'map_source') {
+				var popupContent = 'The closest street to your chosen location is: ' + response.data['result_desc'];
+				var popup = L.popup().setContent(popupContent);
+				pinMarker.addTo(map).bindPopup(popup).openPopup();
+				KDF.setVal('le_title', streetName);
+				KDF.setVal('txt_map_full_address', streetName);
+				KDF.setVal('txt_subs_address', streetName);
+			}
 		}
 		//KDF_custom for map - End
 	}
@@ -464,23 +473,18 @@ function findNearest(point, features) {
 		streetName = nearestFeature.properties.NationalRoadCode + ', ' + nearestFeature.properties.Town1;
 	}
 
-	var popupContent = 'The closest street to your chosen location is: ' + streetName;
-	var popup = L.popup().setContent(popupContent);
-	pinMarker.addTo(map).bindPopup(popup).openPopup();
-
 	var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);			
 	KDF.setVal('txt_easting', coor[0].toString());
 	KDF.setVal('txt_northing', coor[1].toString());
 
 	KDF.hideWidget('ahtm_no_location_selected');
 	//KDF.setVal('le_associated_obj_id', response.data.object_id);
-	KDF.setVal('le_title', streetName);
+	
 	KDF.setVal('txt_map_usrn', nearestFeature.properties.InspireIDLocalID);
-	KDF.setVal('txt_map_full_address', streetName);
-	KDF.setVal('txt_subs_address', streetName);
 
 	KDF.customdata('street-search', osmapTemplateIdentifier + 'findNearest', true, true, {
-				'usrn': nearestFeature.properties.InspireIDLocalID
+				'usrn': nearestFeature.properties.InspireIDLocalID,
+				'request_source' : 'map_source'
 			});
 
 }
