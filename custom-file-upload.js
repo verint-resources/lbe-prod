@@ -225,7 +225,9 @@ function do_KDF_Custom_Sharepoint (response, action) {
 }
 
 function do_KDF_Save_Sharepoint() {
-	
+	if (formParams.fileBlob !== '') {
+		     $('#custom_fileupload').focus(); 
+   	 }
 	if (!formParams.kdfSaveFlag) {
 		if (formParams.fileBlob !== '') {
 		
