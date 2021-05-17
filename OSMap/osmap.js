@@ -238,7 +238,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 				KDF.setVal('txt_northing', response.data.northing);
 				KDF.setVal('le_associated_obj_type', 'D4');
 				KDF.setVal('le_associated_obj_id', response.data.object_id);
-				KDF.setVal('le_title', response.data.description);
+				//KDF.setVal('le_title', response.data.description);
 				KDF.setVal('txt_map_uprn', response.data.UPRN);
 				KDF.setVal('txt_map_usrn', response.data.USRN);
 				KDF.setVal('txt_map_full_address', response.data.description);
@@ -281,7 +281,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 				var popupContent = 'The closest street to your chosen location is: ' + response.data['results_desc'];
 				var popup = L.popup().setContent(popupContent);
 				pinMarker.addTo(map).bindPopup(popup).openPopup();
-				KDF.setVal('le_title', response.data['results_desc']);
+				//KDF.setVal('le_title', response.data['results_desc']);
 				KDF.setVal('txt_map_full_address', response.data['results_desc']);
 				KDF.setVal('txt_subs_address', response.data['results_desc']);
 			}
