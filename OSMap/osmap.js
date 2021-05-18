@@ -325,6 +325,7 @@ function getNearestStreet(center, radius){
 
         var coords = circle.geometry.coordinates[0].join(' ');
         var xml = '<ogc:Filter>';
+		xml += '<ogc:And>';
         xml += '<ogc:Intersects>';
         xml += '<ogc:PropertyName>SHAPE</ogc:PropertyName>';
         xml += '<gml:Polygon srsName="urn:ogc:def:crs:EPSG::4326">';
@@ -335,6 +336,11 @@ function getNearestStreet(center, radius){
         xml += '</gml:outerBoundaryIs>';
         xml += '</gml:Polygon>';
         xml += '</ogc:Intersects>';
+		xml += '<ogc:PropertyIsEqualTo>';
+		xml += '<ogc:PropertyName>StreetType</ogc:PropertyName>';
+		xml += '<ogc:Literal>Designated Street Name</ogc:Literal>';
+		xml += '</ogc:PropertyIsEqualTo>';
+		xml += '</ogc:And>';
         xml += '</ogc:Filter>';
 
         var wfsParams = {
