@@ -5,6 +5,7 @@ $("head").append(s);
 
 var map, pinMarker, openCasesMarkers, geoJson;
 var osmapTemplateIdentifier = 'osmap_template_';
+var request_source;
 proj4.defs([
 		[
 			'EPSG:4326',
@@ -142,6 +143,7 @@ function initialiseOSMap(mapHolder) {
 				var coor = proj4('EPSG:4326', 'EPSG:27700', [lon, lat]);
 				
 				var center = [ lon, lat ];
+				request_source = 'map_source';
 				getNearestStreet(center, '0.2')
 			/*
 				KDF.customdata('reverse_geocode', osmapTemplateIdentifier + 'on_click', true, true, {
@@ -222,6 +224,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 			KDF.setVal('le_gis_lat', lat);
             
             var center = [lon, lat];
+			request_source = 'property_search_source';
 			getNearestStreet(center, 0.2);
 			
 			if (pinMarker !== undefined) {
@@ -279,12 +282,17 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
 			
 			if (response.data['request_source'] == 'map_source') {
 				var popupContent = 'The closest street to your chosen location is: ' + response.data['results_desc'];
-				var popup = L.popup().setContent(popupContent);
-				pinMarker.addTo(map).bindPopup(popup).openPopup();
-				//KDF.setVal('le_title', response.data['results_desc']);
-				KDF.setVal('txt_map_full_address', response.data['results_desc']);
-				KDF.setVal('txt_subs_address', response.data['results_desc']);
+				var location = response.data['results_desc'];
 			}
+			else {
+				var popupContent = 'You have selected: ' + $('#dform_widget_ps_property_search_map_id option:selected').text();
+				var location = $('#dform_widget_ps_property_search_map_id option:selected').text();
+			}
+			var popup = L.popup().setContent(popupContent);
+			pinMarker.addTo(map).bindPopup(popup).openPopup();
+			//KDF.setVal('le_title', response.data['results_desc']);
+			KDF.setVal('txt_map_full_address', location);
+			KDF.setVal('txt_subs_address', location);
 		}
 		//KDF_custom for map - End
 	}
@@ -484,7 +492,7 @@ function findNearest(point, features) {
 
 	KDF.customdata('street-search', osmapTemplateIdentifier + 'findNearest', true, true, {
 				'usrn': nearestFeature.properties.InspireIDLocalID,
-				'request_source' : 'map_source'
+				'request_source' : request_source
 			});
 
 }
