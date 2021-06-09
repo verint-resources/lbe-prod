@@ -240,7 +240,7 @@ Need to deside on new generic button - the continue should be promanant - maybe 
     border: none !important;
     color: black !important;
     cursor: pointer !important;
-    text-decoration: underline !important;
+    /*text-decoration: underline !important;*/
     box-shadow: none !important;
     border-color: rgba(0,0,0,0) !important;
     outline: none !important;
@@ -256,7 +256,7 @@ Need to deside on new generic button - the continue should be promanant - maybe 
     background: none !important;
     border: none !important;
     cursor: pointer !important;
-    text-decoration: underline !important;
+    /*text-decoration: underline !important;*/
     box-shadow: none !important;
     border-color: rgba(0,0,0,0) !important;
     outline: none !important;
