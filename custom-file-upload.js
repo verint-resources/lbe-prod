@@ -12,6 +12,12 @@ var formParams = {
 }
 
 function do_KDF_Ready_Sharepoint (event, kdf) {
+	var hostURL = window.location.href;
+	if (hostUrl.includes("https://lbe.")) {
+		formParams.fileUploadUrl = 'https://graph.microsoft.com/v1.0/sites/enfield365.sharepoint.com,0abdd322-1a3a-4fa5-8a3c-9e021152aab7,c82bbb33-b259-4604-9365-42c364d6172b/drive/items/'
+	}
+	
+	console.log(formParams.fileUploadUrl)
 
     if((KDF.kdf().form.readonly && KDF.kdf().access == 'citizen') || (KDF.kdf().viewmode == 'R')){
 		KDF.makeReadonly();
