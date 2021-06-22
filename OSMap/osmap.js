@@ -152,6 +152,8 @@ function initialiseOSMap(mapHolder) {
 				});
 			*/
 			} else {
+				KDF.setVal('le_gis_lon', '');
+				KDF.setVal('le_gis_lat', '');
 				var popup = L.popup()
 					.setContent('You can\'t drop a pin here as it\'s outside the London Borough of Enfield. <a href="https://www.gov.uk/find-your-local-council" target="_blank">Find out which council you should contact about this problem.<\/a>');
 
@@ -183,12 +185,8 @@ function initialiseOSMap(mapHolder) {
 	$("#dform_widget_button_but_map_next").off('click').on('click', function() {
 		KDF.hideWidget('ahtm_no_location_selected');
 		if (KDF.getVal('txt_map_full_address') === '') {
-			if(KDF.getVal('le_gis_lat') !==''){
-				KDF.gotoNextPage();
-			} else {
-			    window.scrollTo(0,0);
-			    KDF.showWidget('ahtm_no_location_selected');
-			}
+			window.scrollTo(0,0);
+			KDF.showWidget('ahtm_no_location_selected');
 		}
 		else {
 			KDF.gotoNextPage();
