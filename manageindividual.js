@@ -116,12 +116,12 @@ function do_KDF_Ready_Individual(event, kdf) {
 					KDF.showWidget('ahtm_search_address_warning');
 				}
 				else {
-					if (KDF.getVal('rad_confirm_address') === 'No') {
-						KDF.setVal('le_associated_obj_id', '');
-					}
-					else if (KDF.getVal('rad_confirm_address') === 'Yes') {
-						KDF.setVal('le_associated_obj_id', KDF.getVal('ps_citizen_property_search_id'));
-					}
+// 					if (KDF.getVal('rad_confirm_address') === 'No') {
+// 						KDF.setVal('le_associated_obj_id', '');
+// 					}
+// 					else if (KDF.getVal('rad_confirm_address') === 'Yes') {
+// 						KDF.setVal('le_associated_obj_id', KDF.getVal('ps_citizen_property_search_id'));
+// 					}
 					KDF.gotoNextPage();
 				}	
 			}
