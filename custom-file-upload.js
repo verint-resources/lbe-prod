@@ -2,7 +2,7 @@ var formParams = {
 	fileBlob: '',
 	inputFileID: '$("#custom_fileupload_holder")',
 	randomNumber: '',
-	allowedFileType: [],
+	allowedFileType: '',
 	maxFileSize: '4000000',
 	imgClickSelector: '',
 	deleteFileSelector: '',
@@ -17,7 +17,14 @@ function do_KDF_Ready_Sharepoint (event, kdf) {
 		formParams.fileUploadUrl = 'https://graph.microsoft.com/v1.0/sites/enfield365.sharepoint.com,0abdd322-1a3a-4fa5-8a3c-9e021152aab7,c82bbb33-b259-4604-9365-42c364d6172b/drive/items/'
 	}
 	
-	console.log(formParams.fileUploadUrl)
+     var template_name = KDF.getVal('txt_FT_template');	
+     if (KDF.getVal('txt_FT_template') == '' || $('#dform_widget_txt_FT_template').length  < 1) {
+			template_name = 'FT_template1';
+	  	}
+	 KDF.customdata('sharepoint_config', '', true, true, {
+		            ft_operation : 'file_list',
+		            txt_FT_template : template_name
+		        })
 
     if((KDF.kdf().form.readonly && KDF.kdf().access == 'citizen') || (KDF.kdf().viewmode == 'R')){
 		KDF.makeReadonly();
@@ -34,21 +41,7 @@ function do_KDF_Ready_Sharepoint (event, kdf) {
 
 	var CustomFileUploadWidget=$('#custom_fileupload_holder');
 console.log($('#custom_fileupload_holder'))
-	if($('#custom_fileupload_holder').length>0){
 
-        	var widget = '<div data-type="file" data-name="file_ootb" data-active="true" data-agentonly="false" class="file-progress lbe-file-gov">' + 
-								'<div><label>Please upload up to two photos of the problem</label></div>' +
-							  '<div style="position: relative;"><input id="custom_fileupload" type="file" name="uploadedFile">' + 
-							  '<span class="file-gov-icon"><span class="file-gov-icon-a"></span><span class="file-gov-icon-b"></span><label class="file-gov-text">Upload file</label></span>' +
-							  '<div class="helptext">Image file types accepted are .jpeg, .jpg or .png up to 4MB in size</div>' +
-							'<div class="dform_fileupload_progressbar" id="custom_fileupload_progressbar"></div>'+
-							 '<div class="filenames" id="custom_fileupload_files"></div><br><br></div>'+
-						  ' </div>'	;
-
-			$('#custom_fileupload_holder').html(widget);
-			
-            formParams.randomNumber = Math.floor((Math.random() * 100000) + 1);
-	}
 	
 	$(document).on('drop dragover', function (e) {
 				e.preventDefault();
@@ -222,21 +215,43 @@ function do_KDF_Custom_Sharepoint (response, action) {
 				sharepointDownloadFile(access_token)
 			}
         } else if (action == 'sharepoint_config') {
-        	if (response.data['pass_status'] == 'good'){
-        		processFile();
+        	if (response.data['pass_status']) {
+        	    if (response.data['pass_status'] == 'good'){
+        	    	processFile();
+        	    } else {
+        	    	KDF.showError('Incorrect file type selected.')
+        	    }
         	} else {
-        		KDF.showError('Incorrect file type selected.')
+        		var txt_file_types = response.data['txt_file_types'];
+        		formParams.allowedFileType = txt_file_types.replace(/'/g, '').replace('(','').replace(')','').replace(/,/g,', ');
+        		formParams.maxFileSize = response.data['txt_max_filesize'];
+
+        			if($('#custom_fileupload_holder').length>0){
+
+                        	var widget = '<div data-type="file" data-name="file_ootb" data-active="true" data-agentonly="false" class="file-progress lbe-file-gov">' + 
+	                							'<div><label>Please upload up to two photos of the problem</label></div>' +
+	                						  '<div style="position: relative;"><input id="custom_fileupload" type="file" name="uploadedFile">' + 
+	                						  '<span class="file-gov-icon"><span class="file-gov-icon-a"></span><span class="file-gov-icon-b"></span><label class="file-gov-text">Upload file</label></span>' +
+	                						  '<div class="helptext">Image file types accepted are ' + formParams.allowedFileType +  ' up to ' + formParams.maxFileSize + ' MB in size</div>' +
+	                						'<div class="dform_fileupload_progressbar" id="custom_fileupload_progressbar"></div>'+
+	                						 '<div class="filenames" id="custom_fileupload_files"></div><br><br></div>'+
+	                					  ' </div>'	;
+                
+	                		$('#custom_fileupload_holder').html(widget);
+	                }
         	}
         }
 }
 
 function do_KDF_Save_Sharepoint() {
-	if (formParams.fileBlob !== '') {
+
+    if (formParams.fileBlob !== '') {
 		     $('#custom_fileupload').focus(); 
-   	 }
+    }
+
 	if (!formParams.kdfSaveFlag) {
 		if (formParams.fileBlob !== '') {
-		
+		     $('#custom_fileupload').focus(); 
 			$('#dform_successMessage').remove();
 			//console.log(KDF.kdf().form.caseid)
 			//formParams.kdfSaveFlag = true;
