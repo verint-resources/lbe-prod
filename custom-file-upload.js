@@ -4,6 +4,7 @@ var formParams = {
 	randomNumber: '',
 	allowedFileType: '',
 	maxFileSize: '4000000',
+	maxFileSizeDisplay: '4000000',
 	imgClickSelector: '',
 	deleteFileSelector: '',
 	kdfSaveFlag: false,
@@ -47,8 +48,9 @@ console.log($('#custom_fileupload_holder'))
 				e.preventDefault();
 			});
 			
- 
-        $("#custom_fileupload").change(function(){
+ console.log($("#custom_fileupload"))
+        $(document).on('change', '#custom_fileupload', function() {
+        	console.log('asfd')
 		    var fileName = $("#custom_fileupload")[0].files[0].name;
 		    var fileNameClean = fileName.split('.').pop();
 		    var template_name = KDF.getVal('txt_FT_template');
@@ -224,7 +226,7 @@ function do_KDF_Custom_Sharepoint (response, action) {
         	} else {
         		var txt_file_types = response.data['txt_file_types'];
         		formParams.allowedFileType = txt_file_types.replace(/'/g, '').replace('(','').replace(')','').replace(/,/g,', ');
-        		formParams.maxFileSize = response.data['txt_max_filesize'];
+        		formParams.maxFileSizeDisplay = response.data['txt_max_filesize'];
 
         			if($('#custom_fileupload_holder').length>0){
 
@@ -232,7 +234,7 @@ function do_KDF_Custom_Sharepoint (response, action) {
 	                							'<div><label>Please upload up to two photos of the problem</label></div>' +
 	                						  '<div style="position: relative;"><input id="custom_fileupload" type="file" name="uploadedFile">' + 
 	                						  '<span class="file-gov-icon"><span class="file-gov-icon-a"></span><span class="file-gov-icon-b"></span><label class="file-gov-text">Upload file</label></span>' +
-	                						  '<div class="helptext">Image file types accepted are ' + formParams.allowedFileType +  ' up to ' + formParams.maxFileSize + ' MB in size</div>' +
+	                						  '<div class="helptext">Image file types accepted are ' + formParams.allowedFileType +  ' up to ' + formParams.maxFileSizeDisplay + ' MB in size</div>' +
 	                						'<div class="dform_fileupload_progressbar" id="custom_fileupload_progressbar"></div>'+
 	                						 '<div class="filenames" id="custom_fileupload_files"></div><br><br></div>'+
 	                					  ' </div>'	;
