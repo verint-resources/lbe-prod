@@ -83,32 +83,8 @@ function commonRegex() {
 }
 
 function defineDefaultStyle() {
-	/* Google Tag Manager Start */
-    /* Add GTM to Head tag */
-	var script = document.createElement("script");
-	// Add script content
-	script.innerHTML = "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': \
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], \
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= \
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); \
-})(window,document,'script','dataLayer','GTM-N36QQRP');";
-
-	// Append
-	document.head.prepend(script);
-
-    /* Add GTM to Body tag */
-	var gtm_body_noscript = document.createElement('noscript');
-	var gtm_body_iframe = document.createElement('iframe');
-	gtm_body_iframe.setAttribute('src', 'https://www.googletagmanager.com/ns.html?id=GTM-N36QQRP');
-	gtm_body_iframe.setAttribute('height', '0');
-	gtm_body_iframe.setAttribute('width', '0');
-	gtm_body_iframe.style.display = 'none';
-	gtm_body_iframe.style.visibility = 'hidden';
-
-    gtm_body_noscript.append(gtm_body_iframe);
-    document.body.prepend(gtm_body_noscript);
-
-    /* Google Tag Manager END */
+	
+	addGTMCode();
 	
 	/*CEC Accessibility Issue Fixing*/
 	replaceHeader('header1','h1');
@@ -954,3 +930,31 @@ function addAutoComplete() {
 		CEC Accessibility - END
 =====================================
 **/
+
+/* Google Tag Manager Start */
+function addGTMCode() {
+	/* Add GTM to Head tag */
+	var script = document.createElement("script");
+	// Add script content
+	script.innerHTML = "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': \
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], \
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= \
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); \
+	})(window,document,'script','dataLayer','GTM-N36QQRP');";
+
+	// Append
+	document.head.prepend(script);
+
+    	/* Add GTM to Body tag */
+	var gtm_body_noscript = document.createElement('noscript');
+	var gtm_body_iframe = document.createElement('iframe');
+	gtm_body_iframe.setAttribute('src', 'https://www.googletagmanager.com/ns.html?id=GTM-N36QQRP');
+	gtm_body_iframe.setAttribute('height', '0');
+	gtm_body_iframe.setAttribute('width', '0');
+	gtm_body_iframe.style.display = 'none';
+	gtm_body_iframe.style.visibility = 'hidden';
+
+   	gtm_body_noscript.append(gtm_body_iframe);
+    	document.body.prepend(gtm_body_noscript);	
+}
+/* Google Tag Manager END */
