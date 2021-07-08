@@ -795,7 +795,7 @@ function highlightRequired() {
 		
 		/*CEC Accessibility Issue Fixing*/
 		isEligible:function(element){return element.find('span[title="required"]').length < 1},
-		apply:function(element){return '<span title="required" style="color: '+requiredColorCheck(element)+';"> *</span>'},
+		apply:function(element){return '<span title="required" style="color: '+requiredColorCheck(element)+';"> * (Required field)</span>'},
 	};
 	
 	textFields.forEach(function(element){
