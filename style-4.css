@@ -1631,7 +1631,7 @@ var {
 
 /* Summary Table - Start */
 #dform_container table {
-    border:1px solid black;
+    border:1px solid #636463;
 }
 
 .summary_table_style
@@ -1645,7 +1645,7 @@ var {
 }
 
 .t01 tr:nth-child(even) {
-background-color: lightblue;
+background-color: #f4f4f4;
 }
 
 #dform_container table.t01 tr:hover td {
@@ -1658,7 +1658,7 @@ background-color: lightblue;
 
 /* Table - Start */
 #dform_container .table_style table td {
-	border: 1px solid black;
+	border: 1px solid #636463;
 	border-collapse: collapse;
 }
 
@@ -1666,11 +1666,11 @@ background-color: lightblue;
 	color: #000;
 	background-color: #fff;
 	font-weight: bold;
-	border:1px solid black;
+	border:1px solid #636463;
 }
 
 .t01 tbody tr:nth-child(even) {
-	background-color: lightblue;
+	background-color: #f4f4f4;
 }
 
 #dform_container table.t01 tr.selected td,
