@@ -60,6 +60,7 @@ function do_KDF_Ready_Individual(event, kdf) {
 			$("#dform_widget_txt_cust_info_last_name").attr("readonly", true);
 			$("#dform_widget_eml_cust_info_email").attr("readonly", true);
 			$("#dform_widget_tel_cust_info_phone").attr("readonly", true);
+			$('.dform_widget_tel_cust_info_phone .helptext').hide();
 			$("#dform_widget_txt_cust_info_street_number").attr("readonly", true);
 			$("#dform_widget_txt_cust_info_street_name").attr("readonly", true);
 			$("#dform_widget_txt_cust_info_town").attr("readonly", true);
