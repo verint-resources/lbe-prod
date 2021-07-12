@@ -1711,11 +1711,11 @@ background-color: #f4f4f4;
 #dform_container a {
 	/*color: #0752a3 !important;*/
 	font-weight: bold !important;
-	text-decoration: none !important;
+	/*text-decoration: none !important;*/
 }
 
 #dform_container a:hover, a:focus {
-	text-decoration: underline !important;
+	/*text-decoration: underline !important;*/
 }
 
 #dform_container .btn-continue:hover, #dform_container .btn-back:focus, #dform_container .btn-gov:hover, #dform_container .btn-gov:focus {
