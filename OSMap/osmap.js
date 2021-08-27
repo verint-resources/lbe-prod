@@ -1,6 +1,6 @@
 var s = document.createElement("script");
 s.type = "text/javascript";
-s.src = "https://ver-dev-workings.github.io/files/turf.js";
+s.src = "https://verint-resources.github.io/lbe-prod/turf.js";
 $("head").append(s);
 
 var map, pinMarker, openCasesMarkers, geoJson;
@@ -35,7 +35,7 @@ function initialiseOSMap(mapHolder) {
 		maxZoom: 20,
 		minZoom: 7,
 		zoom: 14,
-		errorTileUrl: 'https://ver-dev-workings.github.io/files/OSMap/resources/content/error_tiles.png'
+		errorTileUrl: 'https://verint-resources.github.io/lbe-prod/OSMap/resources/content/error_tiles.png'
 	})
 	
 	baseLayer.addTo(map);
@@ -56,7 +56,7 @@ function initialiseOSMap(mapHolder) {
 	// Add legend to the map - Start
 	var legend_icons = [
 		//{label:"Current Location", url:"https://unpkg.com/leaflet@1.0.0/dist/images/marker-icon.png"}
-		//,{label:"Open Issue", url:"https://ver-dev-workings.github.io/files/OSMap/resources/content/map-blue.png"}
+		//,{label:"Open Issue", url:"https://verint-resources.github.io/lbe-prod/OSMap/resources/content/map-blue.png"}
 	];
 	if (legend_icons.length > 0) {
 		var legend = L.control({position: 'topright'});
@@ -76,7 +76,7 @@ function initialiseOSMap(mapHolder) {
 	// Add legend to the map - End
 
 	//Add the Boundary KML file as a layer
-	var boundaryLayer = new L.KML("https://ver-dev-workings.github.io/files/OSMap/KML/EnfieldBoroughBoundary.kml", {
+	var boundaryLayer = new L.KML("https://verint-resources.github.io/lbe-prod/OSMap/KML/EnfieldBoroughBoundary.kml", {
 			async: true
 		});
 	boundaryLayer.on("loaded", function (e) {
