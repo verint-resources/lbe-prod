@@ -228,7 +228,7 @@ var _app={
 		}
 	}
 }
-
+_app.addFavicons();
 $(document).ready(function(){
     _app.init();
 });
