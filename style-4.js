@@ -40,7 +40,7 @@ var _app={
 			outputHtml+='<li id="search-news" class="header-search__category"></li>';	
 			outputHtml+='</ul>';
 			$(_app.funnelBack.results).html(outputHtml);
-        	_app.funnelBack.xhr1=$.getJSON(_app.funnelBack.u+'&profile=_default&show='+_app.funnelBack.max+'&partial_query='+_app.funnelBack.q,function(r){
+	        	_app.funnelBack.xhr1=$.getJSON(_app.funnelBack.u+'&profile=_default&show='+_app.funnelBack.max+'&partial_query='+_app.funnelBack.q,function(r){
 				let o='<h3 class="header-search__heading">Suggested</h3>';
 				o+='<ul id="suggested" class="header-search__list header-search__list--suggested" role="listbox">';
 				$.each(r,function(i,f){
@@ -58,27 +58,26 @@ var _app={
 			});
 			_app.funnelBack.xhr2=$.getJSON(_app.funnelBack.u+'&profile=services&show=20&partial_query='+_app.funnelBack.q,function(r){
 				let o='<h3 class="header-search__heading">Services <span class="header-search__heading-more">('+r.length+' results)</span></h3>';
-        		o+='<ul class="header-search__list">';
-        		$.each(r,function(i,f){
-        			if(i>(_app.funnelBack.max-1))return false;
-        			o+='<li class="header-search__item"><a href="'+f.disp.displayUrl+'" class="header-search__link">'+f.disp.title+'</a></li>';
-        		});
-        		o+='</ul>';
-        		o+='<a href="'+_app.squizDomain+'/search-results/?query='+_app.funnelBack.q+'&amp;f.Type|services=Services" class="header-search__see-more">See More</a>';
-        		$('#search-services').html(o);
-        	});
-        	_app.funnelBack.xhr3=$.getJSON(_app.funnelBack.u+'&profile=news&show=20&partial_query='+_app.funnelBack.q,function(r){
-        		let o='<h3 class="header-search__heading">News &amp; Events <span class="header-search__heading-more">('+r.length+' results)</span></h3>';
-        		o+='<ul class="header-search__list">';
-        		$.each(r,function(i,f){
-        			if(i>(_app.funnelBack.max-1))return false;
-        			o+='<li class="header-search__item"><a href="'+f.disp.displayUrl+'" class="header-search__link">'+f.disp.title+'</a></li>';
-        		});
-        		o+='</ul>';
-        		$('#search-news').html(o);
-        	});
-	        
-	    },
+				o+='<ul class="header-search__list">';
+				$.each(r,function(i,f){
+					if(i>(_app.funnelBack.max-1))return false;
+					o+='<li class="header-search__item"><a href="'+f.disp.displayUrl+'" class="header-search__link">'+f.disp.title+'</a></li>';
+				});
+				o+='</ul>';
+				o+='<a href="'+_app.squizDomain+'/search-results/?query='+_app.funnelBack.q+'&amp;f.Type|services=Services" class="header-search__see-more">See More</a>';
+				$('#search-services').html(o);
+			});
+			_app.funnelBack.xhr3=$.getJSON(_app.funnelBack.u+'&profile=news&show=20&partial_query='+_app.funnelBack.q,function(r){
+				let o='<h3 class="header-search__heading">News &amp; Events <span class="header-search__heading-more">('+r.length+' results)</span></h3>';
+				o+='<ul class="header-search__list">';
+				$.each(r,function(i,f){
+					if(i>(_app.funnelBack.max-1))return false;
+					o+='<li class="header-search__item"><a href="'+f.disp.displayUrl+'" class="header-search__link">'+f.disp.title+'</a></li>';
+				});
+				o+='</ul>';
+				$('#search-news').html(o);
+	        	});
+		},
         addActive:function(el){
         	if(!el)return false;
         	$(el).removeClass('autocomplete-active').attr('aria-selected','false');
@@ -141,7 +140,7 @@ var _app={
 	informUser:function(m,o){let f=(o.f)?function(){$(this).parents(".ui-dialog-buttonpane button:eq(0)").focus()}:function(){return;};$("#modalDialog").dialog({dialogClass:"no-close",closeOnEscape:false,modal:m,title:o.t,buttons:o.b,focus:f()});$("#modalDialogText").html(o.d);},
 	logOut:function(){_app.informUser(1,_app.alerts.logout);},
 	loginStatus:function(){
-        var keepAlive;
+        /*var keepAlive;*/
         if($("#nav_username").length){
     		$("span.header-links__text:contains('Login/Register')").html($("#nav_username").html().trim()).closest('a')[0].href='javascript:void(0);';
     		$("#headerLoginLink").addClass("dropdown");
@@ -153,7 +152,7 @@ var _app={
             
     		if(_app.isMatrixLoggedIn()!=="1")_app.loginToMatrix();
     		
-    		keepAlive=setInterval(function(){
+    		/*keepAlive=setInterval(function(){
                 $.ajax({ 
                     type:"GET", url:_app.portalName+"mydetails" 
                 }).done(function(){
@@ -168,9 +167,9 @@ var _app={
             			_app.informUser(1,_app.alerts.sessionExpired);
             		}
                 });
-    		},60000);
+    		},600000);*/
         }else{
-            clearInterval(keepAlive);
+            /*clearInterval(keepAlive);*/
             $(".header-menu__myaccount").hide();
         }
         $("#widget_Navigation").hide();
