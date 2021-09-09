@@ -6,6 +6,8 @@ $("head").append(s);
 var map, pinMarker, openCasesMarkers, geoJson;
 var osmapTemplateIdentifier = 'osmap_template_';
 var request_source;
+var apiKey = 'ER0fA2XKDuJAd2Ze2xAe5Ljium4jGQQJ';
+var serviceUrl = 'https://api.os.uk/maps/raster/v1/zxy';
 proj4.defs([
 		[
 			'EPSG:4326',
@@ -27,10 +29,7 @@ function initialiseOSMap(mapHolder) {
 			return;
 	$(mapHolder).attr('data-mapready',true);
 	map = L.map('map').setView([51.653046, -0.089580], 12);
-	
-	var apiKey = 'ER0fA2XKDuJAd2Ze2xAe5Ljium4jGQQJ';
-   	var serviceUrl = 'https://api.os.uk/maps/raster/v1/zxy';
-	
+
 	var baseLayer = L.tileLayer(serviceUrl + '/Outdoor_3857/{z}/{x}/{y}.png?key=' + apiKey, {
 		maxZoom: 20,
 		minZoom: 7,
