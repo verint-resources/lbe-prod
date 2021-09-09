@@ -88,7 +88,7 @@ function initialiseOSMap(mapHolder) {
 	map.addLayer(boundaryLayer);
 
 	// Pre-set the pin marker when the form is loaded
-	if (KDF.getVal('le_gis_lat') !== '' && KDF.getVal('le_gis_lon') !== '') {
+	if (KDF.getVal('le_gis_lat') !== undefined && KDF.getVal('le_gis_lat') !== '' && KDF.getVal('le_gis_lon') !== undefined && KDF.getVal('le_gis_lon') !== '') {
 		pinMarker = new L.marker([KDF.getVal('le_gis_lat'), KDF.getVal('le_gis_lon')], {
 				interactive: true
 			});
