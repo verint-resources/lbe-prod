@@ -1,3 +1,35 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@luthfanv 
+verint-resources
+/
+lbe-prod
+Public
+0
+00
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+lbe-prod/custom-file-upload.js /
+@asenjaya
+asenjaya Remove console log
+Latest commit 5ca338a yesterday
+ History
+ 2 contributors
+@elduinn@asenjaya
+465 lines (365 sloc)  15.8 KB
+  
 var formParams = {
 	fileBlob: '',
 	inputFileID: '$("#custom_fileupload_holder")',
@@ -208,6 +240,14 @@ function do_KDF_Custom_Sharepoint (response, action) {
         	    	KDF.showError('Incorrect file type selected.')
         	    }
         	} else {
+				var sharepoint_title = '';
+				if ($('#dform_widget_txt_sharepoint_title').length > 0) {
+						sharepoint_title = KDF.getVal('txt_sharepoint_title');
+						console.log('asdf')
+				} else {
+						sharepoint_title = 'Please upload up to two photos of the problem';
+						console.log('123')
+				}
         		var txt_file_types = response.data['txt_file_types'];
         		formParams.allowedFileType = txt_file_types.replace(/'/g, '').replace('(','').replace(')','').replace(/,/g,', ');
         		formParams.maxFileSizeDisplay = response.data['txt_max_filesize'];
@@ -215,7 +255,7 @@ function do_KDF_Custom_Sharepoint (response, action) {
         			if($('#custom_fileupload_holder').length>0){
 
                         	var widget = '<div data-type="file" data-name="file_ootb" data-active="true" data-agentonly="false" class="file-progress lbe-file-gov">' + 
-	                							'<div><label>Please upload up to two photos of the problem</label></div>' +
+	                							'<div><label>'+ sharepoint_title + '/div></label>' +
 	                						  '<div style="position: relative;"><input id="custom_fileupload" type="file" name="uploadedFile">' + 
 	                						  '<span class="file-gov-icon"><span class="file-gov-icon-a"></span><span class="file-gov-icon-b"></span><label class="file-gov-text">Upload file</label></span>' +
 	                						  '<div class="helptext">Image file types accepted are ' + formParams.allowedFileType +  ' up to ' + formParams.maxFileSizeDisplay + ' MB in size</div>' +
