@@ -1,35 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@luthfanv 
-verint-resources
-/
-lbe-prod
-Public
-0
-00
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-lbe-prod/custom-file-upload.js /
-@asenjaya
-asenjaya Remove console log
-Latest commit 5ca338a yesterday
- History
- 2 contributors
-@elduinn@asenjaya
-465 lines (365 sloc)  15.8 KB
-  
 var formParams = {
 	fileBlob: '',
 	inputFileID: '$("#custom_fileupload_holder")',
