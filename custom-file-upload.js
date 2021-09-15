@@ -211,10 +211,8 @@ function do_KDF_Custom_Sharepoint (response, action) {
 				var sharepoint_title = '';
 				if ($('#dform_widget_txt_sharepoint_title').length > 0) {
 						sharepoint_title = KDF.getVal('txt_sharepoint_title');
-						console.log('asdf')
 				} else {
 						sharepoint_title = 'Please upload up to two photos of the problem';
-						console.log('123')
 				}
         		var txt_file_types = response.data['txt_file_types'];
         		formParams.allowedFileType = txt_file_types.replace(/'/g, '').replace('(','').replace(')','').replace(/,/g,', ');
