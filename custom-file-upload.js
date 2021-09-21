@@ -211,8 +211,10 @@ function do_KDF_Custom_Sharepoint (response, action) {
 				var sharepoint_title = '';
 				if ($('#dform_widget_txt_sharepoint_title').length > 0) {
 						sharepoint_title = KDF.getVal('txt_sharepoint_title');
+						console.log('asdf')
 				} else {
 						sharepoint_title = 'Please upload up to two photos of the problem';
+						console.log('123')
 				}
         		var txt_file_types = response.data['txt_file_types'];
         		formParams.allowedFileType = txt_file_types.replace(/'/g, '').replace('(','').replace(')','').replace(/,/g,', ');
@@ -326,7 +328,7 @@ function sharepointFileThumbnail (itemID, access_token, widgetName){
 				var html;
 		
 				html =	'<div id="' + widgetName + '"style="float: left;">' +
-				'<div style="margin-right: 10px"><img style="width: 196px; height: 196px" class="' + widgetName + '"src=' + thumbnailUrl + '></img></div><div>' + KDF.getVal(widgetName) + '</div></div>';
+				'<div style="margin-right: 10px"><img class="' + widgetName + '"src=' + thumbnailUrl + '></img></div><div>' + KDF.getVal(widgetName) + '</div></div>';
 		
 				setTimeout(function(){ $('#custom_fileupload_view').append(html)}, 1000);
 		}
@@ -338,38 +340,33 @@ function sharepointFileThumbnail (itemID, access_token, widgetName){
 }
 
 function addFileContainer(widgetName) {
-	$('input#custom_fileupload').val('');
-    var fileName;
-    var fileThumbnail;
-	var widgetName;
+  $('input#custom_fileupload').val('');
+  var fileName;
+  var fileThumbnail;
+  var widgetName;
 
-	if (KDF.kdf().viewmode == 'U' && formParams.fileBlob == '') {
-		if (widgetName == 'txt_filename_one') {
-			fileName = KDF.getVal('txt_filename_one');
-			fileThumbnail = KDF.getVal('txt_filename_one_thumb');
-		} else if (widgetName == 'txt_filename_two') {
-			fileName = KDF.getVal('txt_filename_two');
-			fileThumbnail = KDF.getVal('txt_filename_two_thumb');
-		}
-		
-	} else if (formParams.fileBlob !== ''){
-		if($('.filenames .txt_filename_one').length < 1 ){
-			fileName = KDF.getVal('txt_filename_one');
-			fileThumbnail = KDF.getVal('txt_filename_one_thumb');
-			widgetName = 'txt_filename_one';
-		} else if ($('.filenames .txt_filename_two').length < 1 ) {
-			fileName = KDF.getVal('txt_filename_two');
-			fileThumbnail = KDF.getVal('txt_filename_two_thumb');
-			widgetName = 'txt_filename_two';
-		}
-	}
+  if (KDF.kdf().viewmode == 'U' && formParams.fileBlob == '') {
+      fileName = KDF.getVal(widgetName);
+      fileThumbnail = KDF.getVal(widgetName + '_thumb');
+  } else if (formParams.fileBlob !== '') {
+      if ($('.filenames .txt_filename_one').length < 1) {
+          fileName = KDF.getVal('txt_filename_one');
+          fileThumbnail = KDF.getVal('txt_filename_one_thumb');
+          widgetName = 'txt_filename_one';
+      } else if ($('.filenames .txt_filename_two').length < 1) {
+          fileName = KDF.getVal('txt_filename_two');
+          fileThumbnail = KDF.getVal('txt_filename_two_thumb');
+          widgetName = 'txt_filename_two';
+      }
+  }
 
-	$(".filenames").append('<span class="' + widgetName + '"> <img id="file_container" style="width: 196px; height: 196px" class="'+ widgetName  +'" src='+ fileThumbnail  + '><div>' + fileName + '<span id="' + widgetName +  '" style="font-weight:bold;" class="delete_file">4</span></div></span>');
+  $(".filenames").append('<span class="' + widgetName + '"> <span class="img_container"> <img id="img_' + widgetName + '" src=' + fileThumbnail + '><div>' + fileName + '<span id="delete_' + widgetName + '" style="font-weight:bold;" class="delete_file">4</span></div></span></span>');
 
-     //$("#custom_fileupload").attr("value", "");
-	 
-	 KDF.unlock();
+  //$("#custom_fileupload").attr("value", "");
+
+  KDF.unlock();
 }
+
 
 function sharepointDownloadFile(access_token) {
 	var selector = formParams.imgClickSelector;
