@@ -10,7 +10,7 @@ $.ajaxSetup({
                 $('#headerLoginLink').removeClass('dropdown');
                 $('.header-links li').css({ "pointer-events": "none" });
             }
-            if (profileData['IDP-sub'] && event.authenticated === false) { var currentURL = window.location.href; if (!currentURL.includes("/register?")) { window.location.href = ; } }
+            if (profileData['IDP-sub'] && event.authenticated === false) { var currentURL = window.location.href; if (!currentURL.includes("/register?")) { window.location.href = redirectURL; } }
             if (profileData['organisationid']) { $('.business-service-link').show(); } else { $('.business-service-link').hide(); }
         } else if (this.url.includes("lerest/v1?token=")) { if (event.links.length === 1) { window.location.href = redirectURL; } } else if (this.url.includes("lerest/v1/requests?filter=complete")) { setTimeout(function() { if ($(".le-request-list").html() === "" && $(".le-message")[0]) { $(".le-message").text("You have no reports/requests to view."); } }, 100); } else if (this.url.includes("lerest/v1/requests?filter=draft")) { setTimeout(function() { if ($(".le-request-list").html() === "" && $(".le-message")[0]) { $(".le-message").text("You have no saved drafts"); } }, 100); }
     },
