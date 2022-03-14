@@ -45,7 +45,7 @@ $.ajaxSetup({
 var _appConfig = {
     loginURL: 'https://auth.uk.empro.verintcloudservices.com/auth/realms/lbe-portal/protocol/openid-connect/auth?client_id=portal',
 	portalName: '/site/enfield/',
-	squizDomain: 'https://lbe.clients.squiz.net',
+	squizDomain: 'https://www.enfield.gov.uk',
     squizDomains: ['lobe-dev-web01.squiz.cloud', 'lbe.clients.squiz.net', 'www.enfield.gov.uk'],
 }
 
