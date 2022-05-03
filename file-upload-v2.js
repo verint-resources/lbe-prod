@@ -3,8 +3,8 @@ var formParams = {
     inputFileID: '$("#custom_fileupload_holder")',
     randomNumber: '',
     allowedFileType: '',
-    maxFileSize: '4000000',
-    maxFileSizeDisplay: '4000000',
+    maxFileSize: '10000000',
+    maxFileSizeDisplay: '10000000',
     imgClickSelector: '',
     deleteFileSelector: '',
     kdfSaveFlag: false,
@@ -241,13 +241,12 @@ function sharepointFileUploaderV2(access_token) {
     var fileName = $("#custom_fileupload")[0].files[0].name;
     var fileSize = $("#custom_fileupload")[0].files[0].size;
 
-    if(KDF.getVal('txt_case_subject') === 'MEQ'){
+    if (KDF.getVal('txt_case_subject') === 'MEQ') {
         var uploadURL = formParams.fileUploadUrl + 'root:/Verint/' + KDF.getVal('txt_lead_classification') + '/' + KDF.getVal('txt_lead_id') + '/' + fileName + ':/content';
-    }
-    else{
+    } else {
         var uploadURL = formParams.fileUploadUrl + 'root:/Verint/' + formParams.full_classification + '/' + KDF.kdf().form.caseid + '/' + fileName + ':/content';
-	}
-	
+    }
+
     $(".dform_fileupload_progressbar").html("<div style='width: 50%;'>");
     $.ajax({
         url: uploadURL,
