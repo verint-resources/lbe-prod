@@ -1092,7 +1092,7 @@ KS: Custom gov multi-checkbox - Start
     margin: auto !important;
 }
 .width-fit-content{
-    width: fit-content !important;
+   /* width: fit-content !important; */
     width: intrinsic !important;
     width: -moz-fit-content !important;
     /*display: inline-block;*/
