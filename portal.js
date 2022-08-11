@@ -178,6 +178,35 @@ var _appConfig = {
                 f: !1,
             },
         },
+    customMember: function (){
+	    $.ajax({
+		    url: _appConfig.squizDomain + '/_design/integrations/soap-retrieve-individual/rest-soap',
+		    type: 'GET',
+		    dataType: 'json',
+		    xhrFields: {
+			    withCredentials: true
+		    },
+		    success: function(data) {
+			    if (data === true){
+				    document.getElementsByClassName("header-links__link")[3].innerHTML = "<span>Home</span>";
+				    document.getElementsByClassName("header-menu__myaccount-text")[0].innerHTML = "Home";
+				    document.getElementsByClassName("header-links__link")[4].innerHTML = "<span>Enquiries</span>";
+				    document.getElementsByClassName("header-menu__myaccount-text")[1].innerHTML = "Enquiries";
+				    var currentURL = window.location.href;
+				    if (currentURL.includes("/requests")) {
+					    document.title = "Enquiries";
+					    document.getElementsByClassName("inner-header__title")[0].innerHTML = "Enquiries";
+					    document.getElementsByClassName("breadcrumb-current")[0].innerHTML = "Enquiries";
+				    }
+				    else if (currentURL.includes("/mydetails")){
+					    document.title = "Home";
+					    document.getElementsByClassName("inner-header__title")[0].innerHTML = "Home";
+					    document.getElementsByClassName("breadcrumb-current")[0].innerHTML = "Home";
+				    }
+			    }
+		    }
+	    });
+    },        
         informUser: function (e, a) {
             let s = a.f
                 ? function () {
@@ -442,4 +471,5 @@ var _appConfig = {
 _app.addFavicons(),
     $(document).ready(function () {
         _app.init();
+        _app.customMember();
     });
