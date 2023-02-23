@@ -429,9 +429,7 @@ var _appConfig = {
                 _appConfig.squizDomain +
                 '/__data/assets/file/0013/517/youtube.svg" alt="Go to Youtube"> </a> </li><li class="footer-social__item"> <a href="https://twitter.com/EnfieldCouncil" class="footer-social__link" target="_blank"> <img src="' +
                 _appConfig.squizDomain +
-                '/__data/assets/file/0011/515/twitter.svg" alt="Go to Twitter"> </a> </li></ul> </nav> </section> </div><section class="footer__bottom"> <div class="footer__bottom-wrapper content-wrapper"> <section class="footer-copyright"> <p class="footer-copyright__desc">© 2022 Enfield Council</p></section> <a href="' +
-                _appConfig.squizDomain +
-                '/sitemap" class="footer__bottom-link" target="_blank">Sitemap</a> </div></section></footer>'
+                '/__data/assets/file/0011/515/twitter.svg" alt="Go to Twitter"> </a> </li></ul> </nav> </section> </div><section class="footer__bottom"> <div class="footer__bottom-wrapper content-wrapper"> <section class="footer-copyright"> <p class="footer-copyright__desc">© 2022 Enfield Council</p></section> </div></section></footer>'
             );
         },
         init: function () {
