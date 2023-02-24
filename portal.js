@@ -402,7 +402,7 @@ var _appConfig = {
                 _appConfig.squizDomain +
                 '/services/your-council" class="all-services__link" tabindex="0"> <img src="' +
                 _appConfig.squizDomain +
-                '/__data/assets/file/0019/12763/Your-Council.svg" class="all-services__icon" alt=""> <span class="all-services__title">Your council</span> </a></li><li tabindex="-1" class="sr-only"><p>more items</p></li></ul> </section> <section class="header-menu__bottom"> <section class="header-menu-links"> <ul class="header-menu-links__list"> <li class="header-menu-links__item"> <a href="' +
+                '/__data/assets/file/0019/12763/Your-Council.svg" class="all-services__icon" alt=""> <span class="all-services__title">Your council</span> </a></li></ul> </section> <section class="header-menu__bottom"> <section class="header-menu-links"> <ul class="header-menu-links__list"> <li class="header-menu-links__item"> <a href="' +
                 _appConfig.squizDomain +
                 '/contact-us" class="header-menu-links__link" tabindex="0"> Contact us </a> </li></ul> </section> </section> </nav></section></div></header><section class="inner-header full-width"></section>'
             );
