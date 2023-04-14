@@ -377,9 +377,18 @@ function findNearest(point, features) {
 
     // {Turf.js} Get all coordinates from any GeoJSON object.
     var coords = turf.coordAll(currentFeature);
-
+    
+    // Flip the latitude and longitude values of each coordinate.
+    
+    for (var i = 0; i < coords.length; i++) {
+      var temp = coords[i][0];
+      coords[i][0] = coords[i][1];
+      coords[i][1] = temp;
+    }
+    
     // {Turf.js} Returns the minimum distance between a Point and a LineString.
-    var distance = turf.pointToLineDistance(point, turf.lineString(coords));
+    var lineStringConversion = turf.lineString(coords);
+    var distance = turf.pointToLineDistance(point, lineStringConversion, {units: 'miles'});
 
     // If the distance is less than that which has previously been calculated
     // replace the nearest values with those from the current index.
