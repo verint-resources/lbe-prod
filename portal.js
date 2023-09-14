@@ -115,13 +115,13 @@ var _appConfig = {
                     (_app.funnelBack.q = $(this).val()),
                         _app.funnelBack.q.length > 2
                             ? (_app.funnelBack.search(), (_app.funnelBack.current = -1))
-                            : $(_app.funnelBack.results).html('<ul role="listbox" id="suggested" class="header-search__wrapper header-search__results-list" aria-label="suggested"></ul>');
+                            : $(_app.funnelBack.results).html('<ul role="listbox" id="suggested" class="header-search__wrapper header-search__results-list" aria-label="Suggestions" aria-description="Keywords can be selected by up and down arrow keys and page links can be accessed by tab"></ul>');
                 }),
                     $(document).on("click focus keyup", function (e) {
                         $(e.target).is(_app.funnelBack.section + " *") ||
                             ($(_app.funnelBack.section)
                                 .find(_app.funnelBack.results)
-                                .html('<ul role="listbox" id="suggested" class="header-search__wrapper header-search__results-list" aria-label="suggested"></ul>'),
+                                .html('<ul role="listbox" id="suggested" class="header-search__wrapper header-search__results-list" aria-label="Suggestions" aria-description="Keywords can be selected by up and down arrow keys and page links can be accessed by tab"></ul>'),
                             $(_app.funnelBack.box).val(_app.funnelBack.q).attr("aria-expanded", "false"));
                     }),
                     $(_app.funnelBack.section).on("click", _app.funnelBack.suggestion + " li", function (e) {
