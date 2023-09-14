@@ -103,11 +103,12 @@ var _appConfig = {
                 return (
                     !!e &&
                     ($(e).removeClass("autocomplete-active").attr("aria-selected", "false"),
+		     $(_app.funnelBack.box).attr('aria-activedescendant',''),
                     _app.funnelBack.current >= e.length
                         ? ((_app.funnelBack.current = -1), $(_app.funnelBack.box).val(_app.funnelBack.q), !1)
                         : _app.funnelBack.current < 0
                         ? ((_app.funnelBack.current = e.length), $(_app.funnelBack.box).val(_app.funnelBack.q), !1)
-                        : ($(e.eq(_app.funnelBack.current)).addClass("autocomplete-active").attr("aria-selected", "true"), void $(_app.funnelBack.box).val($(e.eq(_app.funnelBack.current)).text())))
+                        : ($(e.eq(_app.funnelBack.current)).addClass("autocomplete-active").attr("aria-selected", "true"), void $(_app.funnelBack.box).val($(e.eq(_app.funnelBack.current)).text()), $(_app.funnelBack.box).attr('aria-activedescendant',$(e.eq(_app.funnelBack.current)).attr('id'))))
                 );
             },
             init: function () {
