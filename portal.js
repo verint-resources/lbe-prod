@@ -56,15 +56,15 @@ var _appConfig = {
                 $(_app.funnelBack.results).addClass("loading"), _app.funnelBack.xhr1 && _app.funnelBack.xhr1.abort(), _app.funnelBack.xhr2 && _app.funnelBack.xhr2.abort(), _app.funnelBack.xhr3 && _app.funnelBack.xhr3.abort();
                 let e = "";
                 (e += '<ul role="listbox" id="suggested" class="header-search__wrapper header-search__results-list" aria-label="Suggestions keywords can be selected by up and down arrow keys and page links can be accessed by tab">'),
-                    (e += '<li id="search-suggested" class="header-search__category header-search__category--full"></li>'),
-                    (e += '<li id="search-services" role="presentation" class="header-search__category"></li>'),
-                    (e += '<li id="search-news" role="presentation" class="header-search__category"></li>'),
+                    (e += '<li id="search-suggested" role="group" class="header-search__category header-search__category--full"></li>'),
+                    (e += '<li id="search-services" role="group" class="header-search__category"></li>'),
+                    (e += '<li id="search-news" role="group" class="header-search__category"></li>'),
                     (e += "</ul>"),
                     $(_app.funnelBack.results).html(
-                        '<ul role="listbox" id="suggested" class="header-search__wrapper header-search__results-list" aria-label="Suggestions keywords can be selected by up and down arrow keys and page links can be accessed by tab"><li id="search-suggested" class="header-search__category header-search__category--full"></li><li id="search-services" role="presentation" class="header-search__category"></li><li id="search-news" role="presentation" class="header-search__category"></li></ul>'
+                        '<ul role="listbox" id="suggested" class="header-search__wrapper header-search__results-list" aria-label="Suggestions keywords can be selected by up and down arrow keys and page links can be accessed by tab"><li id="search-suggested" role="group" class="header-search__category header-search__category--full"></li><li id="search-services" role="group" class="header-search__category"></li><li id="search-news" role="group" class="header-search__category"></li></ul>'
                     ),
                     (_app.funnelBack.xhr1 = $.getJSON(_app.funnelBack.u + "&profile=_default&show=" + _app.funnelBack.max + "&partial_query=" + _app.funnelBack.q, function (e) {
-                        let a = '<h3 class="header-search__heading">Suggested</h3>';
+                        let a = '<h3 class="header-search__heading" role="presentation">Suggested</h3>';
                         (a += '<ul class="header-search__list header-search__list--suggested">'),
                             $.each(e, function (e, s) {
                                 a += '<li class="header-search__item" role="option" aria-selected="false"><span class="header-search__link"><strong>' + s.key + "</strong></span></li>";
@@ -78,7 +78,7 @@ var _appConfig = {
                         $(_app.funnelBack.results).removeClass("loading"), console.warn("Getting data error: " + e.status + " - " + e.statusText);
                     })),
                     (_app.funnelBack.xhr2 = $.getJSON(_app.funnelBack.u + "&profile=services&show=20&partial_query=" + _app.funnelBack.q, function (e) {
-                        let a = '<h3 class="header-search__heading">Services <span class="header-search__heading-more">(' + e.length + " results)</span></h3>";
+                        let a = '<h3 class="header-search__heading" role="presentation">Services <span class="header-search__heading-more">(' + e.length + " results)</span></h3>";
                         (a += '<ul role="presentation" class="header-search__list">'),
                             $.each(e, function (e, s) {
                                 if (e > _app.funnelBack.max - 1) return !1;
@@ -89,7 +89,7 @@ var _appConfig = {
                             $("#search-services").html(a);
                     })),
                     (_app.funnelBack.xhr3 = $.getJSON(_app.funnelBack.u + "&profile=news&show=20&partial_query=" + _app.funnelBack.q, function (e) {
-                        let a = '<h3 class="header-search__heading">News &amp; Events <span class="header-search__heading-more">(' + e.length + " results)</span></h3>";
+                        let a = '<h3 class="header-search__heading" role="presentation">News &amp; Events <span class="header-search__heading-more">(' + e.length + " results)</span></h3>";
                         (a += '<ul role="presentation" class="header-search__list">'),
                             $.each(e, function (e, s) {
                                 if (e > _app.funnelBack.max - 1) return !1;
