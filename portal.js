@@ -67,7 +67,7 @@ var _appConfig = {
                         let a = '<h3 class="header-search__heading" role="presentation">Suggested</h3>';
                         (a += '<ul class="header-search__list header-search__list--suggested">'),
                             $.each(e, function (e, s) {
-                                a += '<li class="header-search__item" role="option" aria-selected="false"><span class="header-search__link"><strong>' + s.key + "</strong></span></li>";
+                                a += '<li class="header-search__item" role="option" aria-selected="false" id="opt' + s.key + '"><span class="header-search__link"><strong>' + s.key + "</strong></span></li>";
                             }),
                             (a += "</ul>"),
                             $("#search-suggested").html(a),
