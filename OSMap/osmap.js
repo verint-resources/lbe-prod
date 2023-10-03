@@ -110,7 +110,7 @@ function initialiseOSMap(mapHolder) {
       if (pinMarker !== undefined) {
         map.removeLayer(pinMarker);
       }
-      pinMarker = new L.marker([lat, lon], { interactive: true });
+      pinMarker = new L.marker([lat, lon], { interactive: true, alt: 'Dropped pin' });
       pinMarkers = L.layerGroup([pinMarker]);
       map.removeLayer(pinMarkers);
       if (inside([lon, lat], enfield_polygon)) {
@@ -204,6 +204,7 @@ function do_KDF_Custom_OSMap(event, kdf, response, action) {
           L.marker([marker.latitude, marker.longitude], {
             icon: icon,
             interactive: true,
+            alt: 'Dropped pin'
           }).bindPopup(
             KDF.getVal("le_title") +
               " " +
@@ -326,7 +327,7 @@ function getNearestStreet(center, radius) {
           KDF.setVal("txt_easting", coor[0].toString());
           KDF.setVal("txt_northing", coor[1].toString());
           map.setView([lat, lon], 18);
-          pinMarker = new L.marker([lat, lon], { interactive: true });
+          pinMarker = new L.marker([lat, lon], { interactive: true, alt: 'Dropped pin' });
           var popup = L.popup().setContent(
             "Your selected location has been noted"
           );
@@ -405,6 +406,7 @@ function findNearest(point, features) {
   map.setView([lat, lon], 18);
   pinMarker = new L.marker([lat, lon], {
     interactive: true,
+    alt: 'Dropped pin'
   });
   console.log("Nearest Feature: ", nearestFeature);
 
