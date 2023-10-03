@@ -88,8 +88,9 @@ function initialiseOSMap(mapHolder) {
   ) {
     pinMarker = new L.marker(
       [KDF.getVal("le_gis_lat"), KDF.getVal("le_gis_lon")],
-      { interactive: true }
-    );
+      { interactive: true,
+        alt: 'Dropped pin'
+      });
     pinMarkers = L.layerGroup([pinMarker]);
     map.removeLayer(pinMarkers);
     var popup = L.popup().setContent(KDF.getVal("txt_map_full_address"));
