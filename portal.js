@@ -31,6 +31,7 @@ var _appConfig = {
         loginURL: "https://auth.uk.empro.verintcloudservices.com/auth/realms/lbe-portal/protocol/openid-connect/auth?client_id=portal",
         portalName: "/site/enfield/",
         squizDomain: "https://www.enfield.gov.uk",
+	getCsrfToken: function() {return $('meta[name="_csrf_token"]').attr('content');},
         squizDomains: ["lobe-dev-web01.squiz.cloud", "lbe.clients.squiz.net", "www.enfield.gov.uk"],
     },
     _app = {
@@ -288,7 +289,7 @@ var _appConfig = {
                 _appConfig.portalName +
                 'contact-history" class="header-links__link"> <span>Contact History</span> </a> </li><li class="header-links__dropdown-item"> <a href="' +
                 _appConfig.squizDomain +
-                "/_design/includes/logout-popup?redirectUri=" +
+                '/_design/includes/logout-popup?csrf=' + _appConfig.getCsrfToken() +'&redirectUri=' +
                 encodeURIComponent(location.href) +
                 '" class="header-links__link header-links__link-logout"> <span>Logout</span> </a> </li></ul> </div></li></ul> </nav></section>\x3c!-- header search --\x3e<div class="header-search" id="header-search" data-url="' +
                 _appConfig.squizDomain +
@@ -308,7 +309,7 @@ var _appConfig = {
                 _appConfig.portalName +
                 'contact-history" class="header-menu__myaccount-link" tabindex="0"><span class="header-menu__myaccount-text">Contact History</span></a></li><li class="header-menu__myaccount-item"><a href="' +
                 _appConfig.squizDomain +
-                "/_design/includes/logout-popup?redirectUri=" +
+                '/_design/includes/logout-popup?csrf='+ _appConfig.getCsrfToken() +'&redirectUri=' +
                 encodeURIComponent(location.href) +
                 '" class="header-menu__myaccount-link header-menu__myaccount-link-logout" tabindex="0"><span class="header-menu__myaccount-text">Logout</span></a></li></ul></section><section class="header-menu__mid"> <p class="header-menu__mid-title">Council services</p> <ul class="all-services__list all-services__list--menu "><li class="all-services__item"><a href="' +
                 _appConfig.squizDomain +
