@@ -271,7 +271,7 @@ var _appConfig = {
         },
         headerText: function () {
             return (
-                '<ol class="nav-skip"><li><a tabindex="1" href="#main">Go to content</a></li></ol><header class="header"><div class="header__wrapper">\x3c!-- Logo --\x3e<div class="header-logo"><a class="header-logo__link" href="' +
+                '<ol class="nav-skip"><li><a tabindex="0" href="#dform_pageholder">Go to content</a></li></ol><header class="header"><div class="header__wrapper">\x3c!-- Logo --\x3e<div class="header-logo"><a class="header-logo__link" href="' +
                 _appConfig.squizDomain +
                 '"><img class="header-logo__img" src="' +
                 _appConfig.squizDomain +
