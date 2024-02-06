@@ -186,9 +186,6 @@ var _appConfig = {
 		    url: _appConfig.squizDomain + '/_design/integrations/soap-retrieve-individual/rest-soap',
 		    type: 'GET',
 		    dataType: 'json',
-		    xhrFields: {
-			    withCredentials: true
-		    },
 		    success: function(data) {
 			    if (data === true){
 				    document.getElementsByClassName("header-links__link")[3].innerHTML = "<span>Home</span>";
