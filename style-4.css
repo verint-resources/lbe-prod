@@ -402,7 +402,7 @@ KS: file-gov Start
   pointer-events: none;
   position: absolute;
   z-index: 0;
-  height: 42px;
+  height: auto;
   width: 100%; /*📱*/
   top: 0.6px;
   cursor: pointer;
@@ -463,9 +463,14 @@ KS: file-gov Start
         top: 8px;
         left: 165px;
     }*/
-    .file-gov input, .file-gov-icon{
+    .file-gov input{
         width:188px !important;
     }
+	.file-gov-icon{
+        width:auto !important;
+	padding: 5px;
+    }	
+	
 }
 
 /*File-progress--------------------------------*/
