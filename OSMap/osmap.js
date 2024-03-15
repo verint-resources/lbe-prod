@@ -380,13 +380,13 @@ function findNearest(point, features) {
     // {Turf.js} Get all coordinates from any GeoJSON object.
     var coords = turf.coordAll(currentFeature);
     
-    // Flip the latitude and longitude values of each coordinate.
+    // Flip the latitude and longitude values of each coordinate. ////Code commented in March 24 as the the dropped pins were not showing correct address any more.
     
-    for (var i = 0; i < coords.length; i++) {
+    /*for (var i = 0; i < coords.length; i++) {
       var temp = coords[i][0];
       coords[i][0] = coords[i][1];
       coords[i][1] = temp;
-    }
+    }*/
     
     // {Turf.js} Returns the minimum distance between a Point and a LineString.
     var lineStringConversion = turf.lineString(coords);
