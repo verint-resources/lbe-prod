@@ -33,3 +33,18 @@
 .info.legend img {
   margin: 5px 5px 5px 5px;
 }
+
+#button#getMyLocation1 {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+button#getMyLocation1+.sq-form-error{
+    color: #a52a2a;
+    font-weight: bold;
+    margin-top: 0px;
+}
