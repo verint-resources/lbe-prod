@@ -34,7 +34,7 @@
   margin: 5px 5px 5px 5px;
 }
 
-#button#getMyLocation1 {
+button#getMyLocation1 {
     background: none;
     border: none;
     display: flex;
