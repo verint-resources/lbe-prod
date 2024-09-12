@@ -20,6 +20,10 @@ function setFiledNames(fieldnames) {
     formParams.fieldNames = fieldnames;
 }
 
+function do_KDF_Ready_Sharepoint(event, kdf) {
+    do_KDF_Ready_SharepointV2(event, kdf);
+}
+
 function do_KDF_Ready_SharepointV2(event, kdf) {
     var hostURL = window.location.href;
     if (hostURL.indexOf("https://lbe.") > -1) {
